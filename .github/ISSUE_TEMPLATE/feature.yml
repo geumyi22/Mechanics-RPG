@@ -1,0 +1,25 @@
+name: Feature request
+description: Mechanics RPG 기능 제안/변경
+title: "[Feature] "
+labels: []
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: 목표
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 원하는 동작
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: 유지해야 할 기존 동작
+  - type: textarea
+    id: test
+    attributes:
+      label: 확인 방법
