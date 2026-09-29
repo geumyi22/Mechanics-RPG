@@ -1,0 +1,54 @@
+name: Mechanics RPG CI
+
+on:
+  push:
+    branches: [main, dev, 'feature/**', 'fix/**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-state:
+    runs-on: ubuntu-latest
+    outputs:
+      present: ${{ steps.check.outputs.present }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: check
+        shell: bash
+        run: |
+          if [ -f source/world/behavior_packs/Mechanics_RPG/manifest.json ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+            echo "Source baseline present."
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "Source baseline not imported yet; validation job will be skipped."
+          fi
+
+  validate-package:
+    needs: source-state
+    if: needs.source-state.outputs.present == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Static validation
+        run: python tools/validate.py
+      - name: Build packages
+        run: python tools/package.py
+      - name: Verify packages
+        run: python tools/verify_package.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mechanics-rpg-package
+          path: |
+            dist/*.mcworld
+            dist/*.zip
+          if-no-files-found: error
