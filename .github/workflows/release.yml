@@ -9,11 +9,17 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: mechanics-rpg-release-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Require source baseline
         run: test -f source/world/behavior_packs/Mechanics_RPG/manifest.json
       - uses: actions/setup-python@v5
@@ -28,12 +34,32 @@ jobs:
         run: python tools/package.py
       - name: Verify
         run: python tools/verify_package.py
+      - name: Verify release tag matches manifest version
+        shell: bash
+        run: |
+          VERSION="$(python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("source/world/behavior_packs/Mechanics_RPG/manifest.json")
+          v = json.loads(p.read_text(encoding="utf-8"))["header"]["version"]
+          print(".".join(map(str, v)))
+          PY
+          )"
+          echo "Manifest version: $VERSION"
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            EXPECTED="v$VERSION"
+            if [[ "$GITHUB_REF_NAME" != "$EXPECTED" ]]; then
+              echo "Tag/version mismatch: tag=$GITHUB_REF_NAME expected=$EXPECTED"
+              exit 1
+            fi
+          fi
       - name: Checksums
         run: sha256sum dist/* | tee dist/SHA256SUMS.txt
       - uses: actions/upload-artifact@v4
         with:
           name: mechanics-rpg-release
           path: dist/*
+          if-no-files-found: error
       - name: Publish tagged release
         if: startsWith(github.ref, 'refs/tags/')
         env:
