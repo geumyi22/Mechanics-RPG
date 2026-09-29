@@ -9,30 +9,17 @@ on:
 permissions:
   contents: read
 
-jobs:
-  source-state:
-    runs-on: ubuntu-latest
-    outputs:
-      present: ${{ steps.check.outputs.present }}
-    steps:
-      - uses: actions/checkout@v4
-      - id: check
-        shell: bash
-        run: |
-          if [ -f source/world/behavior_packs/Mechanics_RPG/manifest.json ]; then
-            echo "present=true" >> "$GITHUB_OUTPUT"
-            echo "Source baseline present."
-          else
-            echo "present=false" >> "$GITHUB_OUTPUT"
-            echo "Source baseline not imported yet; validation job will be skipped."
-          fi
+concurrency:
+  group: mechanics-rpg-ci-${{ github.ref }}
+  cancel-in-progress: true
 
+jobs:
   validate-package:
-    needs: source-state
-    if: needs.source-state.outputs.present == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Require source baseline
+        run: test -f source/world/behavior_packs/Mechanics_RPG/manifest.json
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -45,10 +32,13 @@ jobs:
         run: python tools/package.py
       - name: Verify packages
         run: python tools/verify_package.py
+      - name: Checksums
+        run: sha256sum dist/* | tee dist/SHA256SUMS.txt
       - uses: actions/upload-artifact@v4
         with:
           name: mechanics-rpg-package
           path: |
             dist/*.mcworld
             dist/*.zip
+            dist/SHA256SUMS.txt
           if-no-files-found: error
