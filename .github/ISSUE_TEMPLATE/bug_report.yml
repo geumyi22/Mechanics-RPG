@@ -1,0 +1,32 @@
+name: Bug report
+description: Mechanics RPG 재현 가능한 버그
+title: "[Bug] "
+labels: []
+body:
+  - type: textarea
+    id: symptom
+    attributes:
+      label: 증상
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 버전
+      placeholder: v1.4.20
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 재현 방법
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 기대 동작
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 로그/스크린샷/영상
