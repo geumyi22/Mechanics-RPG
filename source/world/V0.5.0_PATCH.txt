@@ -1,0 +1,25 @@
+Geumyi RPG v0.5.0 CLERIC_BERSERKER
+
+Base: v0.4.7 BALANCE_ONLY
+Preserved: v0.4.7 검사/궁수/마법사 밸런스, Map pack and world data.
+
+Added - 성직자
+- 성경책: 2.5칸, 아군 8HP 회복 / 언데드 4데미지, CD 5s
+- Lv10 빛의 회복: 4칸, 아군 24HP 회복 / 언데드 8데미지, CD 25s
+- Lv30 빛의 방패: 자신 포함 최대 3명, 저항 II/속도 I/12HP 회복/Absorption 14HP, CD 40s
+  * 파티클 최적화: 지속 도배 제거. 시전 순간 소량 minecraft:endrod만 사용.
+  * 검정 계열 파티클 미사용.
+- Lv70 빛의 창: 3발 x 20데미지, 7초 이동/공격 방해, CD 50s
+- Lv100 성스러운 기도: 반지름 15 고정 성역 10s, 아군 4HP 회복 + Speed/Resistance 10s + Absorption 16HP/Regeneration 20s, 적 2초마다 10데미지, CD 60s
+
+Added - 광전사
+- 손도끼: axe 태그 + 방패 cooldown 적용, 4칸 초고속 돌진/피해 0/약한 밀침, CD 10s
+- Lv10 광전사의 분노: Speed II/Strength II/Max HP +8, 10s, CD 35s
+- Lv30 내려찍기: 3~4칸 도약 후 착지 반지름 3, 20데미지+띄우기, CD 30s
+- Lv70 토네이도: 10s, 5회전, 반지름 3.5, 회전당 25데미지(최대 125), CD 30s
+- Lv100 미쳐 날뛰기: 최강 적 돌진/고정 난타, 10s 총 200데미지, 사망 시 종료, CD 50s
+
+Implementation notes
+- Core: 기존 동결 코어에서 직업 tag/name/menu/test hook만 최소 확장.
+- Map: 이번 패치에서는 물리 월드/Map behavior pack을 수정하지 않음.
+- 빛의 방패 효과 지속시간은 기존 확정 기록에 초 단위가 없어서 15초로 구현.

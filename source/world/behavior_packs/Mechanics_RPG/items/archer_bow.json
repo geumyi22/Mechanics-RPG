@@ -1,0 +1,47 @@
+{
+  "format_version": "1.26.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "geumyi:archer_bow",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "geumyi:archer_bow"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§a궁수 전용활"
+      },
+      "minecraft:hand_equipped": true,
+      "minecraft:use_animation": "bow",
+      "minecraft:use_modifiers": {
+        "start_using": "always",
+        "use_duration": 72000,
+        "movement_modifier": 0.35
+      },
+      "minecraft:shooter": {
+        "ammunition": [
+          {
+            "item": "geumyi:archer_arrow",
+            "search_inventory": true,
+            "use_in_creative": true
+          }
+        ],
+        "max_draw_duration": 1.0,
+        "scale_power_by_draw_duration": true
+      },
+      "minecraft:durability": {
+        "max_durability": 1000
+      },
+      "minecraft:enchantable": {
+        "value": 12,
+        "slot": "bow"
+      }
+    }
+  }
+}

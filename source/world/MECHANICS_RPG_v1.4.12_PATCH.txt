@@ -1,0 +1,9 @@
+메크닉스 RPG v1.4.12 PATCH
+
+- v1.4.11 스컬크 감염 좀비 재제작
+- Mojang 바닐라 좀비 geometry.zombie.v1.8 기반
+- 바닐라 humanoid 이동/시선/공격 + zombie bare-hand/swimming 애니메이션 재사용
+- 바닐라 controller.render.zombie.v2 사용
+- 공식 바닐라 좀비 텍스처를 원본으로 사용하고 약 1/4 영역에 실제 스컬크/스컬크 베인 패턴을 덧씌움
+- 기존 메크닉스 RPG 스킬/수치/사신 대낫 리소스 변경 없음
+- 소환: /summon geumyi:sculk_infected_zombie

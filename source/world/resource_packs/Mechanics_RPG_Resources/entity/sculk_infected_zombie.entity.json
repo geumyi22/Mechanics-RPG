@@ -1,0 +1,41 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "geumyi:sculk_infected_zombie",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/sculk_infected_zombie"
+      },
+      "geometry": {
+        "default": "geometry.zombie.v1.8"
+      },
+      "scripts": {
+        "pre_animation": [
+          "v.walk_cycle = math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed * 57.3;"
+        ],
+        "animate": [
+          "look",
+          "move",
+          {
+            "attack": "variable.attack_time >= 0.0"
+          }
+        ]
+      },
+      "animations": {
+        "look": "animation.geumyi.sculk_zombie.look",
+        "move": "animation.geumyi.sculk_zombie.move",
+        "attack": "animation.geumyi.sculk_zombie.attack"
+      },
+      "render_controllers": [
+        "controller.render.geumyi_sculk_infected_zombie"
+      ],
+      "spawn_egg": {
+        "base_color": "#466A3B",
+        "overlay_color": "#0A5C66"
+      }
+    }
+  }
+}

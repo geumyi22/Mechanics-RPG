@@ -1,0 +1,28 @@
+Mechanics RPG v1.4.19 - Sheriff balance / Dead Eye reliability patch
+
+Baseline: v1.4.18 SHERIFF FIX2
+
+Changes
+- Revolver base damage: 20 -> 10
+- Revolver range: minimum 30 blocks, stationary aim scales to maximum 70 blocks
+- Quickdraw fire cadence unchanged from v1.4.18
+- Enhanced revolver keeps x2 damage but replaces flame trail with a small custom yellow particle trail
+- Bounty marker replaces flame with a larger, readable custom gold spark marker above the target
+- Dead Eye bullet base damage: 40 -> 30
+- Dead Eye bullets keep headshot x1.75 and Strength bonus
+- Dead Eye target damage-taken debuff: +50% is now applied in beforeEvents.entityHurt by multiplying the incoming damage before it is committed
+- Dead Eye consecutive bullets use a guaranteed fallback health decrement only when applyDamage is rejected (e.g. hurt invulnerability), so the skill no longer stops effectively after ~2 hits on a durable target
+- Dead Eye bullets are fired as independent scheduled hits with 5-tick spacing
+- Dead Eye activation adds a green/yellow Totem-particle burst around the target
+- Dead Eye trail uses a small custom purple particle
+
+Preserved
+- Quickdraw cadence/cooldown
+- Headshot ratio 1.75
+- Strength-to-bullet bonus
+- Reload / iron nugget fallback
+- Other classes, Reaper scythe, shop, sunlight and existing RPG core
+
+Validation note
+- Static JSON/JS/archive/resource checks are performed separately.
+- Actual Minecraft Bedrock runtime/E2E confirmation is still required on-device.

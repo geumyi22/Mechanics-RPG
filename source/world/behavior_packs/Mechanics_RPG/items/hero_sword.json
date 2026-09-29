@@ -1,0 +1,37 @@
+{
+  "format_version": "1.26.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "geumyi:hero_sword",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "geumyi:hero_sword"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§b용사 전용검"
+      },
+      "minecraft:hand_equipped": true,
+      "minecraft:damage": 7,
+      "minecraft:durability": {
+        "max_durability": 1600
+      },
+      "minecraft:enchantable": {
+        "value": 12,
+        "slot": "sword"
+      },
+      "minecraft:use_animation": "bow",
+      "minecraft:use_modifiers": {
+        "start_using": "always",
+        "use_duration": 0.25,
+        "movement_modifier": 0.8
+      }
+    }
+  }
+}

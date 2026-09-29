@@ -1,0 +1,31 @@
+{
+  "format_version": "1.26.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "geumyi:warrior_sword",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "geumyi:warrior_sword"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§c검사 전용검"
+      },
+      "minecraft:hand_equipped": true,
+      "minecraft:damage": 7,
+      "minecraft:durability": {
+        "max_durability": 1200
+      },
+      "minecraft:enchantable": {
+        "value": 12,
+        "slot": "sword"
+      }
+    }
+  }
+}

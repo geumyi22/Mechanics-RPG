@@ -1,0 +1,38 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "geumyi:reaper_massacre_orbit",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "f00": "textures/entity/reaper_massacre_orbit/frame_00",
+        "f01": "textures/entity/reaper_massacre_orbit/frame_01",
+        "f02": "textures/entity/reaper_massacre_orbit/frame_02",
+        "f03": "textures/entity/reaper_massacre_orbit/frame_03",
+        "f04": "textures/entity/reaper_massacre_orbit/frame_04",
+        "f05": "textures/entity/reaper_massacre_orbit/frame_05",
+        "f06": "textures/entity/reaper_massacre_orbit/frame_06",
+        "f07": "textures/entity/reaper_massacre_orbit/frame_07",
+        "f08": "textures/entity/reaper_massacre_orbit/frame_08",
+        "f09": "textures/entity/reaper_massacre_orbit/frame_09",
+        "f10": "textures/entity/reaper_massacre_orbit/frame_10",
+        "f11": "textures/entity/reaper_massacre_orbit/frame_11",
+        "f12": "textures/entity/reaper_massacre_orbit/frame_12",
+        "f13": "textures/entity/reaper_massacre_orbit/frame_13",
+        "f14": "textures/entity/reaper_massacre_orbit/frame_14",
+        "f15": "textures/entity/reaper_massacre_orbit/frame_15"
+      },
+      "geometry": {
+        "default": "geometry.reaper_massacre_orbit"
+      },
+      "scripts": {
+        "scale": "1.0"
+      },
+      "render_controllers": [
+        "controller.render.reaper_massacre_orbit"
+      ]
+    }
+  }
+}

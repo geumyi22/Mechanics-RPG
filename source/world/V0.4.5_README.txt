@@ -1,0 +1,9 @@
+Geumyi RPG v0.4.5 FROZEN CORE FULL
+- 직업/HUD 코어: v0.4.4 작동 구조 동결
+- 스킬/아이템: 별도 행동팩으로 분리
+- 맵: 별도 1회 생성 팩
+- 레벨: Minecraft 실제 XP Level
+
+첫 테스트:
+/function rpg/test/status
+/function rpg/test/level10

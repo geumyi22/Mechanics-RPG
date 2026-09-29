@@ -1,0 +1,44 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "geumyi:reaper_scythe_projectile",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "f00": "textures/entity/reaper_scythe_spin/frame_00",
+        "f01": "textures/entity/reaper_scythe_spin/frame_01",
+        "f02": "textures/entity/reaper_scythe_spin/frame_02",
+        "f03": "textures/entity/reaper_scythe_spin/frame_03",
+        "f04": "textures/entity/reaper_scythe_spin/frame_04",
+        "f05": "textures/entity/reaper_scythe_spin/frame_05",
+        "f06": "textures/entity/reaper_scythe_spin/frame_06",
+        "f07": "textures/entity/reaper_scythe_spin/frame_07",
+        "f08": "textures/entity/reaper_scythe_spin/frame_08",
+        "f09": "textures/entity/reaper_scythe_spin/frame_09",
+        "f10": "textures/entity/reaper_scythe_spin/frame_10",
+        "f11": "textures/entity/reaper_scythe_spin/frame_11",
+        "f12": "textures/entity/reaper_scythe_spin/frame_12",
+        "f13": "textures/entity/reaper_scythe_spin/frame_13",
+        "f14": "textures/entity/reaper_scythe_spin/frame_14",
+        "f15": "textures/entity/reaper_scythe_spin/frame_15"
+      },
+      "geometry": {
+        "default": "geometry.fireball"
+      },
+      "animations": {
+        "face_player": "animation.actor.billboard"
+      },
+      "scripts": {
+        "scale": "4.0",
+        "animate": [
+          "face_player"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.reaper_scythe_spin"
+      ]
+    }
+  }
+}

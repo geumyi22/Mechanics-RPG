@@ -1,0 +1,15 @@
+Geumyi RPG v0.4.7 BALANCE ONLY
+
+Base: v0.4.6 MOVEMENT_ULT_FIX
+Core / Map / Resource Pack unchanged.
+New classes NOT included. Health & Damage Indicator NOT included.
+
+Applied:
+- 검사 패시브 체력 증가 로직 수정 (Health Boost + 잔여 2HP 보정)
+- 검사 풍흔만리 반지름 5칸, 폭발/베기 임팩트 및 베는 소리 강화
+- 궁수 패시브에서 전용 활/화살 자동 지급 제거
+- 궁수 백발백중: 최초 최우선 대상 집중, 대상 사망/이탈 시 재선정
+- 궁수 백발백중: 시전자 주변 화살 공전 연출
+- 궁수 백발백중: 발 대신 몸통/머리 쪽 조준
+- 마법사 지팡이 기본 공격 쿨타임 1.5초
+- 마법사 지팡이 투사체 무중력 + 진행 방향 고정으로 직선 비행

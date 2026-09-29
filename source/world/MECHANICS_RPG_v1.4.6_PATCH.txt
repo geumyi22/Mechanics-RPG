@@ -1,0 +1,4 @@
+Mechanics RPG v1.4.6
+- Replaced reaper scythe item sprite with user-provided exact image.
+- Kept vanilla hoe-style hold/render behavior (no custom third-person attachable override).
+- Renamed world display name.

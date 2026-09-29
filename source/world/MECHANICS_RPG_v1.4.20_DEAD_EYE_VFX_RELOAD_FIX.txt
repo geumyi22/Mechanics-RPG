@@ -1,0 +1,24 @@
+Mechanics RPG v1.4.20 - Dead Eye VFX / preparation reload fix
+
+Baseline: v1.4.19 SHERIFF BALANCE FIX
+
+Changes
+- Restores the Dead Eye purple bullet/trail presentation to the v1.4.18-style vanilla dragon_breath_trail.
+- Dead Eye green/yellow Totem-particle charge effect now starts immediately when the skill is activated, before the target camera begins.
+- The green/yellow charge effect is substantially denser and continues through the pre-camera tracking period and briefly into the camera phase.
+- During the Dead Eye preparation period, the revolver automatically reloads to 6/6.
+- Dead Eye preparation reload is ultimate-specific and does not consume sheriff bullets or iron nuggets.
+- At the end of preparation the revolver is guaranteed at 6/6; Dead Eye then consumes all 6 rounds and schedules 6 homing shots.
+- Dead Eye bullet damage remains 30 per shot before headshot/Strength/debuff multipliers.
+- Dead Eye headshot x1.75 and target damage-taken +50% behavior from v1.4.19 are preserved.
+
+Preserved
+- Revolver base damage 10
+- Revolver range 30 to 70 blocks
+- Quickdraw cadence
+- Enhanced yellow trail and bounty gold marker
+- Other classes, Reaper scythe, shop, sunlight and existing RPG core
+
+Validation note
+- Static JSON/JS/archive checks are performed separately.
+- Actual Minecraft Bedrock runtime/E2E confirmation is still required on-device.

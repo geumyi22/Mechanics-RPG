@@ -1,0 +1,18 @@
+메크닉스 RPG v1.4.13 PATCH
+
+[스컬크 감염 좀비]
+- v1.4.12 투명/미표시 문제 수정
+- Mojang 바닐라 좀비 geometry.zombie.v1.8 구조를 리소스팩 내부에 직접 포함
+- 전용 렌더 컨트롤러 사용 (외부 vanilla short-name 의존 제거)
+- 걷기/머리 회전/맨손 공격 애니메이션을 로컬 파일로 포함
+- v1.4.12의 바닐라 좀비 기반 스컬크 1/4 감염 텍스처 유지
+- 스컬크 감염 좀비의 minecraft:burns_in_daylight 제거
+
+[햇빛 연소 방지]
+- 낮 + 오버월드 + 직접 하늘광 조건에서 원래 햇빛에 타는 적대 몹의 fireTick 피해를 취소
+- 대상: Mojang 현재 Bedrock 샘플에서 minecraft:burns_in_daylight를 사용하는 전체 엔티티 + 스컬크 감염 좀비
+- 불/영혼불/용암 블록 안에 있는 경우는 보호하지 않음
+
+[검증 범위]
+- JSON/JS 문법 및 압축 구조 정적 검사 대상
+- 실제 Minecraft Bedrock 인게임 실행 검증은 별도 필요

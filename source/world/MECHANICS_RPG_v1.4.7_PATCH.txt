@@ -1,0 +1,3 @@
+Mechanics RPG v1.4.7
+- Replaced only the Reaper scythe item texture with the user-provided scythe image.
+- Kept the existing vanilla-hoe-style holding/animation setup unchanged.
