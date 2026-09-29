@@ -1,15 +1,23 @@
 # Changelog
 
+## 2026-09-29 — v1.4.20 GitHub baseline import complete
+
+- v1.4.20 `DEAD_EYE_VFX_RELOAD_FIX` 원본 월드 257개 파일을 `source/world/`에 import
+- `SOURCE-MANIFEST.json`으로 전체 파일 SHA-256 추적
+- dev push / PR #6 / main merge 전 과정에서 GitHub Actions 검증
+- CI run #11, #12, #13 PASS
+- JSON 84 / JS 7 / item texture 52 / particle 3 / PNG 93 검증
+- 결정적 `.zip` / `.mcworld` 패키징 및 CRC/재추출 hash 검증
+- Issue #1 source baseline import 완료 처리
+- Bedrock E2E는 별도 미실행 상태 유지
+
 ## 2026-09-29 — GitHub repository bootstrap
 
 - 독립 `geumyi22/Mechanics-RPG` 저장소 생성 및 문서 체계 구성
-- v1.4.20 패키지를 로컬에서 전수 분석
-- 257개 파일 기준 정적 manifest 생성
-- JSON 84 / JS 7 / item texture 52 / particle 3 / PNG 93 검증
-- 결정적 패키징 스크립트 설계
-- ZIP CRC / 재추출 해시 / .zip-.mcworld byte 일치 검증
-- GitHub CI/Release/import runbook 기반 정리
-- Static / Mock / Bedrock E2E 상태를 명시적으로 분리
+- import/validate/package/verify 도구 추가
+- GitHub CI/Release workflow 기반 추가
+- main/dev 및 Issue/PR 운영 체계 추가
+- Static / Mock / Bedrock E2E 상태 분리
 
 ## v1.4.20 — DEAD EYE VFX / RELOAD FIX
 
