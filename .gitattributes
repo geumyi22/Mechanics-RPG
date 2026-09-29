@@ -1,0 +1,18 @@
+* text=auto
+
+*.js text eol=lf
+*.json text eol=lf
+*.mcfunction text eol=lf
+*.txt text eol=lf
+*.lang text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.py text eol=lf
+
+*.png binary
+*.dat binary
+*.mcworld binary
+*.mcpack binary
+*.mcaddon binary
+*.zip binary
