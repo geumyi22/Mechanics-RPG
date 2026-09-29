@@ -10,14 +10,15 @@ Minecraft Bedrock 기반 커스텀 RPG 프로젝트 **메크닉스 RPG(Mechanics
 |---|---|
 | 저장소 | `geumyi22/Mechanics-RPG` |
 | 기본 브랜치 | `main` |
+| 개발 브랜치 | `dev` |
 | 최신 패키징 기준 | **v1.4.20 DEAD_EYE_VFX_RELOAD_FIX** |
 | 기준 패키지 파일 수 | **257** |
-| 로컬 정적 검사 | JSON 84 / JS 7 / item texture 52 / particle 3 / PNG 93 통과 |
+| GitHub source import | **완료** |
+| GitHub Actions | **run #11(dev) / #12(PR) / #13(main) PASS** |
 | 패키징 검증 | ZIP CRC + 재추출 257개 해시 일치 + .zip/.mcworld byte-identical |
-| GitHub source import | **대기** |
 | 실제 Bedrock E2E | **미실행** |
 
-현재 저장소는 문서/검증/패키징 자동화 기반을 먼저 구성하는 단계입니다. v1.4.20 실제 BP/RP/world source tree는 별도 import 단계로 올립니다.
+v1.4.20 원본 월드 구조는 `source/world/` 아래에 그대로 보존되어 있고, `SOURCE-MANIFEST.json`으로 파일 목록·크기·SHA-256을 추적합니다.
 
 ## 운영 원칙
 
@@ -28,12 +29,12 @@ Minecraft Bedrock 기반 커스텀 RPG 프로젝트 **메크닉스 RPG(Mechanics
 - 릴리스용 `.mcworld`, `.zip`은 source tree에 누적하지 않고 Actions artifact / GitHub Release로 관리합니다.
 - manifest의 UUID/API dependency는 실제 baseline 파일을 기준으로 보존합니다.
 
-## 목표 구조
+## 저장소 구조
 
 ```text
 Mechanics-RPG/
 ├─ source/
-│  └─ world/                 # .mcworld 압축 해제 루트 그대로 보존
+│  └─ world/                 # .mcworld 압축 해제 루트
 ├─ tools/
 │  ├─ import_baseline.py
 │  ├─ validate.py
@@ -46,6 +47,7 @@ Mechanics-RPG/
 │  ├─ classes/
 │  └─ systems/
 ├─ .github/workflows/
+├─ SOURCE-MANIFEST.json
 ├─ README.md
 ├─ ROADMAP.md
 ├─ CHANGELOG.md
@@ -75,12 +77,10 @@ Mechanics-RPG/
 
 ## 다음 개발
 
-1. v1.4.20 source tree GitHub import
-2. CI 실제 실행 확인
-3. 현상수배 머리 위 픽셀 마커
-4. 데드아이 실제 이동형 유도탄
-5. 보안관 탄약 보관/소모 UX 개선
-6. 전체 Bedrock 회귀 E2E
-7. 첫 정식 GitHub Release
+1. 현상수배 머리 위 픽셀 마커 — #2
+2. 데드아이 실제 이동형 유도탄 — #3
+3. 보안관 탄약 보관/소모 UX 개선 — #4
+4. 전체 Bedrock 회귀 E2E — #5
+5. 첫 정식 GitHub Release
 
 자세한 순서는 [ROADMAP.md](ROADMAP.md)를 기준으로 합니다.
