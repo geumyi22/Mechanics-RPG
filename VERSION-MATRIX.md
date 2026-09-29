@@ -12,7 +12,7 @@
 | v1.4.17 | 보안관 통합 FIX | 보안관 기준 |
 | v1.4.18 | 보안관 FIX2 | 기능 보강 |
 | v1.4.19 | 보안관 밸런스 | 밸런스 기준 |
-| **v1.4.20** | 데드아이 VFX/준비 재장전 | **현재 패키징 기준** |
+| **v1.4.20** | 데드아이 VFX/준비 재장전 | **현재 정식 Release / 기준선** |
 
 ## v1.4.20 manifest 고정값
 
@@ -23,5 +23,12 @@
 - `@minecraft/server`: `2.9.0`
 - `@minecraft/server-ui`: `2.1.0`
 - entry: `scripts/main.js`
+
+## Release status
+
+- tag: `v1.4.20`
+- GitHub Release: published
+- Bedrock release-gate E2E: PASS
+- release asset SHA-256: `a4d099cb419cdda1da68ed734406a7a2885a6c72565ba10e6d2d9741fe0ced70`
 
 API dependency를 최신이라는 이유만으로 임의 업그레이드하지 않습니다.
