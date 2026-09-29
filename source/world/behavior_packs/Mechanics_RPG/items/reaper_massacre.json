@@ -1,0 +1,29 @@
+{
+  "format_version": "1.26.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "geumyi:reaper_massacre",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "geumyi:reaper_massacre"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§4[사신] 사신의 학살"
+      },
+      "minecraft:hand_equipped": true,
+      "minecraft:use_animation": "bow",
+      "minecraft:use_modifiers": {
+        "start_using": "always",
+        "use_duration": 0.25,
+        "movement_modifier": 0.82
+      }
+    }
+  }
+}

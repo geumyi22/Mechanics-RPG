@@ -1,0 +1,6 @@
+Geumyi RPG v0.5.4 FLOOR HOTFIX
+- 테스트 발판 미생성 수정
+- 49x49 smooth_stone 발판을 첫 플레이어의 로드 위치에 자동 생성
+- polished_andesite 테두리 + 중앙 sea_lantern
+- 이후 플레이어는 발판 중앙으로 이동/스폰 지정
+- Map pack version 0.5.4로 갱신하여 캐시 문제 방지

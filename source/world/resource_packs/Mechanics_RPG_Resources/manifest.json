@@ -1,0 +1,29 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Mechanics RPG Resources v1.4.20",
+    "description": "메크닉스 RPG 리소스 v1.4.20 - 데드아이 연출 수정",
+    "uuid": "824ae8eb-4b6d-486a-92d1-b687a0dac928",
+    "version": [
+      1,
+      4,
+      20
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "631a816d-6fee-47a2-86c2-43ed43fa9ab0",
+      "version": [
+        1,
+        4,
+        20
+      ]
+    }
+  ]
+}

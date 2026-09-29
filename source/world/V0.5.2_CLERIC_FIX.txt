@@ -1,0 +1,6 @@
+Geumyi RPG v0.5.2 CLERIC FIX
+- 전직 선택창: 성직자/광전사 버튼 옆 아이콘 제거
+- 성직자 스킬 실행 오류 수정: 병합 과정에서 누락된 holyRing / holySphereShell / giveClericShieldAbsorption14 / holyChime 복구
+- 빛의 방패: 최대 3명, 흰색 minecraft:endrod 6개/대상 1회 연출 유지(지속 파티클 없음)
+- 성스러운 기도 / 미쳐 날뛰기: 사용 시 중앙 Title 텍스트 제거
+- 광전사 6칸 돌진 / 5초 쿨 및 테스트 발판 유지

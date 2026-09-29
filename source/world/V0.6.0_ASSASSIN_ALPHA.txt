@@ -1,0 +1,16 @@
+Geumyi RPG v0.6.0 ASSASSIN ALPHA
+Base: v0.5.5 CLERIC COLOR
+
+[신규 직업 - 암살자]
+단검: 뒤에서 공격 시 피해 2배
+은신 침투: 상시 완전 투명화 + 몬스터 기원 공격 차단
+Lv10 암살 준비: 완전 은신 10초 + 공격력 II 20초 / 쿨 40초
+Lv30 암살 이동: 가장 가까운 적 뒤로 즉시 이동 + 속도 I 10초 / 쿨 10초
+Lv70 독기체 암살: 반경 11, 독 II + 둔화 II + 채굴 피로 III 20초 / 쿨 40초
+Lv100 단체 암살: 총 피해 400을 최대 5대상에 이어서 분배 / 쿨 50초
+순간이동 시 피슝 계열 사운드
+
+테스트:
+/function rpg/test/class_assassin
+/function lv100
+/function reset

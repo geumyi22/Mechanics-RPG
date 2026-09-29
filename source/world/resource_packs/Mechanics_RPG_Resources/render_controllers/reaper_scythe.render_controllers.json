@@ -1,0 +1,71 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.reaper_scythe_spin": {
+      "arrays": {
+        "textures": {
+          "Array.frames": [
+            "Texture.f00",
+            "Texture.f01",
+            "Texture.f02",
+            "Texture.f03",
+            "Texture.f04",
+            "Texture.f05",
+            "Texture.f06",
+            "Texture.f07",
+            "Texture.f08",
+            "Texture.f09",
+            "Texture.f10",
+            "Texture.f11",
+            "Texture.f12",
+            "Texture.f13",
+            "Texture.f14",
+            "Texture.f15"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Array.frames[math.mod(math.floor(query.life_time * 17.777), 16)]"
+      ]
+    },
+    "controller.render.reaper_massacre_orbit": {
+      "arrays": {
+        "textures": {
+          "Array.frames": [
+            "Texture.f00",
+            "Texture.f01",
+            "Texture.f02",
+            "Texture.f03",
+            "Texture.f04",
+            "Texture.f05",
+            "Texture.f06",
+            "Texture.f07",
+            "Texture.f08",
+            "Texture.f09",
+            "Texture.f10",
+            "Texture.f11",
+            "Texture.f12",
+            "Texture.f13",
+            "Texture.f14",
+            "Texture.f15"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Array.frames[math.mod(math.floor(query.life_time * 16.0), 16)]"
+      ]
+    }
+  }
+}

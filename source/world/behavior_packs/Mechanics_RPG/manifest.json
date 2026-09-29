@@ -1,0 +1,58 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Mechanics RPG v1.4.20",
+    "description": "메크닉스 RPG v1.4.20 - 데드아이 연출/준비 재장전 수정",
+    "uuid": "82e0a3d5-8684-4b3b-9f69-4ae303374ac8",
+    "version": [
+      1,
+      4,
+      20
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "b5d40394-d2ef-4d95-be4b-040f05b25190",
+      "version": [
+        1,
+        4,
+        20
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "e6d819d5-d545-41da-96f6-27dfb3208406",
+      "version": [
+        1,
+        4,
+        20
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "824ae8eb-4b6d-486a-92d1-b687a0dac928",
+      "version": [
+        1,
+        4,
+        20
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.9.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.1.0"
+    }
+  ]
+}

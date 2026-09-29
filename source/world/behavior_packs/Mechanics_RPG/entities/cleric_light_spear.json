@@ -1,0 +1,37 @@
+{
+  "format_version": "1.26.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "geumyi:cleric_light_spear",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+      "spawn_category": "misc"
+    },
+    "components": {
+      "minecraft:collision_box": {
+        "width": 0.28,
+        "height": 0.28
+      },
+      "minecraft:dimension_bound": {},
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": true
+      },
+      "minecraft:projectile": {
+        "anchor": 2,
+        "gravity": 0.0,
+        "inertia": 1.0,
+        "liquid_inertia": 1.0,
+        "power": 1.5,
+        "uncertainty_base": 0.0,
+        "uncertainty_multiplier": 0.0,
+        "reflect_on_hurt": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      }
+    }
+  }
+}
