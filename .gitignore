@@ -1,0 +1,29 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Runtime / logs
+*.log
+logs/
+crash-reports/
+
+# Generated packages
+*.mcworld
+*.mcpack
+*.mcaddon
+
+# Temporary packaging / extraction
+_build/
+_dist/
+_temp/
+tmp/
+
+# Node / tooling caches
+node_modules/
+.cache/
+
+# Local test artifacts
+*.bak
+*.tmp
