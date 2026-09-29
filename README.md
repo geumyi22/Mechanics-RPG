@@ -1,63 +1,86 @@
 # Mechanics RPG
 
-Minecraft Bedrock 기반 커스텀 RPG 프로젝트 **메크닉스 RPG(Mechanics RPG)** 의 소스·문서·검증 기록을 관리하는 저장소입니다.
+Minecraft Bedrock 기반 커스텀 RPG 프로젝트 **메크닉스 RPG(Mechanics RPG)** 전용 저장소입니다.
 
-> 이 저장소는 `Geumyi-Minecraft-System`과 분리되어 있습니다. GSC/GSCM/GST/GDS/서버 운영 파일은 이 저장소에 포함하지 않습니다.
+> `Geumyi-Minecraft-System`과 완전히 분리합니다. GSC/GSCM/GST/GDS/실서버 운영 파일은 이 저장소에 넣지 않습니다.
 
-## 현재 기준
+## 현재 상태
 
-| 항목 | 기준 |
+| 항목 | 상태 |
 |---|---|
-| 프로젝트 | Mechanics RPG |
-| 플랫폼 | Minecraft Bedrock Edition |
-| 최신 패키징 기준 | v1.4.20 `DEAD_EYE_VFX_RELOAD_FIX` |
-| 상태 | GitHub 초기 정리 단계 |
-| Bedrock E2E | 저장소 초기화 시점 기준 별도 재검증 필요 |
+| 저장소 | `geumyi22/Mechanics-RPG` |
+| 기본 브랜치 | `main` |
+| 최신 패키징 기준 | **v1.4.20 DEAD_EYE_VFX_RELOAD_FIX** |
+| 기준 패키지 파일 수 | **257** |
+| 로컬 정적 검사 | JSON 84 / JS 7 / item texture 52 / particle 3 / PNG 93 통과 |
+| 패키징 검증 | ZIP CRC + 재추출 257개 해시 일치 + .zip/.mcworld byte-identical |
+| GitHub source import | **대기** |
+| 실제 Bedrock E2E | **미실행** |
 
-v1.4.20은 정적 검사와 패키징 검증을 거친 기준 파일이지만, **GitHub에 올렸다는 이유만으로 실제 Bedrock E2E 검증 완료로 간주하지 않습니다.**
+현재 저장소는 문서/검증/패키징 자동화 기반을 먼저 구성하는 단계입니다. v1.4.20 실제 BP/RP/world source tree는 별도 import 단계로 올립니다.
 
-## 핵심 원칙
+## 운영 원칙
 
-- 실제 실행하지 않은 기능은 “정상 작동/완료”로 단정하지 않습니다.
-- 기존 정상 기능을 요청 없이 재작성하거나 삭제하지 않습니다.
-- 변경 범위와 비변경 범위를 분리하고, 버전별 변경 내역을 남깁니다.
-- JSON/JavaScript/manifest/resource/archive 검증과 실제 Bedrock E2E를 구분합니다.
-- 릴리스용 `.mcworld` / `.zip`은 소스 트리와 분리해 GitHub Releases에서 관리하는 방향을 사용합니다.
-- 큰 변경은 되돌릴 수 있도록 작은 단위의 커밋으로 나눕니다.
+- 실제 Bedrock에서 실행하지 않은 것은 “정상 작동/완료”라고 단정하지 않습니다.
+- **Static / Mock / Bedrock E2E**를 구분합니다.
+- 기존 정상 직업/사신/상점/퀘스트/NPC/햇빛 로직을 요청 없이 재작성하지 않습니다.
+- 큰 변경은 기능 단위 브랜치/커밋으로 나눕니다.
+- 릴리스용 `.mcworld`, `.zip`은 source tree에 누적하지 않고 Actions artifact / GitHub Release로 관리합니다.
+- manifest의 UUID/API dependency는 실제 baseline 파일을 기준으로 보존합니다.
 
-## 프로젝트 구성 방향
+## 목표 구조
 
 ```text
 Mechanics-RPG/
-├─ behavior_pack/       # Behavior Pack 소스
-├─ resource_pack/       # Resource Pack 소스
-├─ world/               # 월드에 필요한 추적 대상 파일
-├─ docs/                # 직업/시스템/테스트 문서
-├─ tools/               # 검증·패키징 도구
+├─ source/
+│  └─ world/                 # .mcworld 압축 해제 루트 그대로 보존
+├─ tools/
+│  ├─ import_baseline.py
+│  ├─ validate.py
+│  ├─ package.py
+│  └─ verify_package.py
+├─ docs/
+│  ├─ ARCHITECTURE.md
+│  ├─ E2E-CHECKLIST.md
+│  ├─ GITHUB-RUNBOOK.md
+│  ├─ classes/
+│  └─ systems/
+├─ .github/workflows/
 ├─ README.md
 ├─ ROADMAP.md
 ├─ CHANGELOG.md
 ├─ VERSION-MATRIX.md
 ├─ TESTING.md
+├─ RECOVERY-REPORT.md
 └─ SECURITY-NOTES.md
 ```
 
-실제 소스 가져오기 전에는 기존 월드 구조를 억지로 이동하지 않고, 최신 패키지를 먼저 분석한 뒤 안전하게 배치합니다.
+## v1.4.20 기준 핵심
 
-## 현재 주요 시스템
+- BP version: `1.4.20`
+- RP version: `1.4.20`
+- min engine: `1.26.50`
+- `@minecraft/server 2.9.0`
+- `@minecraft/server-ui 2.1.0`
+- Script entry: `scripts/main.js`
 
-직업 시스템, 레벨 기반 스킬 해금, 퀘스트/NPC, 상점, 몬스터/스컬크 좀비, 주민 보호, 보안관, 사신 등 메크닉스 RPG의 기존 기능을 유지하면서 버전별로 확장합니다.
+보안관 현재 기준:
+- 6발 장전
+- 일반탄 10
+- 헤드샷 ×1.75
+- 최소 사거리 30 / 정지 조준 최대 70
+- 데드아이 30/발
+- 데드아이 준비 중 궁극기 전용 6/6 재장전
+- 보라색 데드아이 탄도 유지
 
-특히 기존 승인 기준인 **사신 대낫 1인칭 표현/텍스처**와 다른 직업의 스킬·데미지는 요청 없이 변경하지 않습니다.
+## 다음 개발
 
-## 문서
+1. v1.4.20 source tree GitHub import
+2. CI 실제 실행 확인
+3. 현상수배 머리 위 픽셀 마커
+4. 데드아이 실제 이동형 유도탄
+5. 보안관 탄약 보관/소모 UX 개선
+6. 전체 Bedrock 회귀 E2E
+7. 첫 정식 GitHub Release
 
-- [ROADMAP.md](ROADMAP.md) — GitHub 정리 및 다음 개발 순서
-- [CHANGELOG.md](CHANGELOG.md) — 버전별 주요 변경 내역
-- [VERSION-MATRIX.md](VERSION-MATRIX.md) — 현재까지의 핵심 버전 기준
-- [TESTING.md](TESTING.md) — 정적 검사와 실제 Bedrock E2E 구분
-- [SECURITY-NOTES.md](SECURITY-NOTES.md) — Public 저장소 업로드 기준
-
-## 다음 단계
-
-최신 패키징 기준(v1.4.20)의 실제 파일을 GitHub 소스 트리로 가져와 manifest·스크립트·리소스 연결을 검증하고, 이후 현상수배 마커 / 데드아이 실제 유도탄 / 탄약 보관 개선을 각각 독립 변경으로 진행합니다.
+자세한 순서는 [ROADMAP.md](ROADMAP.md)를 기준으로 합니다.
