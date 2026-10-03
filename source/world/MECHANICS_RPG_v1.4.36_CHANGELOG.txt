@@ -1,0 +1,22 @@
+Mechanics RPG v1.4.36 SUBSPACE LOCALE + ICON FIX TEST
+
+기준: v1.4.35_SUBSPACE_NATIVE_RENDER_TEST
+
+변경 범위
+- 아공간 표시 로직(subspace.js)만 수정
+- 바닐라 아이템 이름: ItemStack.localizationKey + RawMessage translate를 사용하도록 변경
+- RPG 전용 아이템 이름: 현재 각 item JSON의 minecraft:display_name 값을 그대로 표시용 맵에 반영
+- 작업대/직업 블록류의 기본 아이템 렌더러 ID 보강
+- 넣기 메뉴의 작업대/직업 블록류 직접 텍스처 경로 보강
+- 알 수 없는 바닐라 아이템의 넣기 메뉴 아이콘은 textures/items/<id>를 1차 fallback으로 시도
+
+보존
+- 9x4 = 36칸
+- geumyi:subspace_v3_head / stage / journal 키 및 저장 스키마
+- 기존 저장 데이터
+- 광산 수레/실물 상자 미사용
+- 보안관/사신/다른 RPG 시스템 로직 미수정
+
+검증 상태
+- JSON 파싱, JS 문법, 변경 파일 범위, 저장 키 보존을 정적으로 검사함
+- 실제 Minecraft Bedrock 실행/E2E 확인은 하지 못함
