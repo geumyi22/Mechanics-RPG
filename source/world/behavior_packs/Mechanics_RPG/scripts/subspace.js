@@ -248,3 +248,163 @@ function isPlain(it){
  try{if(it.getDynamicPropertyIds?.()?.length)return false;}catch{return false;}
  try{if(it.getComponent('minecraft:enchantable')?.getEnchantments?.()?.length)return false;}catch{return false;}
  try{if(it.getComponent('minecraft:durability'))return false;}catch{return false;}
+ try{const lm=it.lockMode;if(lm!==undefined&&lm!=='none'&&lm!==0)return false;}catch{return false;}
+ return true;
+}
+const rec=it=>({id:it.typeId,n:it.amount});
+const same=(a,b)=>!!a&&!!b&&a.id===b.id&&a.n===b.n;
+const slotRecord=(c,i)=>{const it=c?.getItem(i);return it?rec(it):null;};
+const label=a=>a?`${displayName(a.id)} ×${a.n}`:'빈 칸';
+const icon=a=>a?itemTexture(a.id):'textures/ui/geumyi_subspace_empty';
+function transact(p,kind,from,to,expectedRev,expected){
+ if(locks.has(p.id))return {ok:false,reason:'현재 다른 작업을 처리하는 중이야.'};
+ locks.add(p.id);
+ try{
+  if(p.getDynamicProperty(JOURNAL)!==undefined)return {ok:false,reason:'미완료 입출금 기록이 있어. 재접속 후 복구 상태를 확인해 줘.'};
+  const a=current(p),c=inv(p);
+  if(!c||a.rev!==expectedRev)return {ok:false,reason:'화면이 오래됐어. 다시 열어 줘.'};
+  const b={v:3,rev:a.rev+1,slots:a.slots.map(x=>x?{...x}:null)};
+  let tx;
+  if(kind==='put'){
+   const it=c.getItem(from);
+   if(!isPlain(it)||!same(rec(it),expected))return {ok:false,reason:'아이템이 바뀌었거나 보관할 수 없는 아이템이야.'};
+   if(b.slots[to]!==null)return {ok:false,reason:'창고의 선택한 칸이 이미 사용 중이야.'};
+   b.slots[to]=rec(it);
+   tx={v:1,kind,from,to,old:a.rev,next:b.rev,item:rec(it)};
+  } else {
+   const saved=b.slots[from];
+   if(!same(saved,expected)||c.getItem(to))return {ok:false,reason:'창고나 인벤토리 상태가 바뀌었어.'};
+   // Decoding is checked before any inventory/storage mutation.
+   const candidate=new ItemStack(saved.id,saved.n);
+   if(!isPlain(candidate))return {ok:false,reason:'이 아이템은 현재 복원할 수 없어.'};
+   b.slots[from]=null;
+   tx={v:1,kind,from,to,old:a.rev,next:b.rev,item:{...saved}};
+  }
+  // Keep a durable intent + staged next revision before touching either inventory.
+  p.setDynamicProperty(JOURNAL,encode(tx));
+  p.setDynamicProperty(STAGE,encode(b));
+  if(encode(parse(p.getDynamicProperty(STAGE)))!==encode(b))throw Error('새 저장 데이터 재검증 실패');
+  // No awaits or callbacks between player inventory mutation and head update.
+  if(kind==='put'){
+   const now=c.getItem(from);
+   if(!isPlain(now)||!same(rec(now),tx.item))throw Error('아이템 변경 감지: 안전 잠금');
+   c.setItem(from,undefined);
+  }else{
+   if(c.getItem(to)!==undefined)throw Error('인벤토리 목적지 변경: 안전 잠금');
+   c.setItem(to,new ItemStack(tx.item.id,tx.item.n));
+  }
+  p.setDynamicProperty(HEAD,encode(b));
+  p.setDynamicProperty(JOURNAL,undefined);
+  p.setDynamicProperty(STAGE,undefined);
+  return {ok:true};
+ }catch(e){return {ok:false,reason:`저장 처리 중 오류: ${String(e)}. 복구 확인 전 추가 작업 차단.`};}
+ finally{locks.delete(p.id);}
+}
+function recover(p){
+ const tx=parse(p.getDynamicProperty(JOURNAL));
+ if(!tx)return p.getDynamicProperty(JOURNAL)===undefined?true:(tell(p,'§c아공간 작업 기록이 손상됐어. 창고 접근을 차단했어.'),false);
+ try{
+  const a=current(p),b=parse(p.getDynamicProperty(STAGE)),c=inv(p);
+  if(!c||!valid(b)||tx.v!==1||b.rev!==tx.next||tx.next!==tx.old+1||!['put','take'].includes(tx.kind))throw Error('복구 데이터 불일치');
+  const cell=slotRecord(c,tx.kind==='put'?tx.from:tx.to);
+  const before=tx.kind==='put'?same(cell,tx.item):cell===null;
+  const after=tx.kind==='put'?cell===null:same(cell,tx.item);
+  if(a.rev===tx.next&&after){
+   p.setDynamicProperty(JOURNAL,undefined);p.setDynamicProperty(STAGE,undefined);tell(p,'§a아공간의 완료된 작업 기록을 정리했어.');return true;
+  }
+  if(a.rev===tx.old&&before){
+   p.setDynamicProperty(JOURNAL,undefined);p.setDynamicProperty(STAGE,undefined);tell(p,'§e완료되지 않은 아공간 작업을 취소했어.');return true;
+  }
+  if(a.rev===tx.old&&after){
+   p.setDynamicProperty(HEAD,encode(b));
+   p.setDynamicProperty(JOURNAL,undefined);p.setDynamicProperty(STAGE,undefined);
+   tell(p,'§a중단된 아공간 작업을 저장 기록과 대조하여 완료했어.');return true;
+  }
+  throw Error('인벤토리와 보관 데이터가 서로 맞지 않음');
+ }catch(e){tell(p,`§c아공간 보호 잠금: ${String(e)}. 월드 백업을 보존하고 관리자에게 알려 줘.`);return false;}
+}
+// Chest-styled icons come from the RP. An ActionForm cannot implement vanilla drag-and-drop.
+// The title marker is only interpreted by our RP/ui/server_form.json override.
+// If resource-pack UI overrides conflict or fail, the 72 buttons still
+// function as an ordinary ActionFormData (safe visual fallback).
+const CHEST_MARKER='§c§h§e§s§t§7§2§r';
+function firstEmptyInventorySlot(c){
+ for(let i=0;i<c.size;i++)if(!c.getItem(i))return i;
+ return -1;
+}
+function overflowCount(a){
+ let n=0;for(let i=ACTIVE_COUNT;i<COUNT;i++)if(a.slots[i])n++;return n;
+}
+function freeInventoryCount(c){
+ let n=0;for(let i=0;i<c.size;i++)if(!c.getItem(i))n++;return n;
+}
+function migrate36to27(p){
+ // Capacity is now 27, but v3 keeps the historical 36-slot array on disk so no old save is truncated.
+ // Any old items in slots 28..36 are journaled back into empty player inventory slots before the new UI opens.
+ let a=current(p),c=inv(p);if(!c)return false;
+ const need=overflowCount(a);if(need===0)return true;
+ const free=freeInventoryCount(c);
+ if(free<need){
+  tell(p,`§e아공간이 27칸으로 변경됐어. 기존 28~36번 칸의 아이템 ${need}묶음은 그대로 보존 중이야. 인벤토리 빈칸을 ${need-free}칸 더 만든 뒤 다시 열어 줘.`);
+  return false;
+ }
+ let moved=0;
+ for(let i=ACTIVE_COUNT;i<COUNT;i++){
+  a=current(p);const item=a.slots[i];if(!item)continue;
+  c=inv(p);if(!c)return false;
+  const dest=firstEmptyInventorySlot(c);if(dest<0)return false;
+  const out=transact(p,'take',i,dest,a.rev,item);
+  if(!out.ok){tell(p,`§c27칸 전환 중 ${i+1}번 칸을 안전하게 옮기지 못했어: ${out.reason}`);return false;}
+  moved++;
+ }
+ if(moved)tell(p,`§a기존 28~36번 칸의 아이템 ${moved}묶음을 인벤토리로 안전하게 옮겼어.`);
+ return true;
+}
+async function home(p){
+ if(!p.isValid||!recover(p)||!migrate36to27(p))return;
+ while(p.isValid){
+  const a=current(p),c=inv(p);if(!c)return;
+  const invOrder=[];
+  // Match the vanilla chest layout: main inventory slots 9..35, then hotbar 0..8.
+  for(let i=9;i<Math.min(36,c.size);i++)invOrder.push(i);
+  for(let i=0;i<Math.min(9,c.size);i++)invOrder.push(i);
+  const shown=[],storable=[];
+  // 72 buttons exactly: 27 Subspace + 9 hidden spacer cells + 27 main inventory + 9 hotbar.
+  const f=new ActionFormData().title(CHEST_MARKER);
+  for(let i=0;i<ACTIVE_COUNT;i++){
+   const item=a.slots[i];
+   const prefix=`stack#${String(item?.n??1).padStart(2,'0')}dur#00§r`;
+   const labelText=item
+    ?{rawtext:[{text:prefix},displayNameRaw(item.id),{text:` ×${item.n}`}]}
+    :`${prefix}빈 칸`;
+   f.button(labelText,gridIcon(item));
+  }
+  // The grid consumes these 9 collection entries as a visual gap row. Empty text makes their slot buttons invisible.
+  for(let i=0;i<9;i++)f.button('', 'textures/ui/geumyi_subspace_empty');
+  for(let b=0;b<invOrder.length;b++){
+   const source=invOrder[b],it=c.getItem(source),item=it?rec(it):null;
+   shown[b]=item;storable[b]=isPlain(it);
+   const prefix=`stack#${String(item?.n??1).padStart(2,'0')}dur#00§r`;
+   const labelText=item
+    ?{rawtext:[{text:prefix},displayNameRaw(item.id),{text:` ×${item.n}${storable[b]?'':' §c(보관 불가)'}`}]}
+    :`${prefix}빈 칸`;
+   f.button(labelText,item?gridIcon(item):'textures/ui/geumyi_subspace_empty');
+  }
+  const r=await f.show(p);if(!p.isValid||r.canceled)return;
+  if(!Number.isInteger(r.selection)||r.selection<0||r.selection>=ACTIVE_COUNT+9+invOrder.length)return;
+
+  // Top 9x3: take the selected Subspace stack to the first empty inventory slot.
+  if(r.selection<ACTIVE_COUNT){
+   const source=r.selection,item=a.slots[source];
+   if(!item){tell(p,'§7빈 아공간 칸이야.');continue;}
+   const latest=current(p);
+   if(latest.rev!==a.rev||!same(latest.slots[source],item)){
+    tell(p,'§e아공간 상태가 바뀌었어. 화면을 새로 불러올게.');continue;
+   }
+   const dest=firstEmptyInventorySlot(c);
+   if(dest<0){tell(p,'§c인벤토리에 빈 칸이 필요해.');continue;}
+   const out=transact(p,'take',source,dest,latest.rev,item);
+   if(!out.ok){
+    tell(p,`§c꺼내기 실패: ${out.reason}`);
+    if(p.getDynamicProperty(JOURNAL)!==undefined)return;
+   }
