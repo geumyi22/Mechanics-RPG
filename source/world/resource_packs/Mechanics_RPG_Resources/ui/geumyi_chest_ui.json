@@ -258,3 +258,132 @@
     "type": "panel",
     "size": [
       20,
+      20
+    ],
+    "controls": [
+      {
+        "bg@geumyi_chest.slot_background": {}
+      },
+      {
+        "icon@geumyi_chest.texture_item": {}
+      },
+      {
+        "native@geumyi_chest.native_item": {}
+      },
+      {
+        "count@geumyi_chest.stack_count": {}
+      },
+      {
+        "highlight@common.highlight_slot": {
+          "layer": 5
+        }
+      },
+      {
+        "tooltip@geumyi_chest.item_details": {}
+      }
+    ]
+  },
+  "slot_pressed": {
+    "type": "panel",
+    "size": [
+      20,
+      20
+    ],
+    "controls": [
+      {
+        "bg@geumyi_chest.slot_background": {}
+      },
+      {
+        "icon@geumyi_chest.texture_item": {}
+      },
+      {
+        "native@geumyi_chest.native_item": {}
+      },
+      {
+        "count@geumyi_chest.stack_count": {}
+      },
+      {
+        "outline@common.white_border_slot": {
+          "layer": 5
+        }
+      }
+    ]
+  },
+  "item_details": {
+    "type": "custom",
+    "renderer": "hover_text_renderer",
+    "allow_clipping": false,
+    "layer": 30,
+    "bindings": [
+      {
+        "binding_name": "#form_button_text",
+        "binding_type": "collection",
+        "binding_collection_name": "form_buttons"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#form_button_text - ('%.14s' * #form_button_text))",
+        "target_property_name": "#hover_text"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "form_buttons"
+      }
+    ]
+  },
+  "stack_count": {
+    "type": "panel",
+    "size": [
+      20,
+      20
+    ],
+    "controls": [
+      {
+        "item_amount": {
+          "type": "label",
+          "offset": [
+            0,
+            1
+          ],
+          "shadow": true,
+          "text_alignment": "left",
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right",
+          "color": "$tool_tip_text",
+          "layer": 7,
+          "text": "#stack_size",
+          "bindings": [
+            {
+              "binding_name": "#null",
+              "binding_type": "collection",
+              "binding_condition": "none",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_name": "#null",
+              "binding_type": "collection_details",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_name": "#form_button_text",
+              "binding_type": "collection",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_name": "#null",
+              "binding_type": "view",
+              "source_property_name": "((#form_button_text - 'stack#01') = #form_button_text)",
+              "target_property_name": "#visible"
+            },
+            {
+              "binding_name": "#null",
+              "binding_type": "view",
+              "source_property_name": "(('§z') + (('%.8s' * #form_button_text) - ('%.6s' * #form_button_text)))",
+              "target_property_name": "#stack_size"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
