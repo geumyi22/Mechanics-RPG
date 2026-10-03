@@ -1,0 +1,13 @@
+Mechanics RPG v1.4.45 — Subspace dual UI mode
+
+- Default Subspace UI: DDUI CustomForm, device-proven no close/reopen flicker.
+- Optional chest-style UI: /scriptevent geumyi:subspace_ui chest
+- Switch back: /scriptevent geumyi:subspace_ui ddui
+- Direct test: /scriptevent geumyi:subspace_ddtest test
+- Direct chest: /scriptevent geumyi:subspace_chest test
+- Both modes share exactly the same v3 per-player storage and 27 active slots.
+- DDUI debug formatting/index markers removed from visible labels.
+- No Sheriff/Reaper/other RPG system changes intended.
+
+Technical limitation (1.26.50 / @minecraft/server-ui 2.1.0):
+DDUI uses the modern UI path and does not expose a 9x3 icon-button layout API; the resource-pack JSON chest skin cannot be applied to DDUI as if it were ActionFormData. v1.4.45 therefore preserves both verified behaviors instead of claiming an unverified visual bridge.
