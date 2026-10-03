@@ -104,10 +104,6 @@ if mf.exists():
             if j.get("aggregate_sha256")!=h.hexdigest():
                 fail(f"SOURCE-MANIFEST aggregate hash mismatch: expected {j.get('aggregate_sha256')}, actual {h.hexdigest()}")
         else:
-                        print("[DIAG] no checkout-filter byte differences detected", file=sys.stderr)
-                except Exception as e:
-                    print(f"[DIAG] checkout-filter diagnostic failed: {e}", file=sys.stderr)
-        else:
             listed={x["path"]:x for x in j["files"]}
             if set(listed)!=set(actual):
                 fail("SOURCE-MANIFEST path set mismatch")
