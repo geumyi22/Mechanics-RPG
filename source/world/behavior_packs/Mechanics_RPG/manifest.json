@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Mechanics RPG v1.4.46",
-    "description": "메크닉스 RPG v1.4.46 - 아공간 네이티브 Storage Item 무깜빡임 엔진 검증판",
+    "name": "Mechanics RPG v1.4.48",
+    "description": "메크닉스 RPG v1.4.48 - 검증된 9×3 상자형 아공간 복귀판",
     "uuid": "82e0a3d5-8684-4b3b-9f69-4ae303374ac8",
     "version": [
       1,
       4,
-      46
+      48
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         4,
-        46
+        48
       ]
     },
     {
@@ -33,7 +33,7 @@
       "version": [
         1,
         4,
-        46
+        48
       ]
     }
   ],
@@ -43,7 +43,7 @@
       "version": [
         1,
         4,
-        46
+        48
       ]
     },
     {
