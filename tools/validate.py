@@ -119,7 +119,7 @@ if mf.exists():
                     filtered = []
                     for rel,p in sorted(actual.items()):
                         b=p.read_bytes()
-                        raw = hashlib.sha1(f"blob {len(b)}\\0".encode("ascii") + b).hexdigest()
+                        raw = hashlib.sha1(b"blob " + str(len(b)).encode("ascii") + bytes([0]) + b).hexdigest()
                         if expected_git.get(rel) != raw:
                             filtered.append((rel, expected_git.get(rel), raw))
                     if filtered:
