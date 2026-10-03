@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Mechanics RPG v1.4.20",
-    "description": "메크닉스 RPG v1.4.20 - 데드아이 연출/준비 재장전 수정",
+    "name": "Mechanics RPG v1.4.46",
+    "description": "메크닉스 RPG v1.4.46 - 아공간 네이티브 Storage Item 무깜빡임 엔진 검증판",
     "uuid": "82e0a3d5-8684-4b3b-9f69-4ae303374ac8",
     "version": [
       1,
       4,
-      20
+      46
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         4,
-        20
+        46
       ]
     },
     {
@@ -33,7 +33,7 @@
       "version": [
         1,
         4,
-        20
+        46
       ]
     }
   ],
@@ -43,7 +43,7 @@
       "version": [
         1,
         4,
-        20
+        46
       ]
     },
     {
