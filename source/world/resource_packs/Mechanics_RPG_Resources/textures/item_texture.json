@@ -2,176 +2,59 @@
   "resource_pack_name": "Mechanics RPG Resources v1.2.3",
   "texture_name": "atlas.items",
   "texture_data": {
-    "geumyi:sword_draw": {
-      "textures": "textures/items/sword_draw"
-    },
-    "geumyi:sword_dash": {
-      "textures": "textures/items/sword_dash"
-    },
-    "geumyi:sword_rise": {
-      "textures": "textures/items/sword_rise"
-    },
-    "geumyi:sword_ult": {
-      "textures": "textures/items/sword_ult"
-    },
-    "geumyi:archer_triple": {
-      "textures": "textures/items/archer_triple"
-    },
-    "geumyi:archer_boom": {
-      "textures": "textures/items/archer_boom"
-    },
-    "geumyi:archer_wire": {
-      "textures": "textures/items/archer_wire"
-    },
-    "geumyi:archer_ult": {
-      "textures": "textures/items/archer_ult"
-    },
-    "geumyi:mage_fireball": {
-      "textures": "textures/items/mage_fireball"
-    },
-    "geumyi:mage_shield": {
-      "textures": "textures/items/mage_shield"
-    },
-    "geumyi:mage_vine": {
-      "textures": "textures/items/mage_vine"
-    },
-    "geumyi:mage_thunder": {
-      "textures": "textures/items/mage_thunder"
-    },
-    "geumyi:warrior_sword": {
-      "textures": "textures/items/warrior_sword"
-    },
-    "geumyi:archer_bow": {
-      "textures": "textures/items/archer_bow"
-    },
-    "geumyi:archer_arrow": {
-      "textures": "textures/items/archer_arrow"
-    },
-    "geumyi:mage_staff": {
-      "textures": "textures/items/mage_staff"
-    },
-    "geumyi:cleric_bible": {
-      "textures": "textures/items/cleric_bible"
-    },
-    "geumyi:cleric_recovery": {
-      "textures": "textures/items/cleric_recovery"
-    },
-    "geumyi:cleric_shield": {
-      "textures": "textures/items/cleric_shield"
-    },
-    "geumyi:cleric_spear": {
-      "textures": "textures/items/cleric_spear"
-    },
-    "geumyi:cleric_prayer": {
-      "textures": "textures/items/cleric_prayer"
-    },
-    "geumyi:berserker_axe": {
-      "textures": "textures/items/berserker_axe"
-    },
-    "geumyi:berserker_rage": {
-      "textures": "textures/items/berserker_rage"
-    },
-    "geumyi:berserker_slam": {
-      "textures": "textures/items/berserker_slam"
-    },
-    "geumyi:berserker_tornado": {
-      "textures": "textures/items/berserker_tornado"
-    },
-    "geumyi:berserker_ult": {
-      "textures": "textures/items/berserker_ult"
-    },
-    "geumyi:assassin_dagger": {
-      "textures": "textures/items/assassin_dagger"
-    },
-    "geumyi:assassin_prep": {
-      "textures": "textures/items/assassin_prep"
-    },
-    "geumyi:assassin_move": {
-      "textures": "textures/items/assassin_move"
-    },
-    "geumyi:assassin_gas": {
-      "textures": "textures/items/assassin_gas"
-    },
-    "geumyi:assassin_ult": {
-      "textures": "textures/items/assassin_ult"
-    },
-    "geumyi:fighter_gauntlet": {
-      "textures": "textures/items/fighter_gauntlet"
-    },
-    "geumyi:fighter_step": {
-      "textures": "textures/items/fighter_step"
-    },
-    "geumyi:fighter_burst": {
-      "textures": "textures/items/fighter_burst"
-    },
-    "geumyi:fighter_flurry": {
-      "textures": "textures/items/fighter_flurry"
-    },
-    "geumyi:fighter_limit": {
-      "textures": "textures/items/fighter_limit"
-    },
-    "geumyi:hero_sword": {
-      "textures": "textures/items/hero_sword"
-    },
-    "geumyi:hero_heart": {
-      "textures": "textures/items/hero_heart"
-    },
-    "geumyi:hero_smite": {
-      "textures": "textures/items/hero_smite"
-    },
-    "geumyi:hero_parry": {
-      "textures": "textures/items/hero_parry"
-    },
-    "geumyi:hero_courage": {
-      "textures": "textures/items/hero_courage"
-    },
-    "geumyi:reaper_scythe": {
-      "textures": "textures/items/reaper_scythe"
-    },
-    "geumyi:reaper_absorb": {
-      "textures": "textures/items/reaper_absorb"
-    },
-    "geumyi:reaper_ambush": {
-      "textures": "textures/items/reaper_ambush"
-    },
-    "geumyi:reaper_massacre": {
-      "textures": "textures/items/reaper_massacre"
-    },
-    "geumyi:reaper_judgment": {
-      "textures": "textures/items/reaper_judgment"
-    },
-    "geumyi:sheriff_revolver": {
-      "textures": "textures/items/sheriff_revolver"
-    },
-    "geumyi:sheriff_bullet": {
-      "textures": "textures/items/sheriff_bullet"
-    },
-    "geumyi:sheriff_quickdraw": {
-      "textures": "textures/items/sheriff_quickdraw"
-    },
-    "geumyi:sheriff_rope": {
-      "textures": "textures/items/sheriff_rope"
-    },
-    "geumyi:sheriff_enhance": {
-      "textures": "textures/items/sheriff_enhance"
-    },
-    "geumyi:sheriff_deadeye": {
-      "textures": "textures/items/sheriff_deadeye"
-    },
-    "geumyi:sheriff_bullet_bundle": {
-      "textures": "textures/items/sheriff_bullet_bundle"
-    },
-    "geumyi:subspace": {
-      "textures": "textures/items/subspace"
-    },
-    "geumyi:subspace_native_test": {
-      "textures": "textures/items/subspace_native_test"
-    },
-    "geumyi:subspace_native_test_open_front": {
-      "textures": "textures/items/subspace_native_test_open_front"
-    },
-    "geumyi:subspace_native_test_open_back": {
-      "textures": "textures/items/subspace_native_test_open_back"
-    }
+    "geumyi:sword_draw": {"textures": "textures/items/sword_draw"},
+    "geumyi:sword_dash": {"textures": "textures/items/sword_dash"},
+    "geumyi:sword_rise": {"textures": "textures/items/sword_rise"},
+    "geumyi:sword_ult": {"textures": "textures/items/sword_ult"},
+    "geumyi:archer_triple": {"textures": "textures/items/archer_triple"},
+    "geumyi:archer_boom": {"textures": "textures/items/archer_boom"},
+    "geumyi:archer_wire": {"textures": "textures/items/archer_wire"},
+    "geumyi:archer_ult": {"textures": "textures/items/archer_ult"},
+    "geumyi:mage_fireball": {"textures": "textures/items/mage_fireball"},
+    "geumyi:mage_shield": {"textures": "textures/items/mage_shield"},
+    "geumyi:mage_vine": {"textures": "textures/items/mage_vine"},
+    "geumyi:mage_thunder": {"textures": "textures/items/mage_thunder"},
+    "geumyi:warrior_sword": {"textures": "textures/items/warrior_sword"},
+    "geumyi:archer_bow": {"textures": "textures/items/archer_bow"},
+    "geumyi:archer_arrow": {"textures": "textures/items/archer_arrow"},
+    "geumyi:mage_staff": {"textures": "textures/items/mage_staff"},
+    "geumyi:cleric_bible": {"textures": "textures/items/cleric_bible"},
+    "geumyi:cleric_recovery": {"textures": "textures/items/cleric_recovery"},
+    "geumyi:cleric_shield": {"textures": "textures/items/cleric_shield"},
+    "geumyi:cleric_spear": {"textures": "textures/items/cleric_spear"},
+    "geumyi:cleric_prayer": {"textures": "textures/items/cleric_prayer"},
+    "geumyi:berserker_axe": {"textures": "textures/items/berserker_axe"},
+    "geumyi:berserker_rage": {"textures": "textures/items/berserker_rage"},
+    "geumyi:berserker_slam": {"textures": "textures/items/berserker_slam"},
+    "geumyi:berserker_tornado": {"textures": "textures/items/berserker_tornado"},
+    "geumyi:berserker_ult": {"textures": "textures/items/berserker_ult"},
+    "geumyi:assassin_dagger": {"textures": "textures/items/assassin_dagger"},
+    "geumyi:assassin_prep": {"textures": "textures/items/assassin_prep"},
+    "geumyi:assassin_move": {"textures": "textures/items/assassin_move"},
+    "geumyi:assassin_gas": {"textures": "textures/items/assassin_gas"},
+    "geumyi:assassin_ult": {"textures": "textures/items/assassin_ult"},
+    "geumyi:fighter_gauntlet": {"textures": "textures/items/fighter_gauntlet"},
+    "geumyi:fighter_step": {"textures": "textures/items/fighter_step"},
+    "geumyi:fighter_burst": {"textures": "textures/items/fighter_burst"},
+    "geumyi:fighter_flurry": {"textures": "textures/items/fighter_flurry"},
+    "geumyi:fighter_limit": {"textures": "textures/items/fighter_limit"},
+    "geumyi:hero_sword": {"textures": "textures/items/hero_sword"},
+    "geumyi:hero_heart": {"textures": "textures/items/hero_heart"},
+    "geumyi:hero_smite": {"textures": "textures/items/hero_smite"},
+    "geumyi:hero_parry": {"textures": "textures/items/hero_parry"},
+    "geumyi:hero_courage": {"textures": "textures/items/hero_courage"},
+    "geumyi:reaper_scythe": {"textures": "textures/items/reaper_scythe"},
+    "geumyi:reaper_absorb": {"textures": "textures/items/reaper_absorb"},
+    "geumyi:reaper_ambush": {"textures": "textures/items/reaper_ambush"},
+    "geumyi:reaper_massacre": {"textures": "textures/items/reaper_massacre"},
+    "geumyi:reaper_judgment": {"textures": "textures/items/reaper_judgment"},
+    "geumyi:sheriff_revolver": {"textures": "textures/items/sheriff_revolver"},
+    "geumyi:sheriff_bullet": {"textures": "textures/items/sheriff_bullet"},
+    "geumyi:sheriff_quickdraw": {"textures": "textures/items/sheriff_quickdraw"},
+    "geumyi:sheriff_rope": {"textures": "textures/items/sheriff_rope"},
+    "geumyi:sheriff_enhance": {"textures": "textures/items/sheriff_enhance"},
+    "geumyi:sheriff_deadeye": {"textures": "textures/items/sheriff_deadeye"},
+    "geumyi:sheriff_bullet_bundle": {"textures": "textures/items/sheriff_bullet_bundle"},
+    "geumyi:subspace": {"textures": "textures/items/subspace"}
   }
 }
