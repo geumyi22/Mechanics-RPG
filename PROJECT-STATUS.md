@@ -1,66 +1,56 @@
 # Project Status
 
-기준일: 2026-10-03
+기준일: 2026-10-04
 
-## 정식 기준
-
-**main / latest Release: v1.4.20 — Bedrock release-gate E2E PASS**
+## Stable baseline
 
 - Repository: `geumyi22/Mechanics-RPG`
-- Default branch: `main`
-- Development integration: `dev`
-- v1.4.20 GitHub Release: published
-- release asset SHA-256: `a4d099cb419cdda1da68ed734406a7a2885a6c72565ba10e6d2d9741fe0ced70`
+- Stable baseline: **v1.4.48 SAFE GUARD**
+- Source root: `source/world/`
+- Source files: **294**
+- Static validation: **PASS**
+- deterministic package / CRC / re-extracted hashes: **PASS**
+- exact-package full Bedrock release-gate E2E: **NOT RUN**
 
-정식 기준선은 개발 스냅샷과 분리합니다.
+## v1.4.48 scope
 
-## 현재 개발 스냅샷
+### Included
+- 9×3 / 27-slot chest-style Subspace
+- v3 head/stage/journal preservation
+- historical 36-slot array + safe overflow migration
+- unsafe metadata-bearing item block
+- Shulker/Bundle block
+- sheriff bullet/bundle safe custom-stack exception
+- existing RPG systems and approved first-person weapons preserved
 
-**v1.4.46 SUBSPACE_NATIVE_STORAGE_PROOF_TEST**
+### Excluded
+- Subspace native-storage proof from v1.4.46
+- DDUI/native bridge experiments v1.4.44~47
+- weapon third-person TEST1~7
 
-목표:
-- 기존 ActionForm 상자형 UI의 닫힘→재오픈 깜빡임을 피할 수 있는 네이티브 storage item 방식 검증
-- 기존 `geumyi:subspace`와 v3 저장 데이터는 변경하지 않고 별도 `geumyi:subspace_native_test` 아이템으로 격리 테스트
-
-Local static validation:
+## Verification evidence
 
 ```text
-Files: 304
-JSON: 93 PASS
-JavaScript: 10 PASS
-Item texture entries: 57 PASS
-Particle JSON: 3 PASS
-PNG: 105 PASS
-BP/RP/world linkage: PASS
-SOURCE-MANIFEST aggregate: 304 files
-ZIP CRC / re-extracted file hashes: PASS
-ZIP / MCWORLD: BYTE-IDENTICAL
-Bedrock v1.4.46 native proof: NOT RUN
+Files: 294
+JSON: 90 PASS
+JavaScript: 9 PASS (Node syntax)
+Item texture entries: 54 PASS
+RP PNG: 102 PASS
+SOURCE-MANIFEST: 294 PASS
+ZIP CRC: PASS
+Re-extracted file set/hashes: 294/294 MATCH
+Generated .zip/.mcworld: BYTE-IDENTICAL
+Full v1.4.48 Bedrock release-gate E2E: NOT RUN
 ```
 
-## 아공간 device evidence
+## Historical E2E
 
-- **v1.4.37 partial PASS**: 본체 native renderer 표시 성공, 넣기 ActionForm 아이콘 실패
-- **v1.4.40 FAIL**: 72-button fake combined UI 실패
-- **v1.4.41 partial PASS**: 외형 성공, 실제 inventory binding 실패
-- **v1.4.42 PASS 범위**: 9×3 아공간 + 실제 inventory/hotbar item rendering
-- **v1.4.43 PASS 범위**: 확대 상자 UI + 스택 수량, 단 ActionForm 깜빡임
-- **v1.4.44 PASS 범위**: DDUI에서 조약돌 ×64 넣기/빼기 무깜빡임
-- **v1.4.45 NOT FULL E2E**: 두 UI 모드 공존
-- **v1.4.46 NOT RUN**: native storage proof
+v1.4.20은 실제 Bedrock release-gate E2E 8개 핵심 항목 PASS 기록을 유지합니다.
 
-PASS는 각 항목에 한정하며 전체 RPG 회귀 PASS를 뜻하지 않습니다.
+아공간은 v1.4.42~43에서 9×3 결합 UI/아이템 렌더링/스택 표시 범위의 실기기 확인 기록이 있습니다. 이 기록은 v1.4.48 전체 회귀 E2E와 동일하지 않습니다.
 
-## Release blocker
+## Development state
 
-v1.4.46 또는 이후 버전을 `main`/tag/Release로 올리기 전:
-
-1. native storage proof 실기기 동작 확인
-2. 재접속/월드 재시작 후 저장 유지 확인
-3. 기존 v3 아공간 저장 영향 없음 확인
-4. Sheriff 회귀
-5. Reaper 승인된 1인칭 대낫 보존 확인
-6. quest/shop/NPC 회귀
-7. package artifact 자체로 Bedrock release-gate E2E
-
-상세 아공간 이력: [docs/SUBSPACE-DEVELOPMENT.md](docs/SUBSPACE-DEVELOPMENT.md)
+- v1.4.46 native-storage proof는 개발 이력으로 보존하며 stable에 포함하지 않습니다.
+- 무기 3인칭은 TEST6에서 **기존 1인칭을 건드리지 않는 player third-person/rightItem 접근**까지 확인했으나, 3인칭 위치/각도는 미완성입니다.
+- 다음 작업은 stable v1.4.48에서 별도 feature branch로 시작합니다.
