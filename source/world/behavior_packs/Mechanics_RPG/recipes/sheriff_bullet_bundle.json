@@ -8,19 +8,33 @@
       "crafting_table"
     ],
     "ingredients": [
-      {"item": "geumyi:sheriff_bullet"},
-      {"item": "geumyi:sheriff_bullet"},
-      {"item": "geumyi:sheriff_bullet"},
-      {"item": "geumyi:sheriff_bullet"},
-      {"item": "geumyi:sheriff_bullet"},
-      {"item": "geumyi:sheriff_bullet"}
+      {
+        "item": "geumyi:sheriff_bullet"
+      },
+      {
+        "item": "geumyi:sheriff_bullet"
+      },
+      {
+        "item": "geumyi:sheriff_bullet"
+      },
+      {
+        "item": "geumyi:sheriff_bullet"
+      },
+      {
+        "item": "geumyi:sheriff_bullet"
+      },
+      {
+        "item": "geumyi:sheriff_bullet"
+      }
     ],
     "result": {
       "item": "geumyi:sheriff_bullet_bundle",
       "count": 1
     },
     "unlock": [
-      {"item": "geumyi:sheriff_bullet"}
+      {
+        "item": "geumyi:sheriff_bullet"
+      }
     ]
   }
 }
