@@ -10,45 +10,44 @@ Minecraft Bedrock 기반 커스텀 RPG 프로젝트 **메크닉스 RPG(Mechanics
 |---|---|
 | 저장소 | `geumyi22/Mechanics-RPG` |
 | 기본 브랜치 | `main` |
-| 개발 통합 브랜치 | `dev` |
-| 최신 정식 Release | **v1.4.20** |
-| 정식 Release Bedrock E2E | **PASS (8개 release-gate 항목)** |
-| 최신 개발 스냅샷 | **v1.4.46 SUBSPACE_NATIVE_STORAGE_PROOF_TEST** |
-| v1.4.46 Static | **PASS (local source/artifact)** |
-| v1.4.46 Bedrock E2E | **NOT RUN — native storage proof 대기** |
-| 개발 source 파일 수 | **304** |
-| source integrity | **aggregate SHA-256 manifest** |
-| CI / package 자동화 | 구축 완료 |
+| 개발 브랜치 | `dev` |
+| 최신 안정화 기준 | **v1.4.48 SAFE GUARD** |
+| 최신 정식 Release | **v1.4.48** |
+| source file count | **294** |
+| Static validation | **PASS** |
+| deterministic package / CRC / re-extracted hashes | **PASS** |
+| v1.4.48 exact-package full Bedrock release-gate E2E | **NOT RUN** |
+| 아공간 UI 계열 실기기 근거 | v1.4.42~43에서 9×3 상자형 UI/아이템 렌더링 확인 |
 
-**중요:** `main`/tag/Release는 여전히 검증된 **v1.4.20**입니다. v1.4.46은 개발 스냅샷이며, 네이티브 아공간 검증과 회귀 E2E 전에는 정식 Release로 승격하지 않습니다.
+`source/world/`는 v1.4.48 SAFE GUARD 기준 월드 소스를 보존하며 `SOURCE-MANIFEST.json`으로 전체 파일 크기와 SHA-256을 추적합니다.
 
-정식 Release:
-- https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.20
+## v1.4.48 핵심
 
-v1.4.20 release asset SHA-256:
-`a4d099cb419cdda1da68ed734406a7a2885a6c72565ba10e6d2d9741fe0ced70`
+- 아공간: **9×3 = 27칸** 상자형 UI
+- 역사적 `geumyi:subspace_v3_head / stage / journal` 저장 체계 유지
+- 28~36번 역사 슬롯의 안전 overflow migration 유지
+- 무기/스킬템/내구도/인챈트/이름/Lore/동적 속성 등 특수 데이터 아이템은 저장 차단
+  - `아공간이 그 힘을 버티지 못합니다.`
+- 셜커/Bundle 계열은 저장 차단
+  - `아공간이 셜커를 거부합니다.`
+- 보안관 탄환/6발 묶음 등 명시적 안전 커스텀 스택은 기존 허용 규칙 유지
+- 사신 대낫 및 보안관 리볼버의 **기존 정상 1인칭 외형은 릴리즈에서 변경하지 않음**
+- 무기 3인칭 개선 TEST1~7은 **실험 브랜치/기록 전용이며 v1.4.48 릴리즈에 포함하지 않음**
 
-## 아공간 개발 현황
+## 검증 경계
 
-아공간 작업은 v1.4.27~v1.4.46까지 별도 이력을 보존합니다.
+v1.4.48은 source/static/package 검증을 통과한 안정화 기준입니다. 다만 **v1.4.48 릴리즈 패키지 전체에 대한 새 release-gate E2E는 별도 실행 전까지 PASS로 기록하지 않습니다.**
 
-- v1.4.42: **9×3 아공간 + 실제 인벤토리/핫바 아이템 렌더링 실기기 확인**
-- v1.4.43: **상자형 UI/스택 수량 표시 실기기 확인**, 단 ActionForm 닫힘→재오픈 깜빡임 존재
-- v1.4.44: **DDUI CustomForm 무깜빡임 넣기/빼기 실기기 확인**
-- v1.4.45: 상자형과 DDUI를 같은 저장 데이터로 선택하는 이중 모드
-- v1.4.46: 기존 아공간을 건드리지 않은 `minecraft:storage_item` 네이티브 저장 **격리 테스트판 — 실기기 미검증**
-
-상세 이력과 성공/실패 판정은 [docs/SUBSPACE-DEVELOPMENT.md](docs/SUBSPACE-DEVELOPMENT.md)를 확인합니다.
+이전 v1.4.20은 실제 Bedrock release-gate E2E 8개 항목을 통과한 첫 GitHub Release입니다.
 
 ## 운영 원칙
 
 - 실제 Bedrock에서 실행하지 않은 것은 “정상 작동/완료”라고 단정하지 않습니다.
-- **Static / Mock / Bedrock E2E**를 분리 기록합니다.
+- **Static / Mock / Bedrock E2E**를 구분합니다.
 - 기존 정상 직업/사신/상점/퀘스트/NPC/햇빛 로직을 요청 없이 재작성하지 않습니다.
-- 큰 변경은 기능 브랜치 → `dev` → CI → Bedrock E2E → `main` 순서로 진행합니다.
+- 큰 변경은 기능 단위 브랜치/커밋으로 나눕니다.
 - 릴리스용 `.mcworld`, `.zip`은 source tree에 누적하지 않고 Actions artifact / GitHub Release로 관리합니다.
-- manifest UUID/API dependency는 실제 baseline을 기준으로 보존합니다.
-- 아공간 v3 저장 키/저널은 임의 삭제하지 않습니다.
+- manifest UUID/API dependency는 기준 패키지를 보존합니다.
 
 ## 저장소 구조
 
@@ -68,31 +67,12 @@ Mechanics-RPG/
 └─ SECURITY-NOTES.md
 ```
 
-## API 기준
+## 현재 manifest 기준
 
-현재 개발 스냅샷 v1.4.46:
-- BP/RP version: `1.4.46`
+- BP/RP version: `1.4.48`
 - min engine: `1.26.50`
 - `@minecraft/server 2.9.0`
 - `@minecraft/server-ui 2.1.0`
 - Script entry: `scripts/main.js`
 
-정식 v1.4.20 release의 API 고정값과 UUID는 [VERSION-MATRIX.md](VERSION-MATRIX.md)에 별도 보존합니다.
-
-## 검증 상태 해석
-
-v1.4.20은 실제 Bedrock release-gate E2E를 통과했습니다. v1.4.46은 현재 로컬 정적 검사에서 다음을 통과했습니다.
-
-- JSON 93
-- JavaScript 10
-- BP/RP/world linkage
-- item texture entries 57
-- particle JSON 3
-- PNG 105
-- source files 304
-- ZIP CRC / re-extracted hashes
-- `.zip` / `.mcworld` byte-identical
-
-이는 **Static PASS**이며 v1.4.46 전체의 Bedrock E2E PASS를 의미하지 않습니다.
-
-개발 절차는 [docs/DEVELOPMENT-WORKFLOW.md](docs/DEVELOPMENT-WORKFLOW.md), 인수인계 기준은 [HANDOFF.md](HANDOFF.md)를 확인합니다.
+자세한 검증 상태는 [TESTING.md](TESTING.md), 아공간 이력은 [docs/SUBSPACE-DEVELOPMENT.md](docs/SUBSPACE-DEVELOPMENT.md), 무기 3인칭 실험은 [docs/WEAPON-THIRD-PERSON-EXPERIMENTS.md](docs/WEAPON-THIRD-PERSON-EXPERIMENTS.md)를 확인합니다.
