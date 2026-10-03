@@ -158,3 +158,154 @@ function homingDeadEyeBullet(p,t,index){
     if(length>1.55)return;
     system.clearRun(h);
     const raw=(30+strengthBonus(p))*BASE_HEADSHOT;
+    if(!guaranteedDeadEyeDamage(p,t,raw))return;
+    particle(p.dimension,"minecraft:critical_hit_emitter",aim);
+    const shown=raw*(deadEyeMarked(t)?1.5:1);
+    bar(p,`§5데드 아이 §f${index+1}번째 탄환 적중 · 헤드샷 §d${shown.toFixed(shown%1?1:0)}`,16);
+  }catch{safe(()=>system.clearRun(h));}},1);
+}
+function castDeadEye(p){system.run(()=>selectRevolver(p));if(!validateSkill(p,"sheriff_deadeye",100,65,"데드 아이"))return;const t=strongestTarget(p,35);if(!t){bar(p,"§c주변에 추적할 적이 없습니다.");return;}const startAmmo=ammo(p),missing=Math.max(0,MAX_AMMO-startAmmo),rounds=MAX_AMMO;startCd(p,"sheriff_deadeye",65);beginBusy(p,3.4);safe(()=>p.onScreenDisplay.setTitle("§5§lDEAD EYE",{subtitle:"§f표적 추적 · 리볼버 재장전 중...",fadeInDuration:2,stayDuration:25,fadeOutDuration:5}));areaSound(p,"raid.horn",1.12,.20,48);deadEyeChargeFx(t,0);for(let i=1;i<15;i++)system.runTimeout(()=>{if(targetable(t)&&health(t)>0)deadEyeChargeFx(t,i);},i*4);if(missing>0){for(let i=1;i<=missing;i++){const tick=Math.max(2,Math.floor(i*36/missing));system.runTimeout(()=>{if(!isSheriff(p)||!targetable(t)||health(t)<=0)return;setAmmo(p,startAmmo+i,false);sound(p,"random.click",.72+i*.06,.28);bar(p,`§5데드 아이 준비 §7· §f재장전 §e${ammo(p)}/${MAX_AMMO}`,7);},tick);}}else bar(p,"§5데드 아이 준비 §7· §f리볼버 §e6/6",12);for(let i=0;i<8;i++)system.runTimeout(()=>{if(targetable(t)&&health(t)>0)bar(p,`§5데드 아이 §f추적 중... ${Math.min(100,(i+1)*13)}% §8| §e${ammo(p)}/${MAX_AMMO}`,8);},i*5);system.runTimeout(()=>{if(!targetable(t)||health(t)<=0){clearBusy(p);bar(p,"§7추적 대상이 사라졌습니다.");return;}setAmmo(p,MAX_AMMO,false);bar(p,"§5데드 아이 §f준비 완료 §8| §e6/6",12);showTargetCamera(p,t);areaSound(p,"random.levelup",.72,.72,42,targetPoint(t));},40);system.runTimeout(()=>{if(!targetable(t)||health(t)<=0){clearBusy(p);return;}deadEyeDebuffs.set(t.id,{target:t,until:now()+200});safe(()=>t.addTag("geumyi_sheriff_deadeye_mark"));msg(p,"§5[데드 아이] §f표적에게 10초간 받는 피해 +50%!");setAmmo(p,0,false);for(let i=0;i<rounds;i++)system.runTimeout(()=>{if(targetable(t))homingDeadEyeBullet(p,t,i);},i*5);clearBusy(p);system.runTimeout(()=>{if(isSheriff(p)&&ammo(p)===0)beginReload(p,true);},Math.max(8,rounds*5+5));},60);}
+
+function awardBounty(p,target){const mh=maxHealth(target);if(Math.random()<.38){const buffs=[
+  ["strength",0,200,"§c공격력 I 10초"],
+  ["speed",1,200,"§b신속 II 10초"],
+  ["resistance",0,200,"§9저항 I 10초"],
+  ["regeneration",0,160,"§d재생 I 8초"],
+  ["reload",0,200,"§e초고속 재장전 10초"]
+];const b=buffs[Math.floor(Math.random()*buffs.length)];if(b[0]==="reload")quickReloadUntil.set(p.id,now()+b[2]);else safe(()=>p.addEffect(b[0],b[2],{amplifier:b[1],showParticles:false}));msg(p,`§6[현상금] §f랜덤 버프 획득: ${b[3]}`);}else{let min=5,max=10;if(mh>20){min=10;max=20;}if(mh>50){min=20;max=35;}if(mh>100){min=35;max=60;}if(mh>200){min=60;max=Math.min(200,70+Math.floor(mh/10));}const gold=Math.max(1,min+Math.floor(Math.random()*(Math.max(1,max-min+1))));safe(()=>world.scoreboard.getObjective("rpg_gold")?.addScore(p,gold));msg(p,`§6[현상금] §f수배범 처치! §e${gold} 골드 §7(강적 보정)`);}sound(p,"random.orb",.82,.68);system.runTimeout(()=>sound(p,"random.orb",1.06,.72),3);system.runTimeout(()=>sound(p,"random.orb",1.34,.82),6);}
+function chooseBounty(p){const list=(safe(()=>p.dimension.getEntities({location:p.location,maxDistance:32}),[])??[]).filter(targetable);if(!list.length){bountyState.set(p.id,{target:undefined,readyAt:now()+40,expires:0});return;}const t=list[Math.floor(Math.random()*list.length)];bountyState.set(p.id,{target:t,readyAt:0,expires:now()+800});msg(p,"§e[현상 수배] §f주변 적 하나가 수배범으로 지정되었습니다.");markBounty(t);}
+function markBounty(t){try{const h=t.getHeadLocation();particle(t.dimension,"geumyi:sheriff_bounty_marker",{x:h.x,y:h.y+.58,z:h.z});}catch{}}
+
+function subscribeSafe(signal, callback){
+  try{
+    if(!signal || typeof signal.subscribe!=="function") return false;
+    signal.subscribe(callback);
+    return true;
+  }catch{return false;}
+}
+
+function initSheriff(){
+  // IMPORTANT: sheriff must never be able to stop the existing RPG core from loading.
+  // Every optional event is registered independently.
+  subscribeSafe(world.beforeEvents?.itemUse, ev=>{try{
+    const p=ev.source,id=ev.itemStack?.typeId??"";
+    if(reloading.has(p.id)){
+      ev.cancel=true;
+      system.run(()=>bar(p,"§c재장전 중에는 다른 아이템을 사용할 수 없습니다."));
+      return;
+    }
+    if(id.startsWith("geumyi:sheriff_")&&!isSheriff(p)){
+      ev.cancel=true;
+      system.run(()=>bar(p,"§c보안관 전용 아이템입니다."));
+    }
+  }catch{}});
+
+  subscribeSafe(world.afterEvents?.itemCompleteUse, ev=>{try{
+    const p=ev.source,id=ev.itemStack?.typeId??"";
+    if(!id.startsWith("geumyi:sheriff_")) return;
+    system.run(()=>{try{
+      if(id==="geumyi:sheriff_revolver"){
+        if(p.isSneaking) beginReload(p,false); else shootRevolver(p,false);
+      }else if(id==="geumyi:sheriff_quickdraw") castQuickdraw(p);
+      else if(id==="geumyi:sheriff_rope"){
+        if(!p.isSneaking) castRope(p); else bar(p,`§6끈 모드: §f${ROPE_NAMES[currentRopeMode(p)]}`,35);
+      }else if(id==="geumyi:sheriff_enhance") castEnhance(p);
+      else if(id==="geumyi:sheriff_deadeye") castDeadEye(p);
+    }catch{}});
+  }catch{}});
+
+  // Lasso suppression + Dead Eye damage amp happen before damage is committed.
+  // This avoids the old follow-up-damage method being eaten by Minecraft hurt invulnerability.
+  subscribeSafe(world.beforeEvents?.entityHurt, ev=>{try{
+    const atk=ev.damageSource?.damagingEntity;
+    if(atk?.hasTag?.("geumyi_sheriff_lasso_stunned")){ev.cancel=true;return;}
+    const t=ev.hurtEntity,st=deadEyeDebuffs.get(t?.id);
+    if(!t||!st)return;
+    if(st.until<=now()){deadEyeDebuffs.delete(t.id);safe(()=>t.removeTag("geumyi_sheriff_deadeye_mark"));return;}
+    const base=Number(ev.damage??0);
+    if(base>0)ev.damage=base*1.5;
+  }catch{}});
+
+  subscribeSafe(world.beforeEvents?.entityHeal, ev=>{try{
+    const e=ev.healedEntity ?? ev.entity;
+    if(e?.hasTag?.("geumyi_sheriff_lasso_stunned")) ev.cancel=true;
+  }catch{}});
+
+  subscribeSafe(world.afterEvents?.entityDie, ev=>{try{
+    const dead=ev.deadEntity,killer=ev.damageSource?.damagingEntity;
+    if(!dead) return;
+    for(const p of world.getAllPlayers()){
+      const st=bountyState.get(p.id);
+      if(!st?.target||st.target.id!==dead.id) continue;
+      const success=killer?.typeId==="minecraft:player"&&killer.id===p.id&&isSheriff(p);
+      if(success) awardBounty(p,dead);
+      bountyState.set(p.id,{target:undefined,readyAt:success?now()+400:now(),expires:0});
+    }
+  }catch{}});
+
+  system.runInterval(()=>{for(const p of world.getAllPlayers()){try{
+    const sheriff=isSheriff(p),prev=sheriffClassSeen.get(p.id);
+    if(prev===undefined){
+      sheriffClassSeen.set(p.id,sheriff);
+      if(sheriff&&safe(()=>p.getDynamicProperty(AMMO_KEY))===undefined) setAmmo(p,MAX_AMMO,false);
+    }else if(prev!==sheriff){
+      sheriffClassSeen.set(p.id,sheriff);
+      if(sheriff){setAmmo(p,MAX_AMMO,false);ropeMode.set(p.id,0);bountyState.delete(p.id);}
+      else{reloading.delete(p.id);stationary.delete(p.id);bountyState.delete(p.id);clearBusy(p);}
+    }
+    if(!sheriff){ropeSneakPrev.delete(p.id);revolverSneakPrev.delete(p.id);continue;}
+    const held=mainhand(p);
+    if(held?.typeId==="geumyi:sheriff_revolver"){
+      const s=stationary.get(p.id)??{loc:{...p.location},ticks:0};
+      const moved=Math.hypot(p.location.x-s.loc.x,p.location.y-s.loc.y,p.location.z-s.loc.z);
+      if(moved<.055)s.ticks=Math.min(120,s.ticks+2);else s.ticks=0;
+      s.loc={...p.location};stationary.set(p.id,s);
+    }else stationary.delete(p.id);
+    const sneak=!!p.isSneaking;
+    const ropeWas=ropeSneakPrev.get(p.id)??false;
+    const revolverWas=revolverSneakPrev.get(p.id)??false;
+    if(held?.typeId==="geumyi:sheriff_rope"&&sneak&&!ropeWas)cycleRopeMode(p);
+    if(held?.typeId==="geumyi:sheriff_revolver"&&sneak&&!revolverWas&&!reloading.has(p.id))beginReload(p,false);
+    ropeSneakPrev.set(p.id,held?.typeId==="geumyi:sheriff_rope"?sneak:false);
+    revolverSneakPrev.set(p.id,held?.typeId==="geumyi:sheriff_revolver"?sneak:false);
+    let bs=bountyState.get(p.id);
+    if(!bs){bs={target:undefined,readyAt:now()+20,expires:0};bountyState.set(p.id,bs);}
+    if(bs.target){
+      if(!targetable(bs.target)||health(bs.target)<=0) bountyState.set(p.id,{target:undefined,readyAt:now()+20,expires:0});
+      else if(now()>=bs.expires){msg(p,"§7[현상 수배] 제한시간 40초가 지나 새로운 수배범을 찾습니다.");bountyState.set(p.id,{target:undefined,readyAt:now(),expires:0});}
+      else if(now()%10<2) markBounty(bs.target);
+    }else if(now()>=(bs.readyAt??0)) chooseBounty(p);
+  }catch{}}},2);
+
+  system.runInterval(()=>{
+    for(const [id,st] of [...lassoLocks.entries()]){try{
+      if(!st.entity||!targetable(st.entity)||health(st.entity)<=0||now()>=st.until){
+        safe(()=>st.entity?.removeTag("geumyi_sheriff_lasso_stunned"));
+        safe(()=>st.entity?.removeEffect("weakness"));
+        lassoLocks.delete(id);continue;
+      }
+      safe(()=>st.entity.addEffect("slowness",8,{amplifier:255,showParticles:false}));
+      safe(()=>st.entity.addEffect("weakness",8,{amplifier:255,showParticles:false}));
+      safe(()=>st.entity.clearVelocity());
+      safe(()=>st.entity.teleport(st.anchor,{dimension:st.entity.dimension,checkForBlocks:false}));
+    }catch{lassoLocks.delete(id);}}
+    for(const [id,st] of [...deadEyeDebuffs.entries()]){try{
+      if(!st.target||!targetable(st.target)||health(st.target)<=0||now()>=st.until){
+        safe(()=>st.target?.removeTag("geumyi_sheriff_deadeye_mark"));
+        deadEyeDebuffs.delete(id);continue;
+      }
+      if(now()%10<2) markDeadEyeTarget({dimension:st.target.dimension},st.target);
+    }catch{deadEyeDebuffs.delete(id);}}
+  },2);
+
+  world.sendMessage("§6[SHERIFF] §f보안관 시스템 로드");
+}
+
+// Delay sheriff initialization by one tick and trap all startup errors.
+// Core/skills/quest/shop/sunlight remain loaded even if sheriff initialization fails.
+system.run(()=>{
+  try{initSheriff();}
+  catch(e){
+    try{world.sendMessage(`§c[SHERIFF] 보안관 초기화 오류 - 기존 RPG 코어는 계속 실행됩니다. §7${String(e)}`);}catch{}
+  }
+});
