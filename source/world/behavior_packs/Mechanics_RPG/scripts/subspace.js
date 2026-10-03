@@ -1,8 +1,7 @@
-// Mechanics RPG v1.4.45 — dual UI mode: DDUI no-flicker default + proven chest-style ActionForm fallback; v3 safety retained.
-// /scriptevent geumyi:subspace_ui ddui|chest switches the per-player UI mode without changing stored items.
+// Mechanics RPG v1.4.43 — 9x3 chest UI enlarged, stack counts fixed, and post-transfer refresh path minimized; v3 safety retained.
 // v1 legacy storage and v1.4.25 native chest carts are deliberately not destroyed/migrated.
 import { world, system, ItemStack } from '@minecraft/server';
-import { ActionFormData, CustomForm, ObservableBoolean, ObservableUIRawMessage, ObservableString } from '@minecraft/server-ui';
+import { ActionFormData } from '@minecraft/server-ui';
 import { openLegacySubspace } from './subspace_legacy.js';
 
 const ITEM='geumyi:subspace', COUNT=36, ACTIVE_COUNT=27;
@@ -12,7 +11,6 @@ const HEAD='geumyi:subspace_v3_head', STAGE='geumyi:subspace_v3_stage';
 const JOURNAL='geumyi:subspace_v3_journal', LEGACY_CART='geumyi:subspace_v2_entity_id';
 const LEGACY_POSITION='geumyi:subspace_v2_last_location';
 const locks=new Set();
-const UI_MODE_PROP='geumyi:subspace_ui_mode';
 
 const ITEM_NAME_KO={
   sheriff_bullet:'리볼버 탄환', sheriff_bullet_bundle:'리볼버 탄환 6발 묶음', barrel:'통', noteblock:'소리 블록', jukebox:'주크박스',
@@ -243,13 +241,26 @@ function valid(a){return a&&a.v===3&&Number.isSafeInteger(a.rev)&&a.rev>=0&&Arra
 function current(p){const raw=p.getDynamicProperty(HEAD);if(raw===undefined)return empty();const a=parse(raw);if(!valid(a))throw Error('창고 데이터 검증 실패: 수정 금지');if(a.slots.length===27)a.slots=a.slots.concat(Array(9).fill(null));return a;}
 function isPlain(it){
  if(!it||it.amount<1||it.amount>64||!supportedId(it.typeId))return false;
- if(/shulker|bundle|potion|stew|spawn_egg|banner|map|book|firework|tipped|ominous|goat_horn|suspicious|knowledge|command_block|structure|debug|trial_key|vault|music_disc|enchanted_book/.test(it.typeId))return false;
+ // RPG weapons/skill items are intentionally blocked because v3 stores only id + amount.
+ // Sheriff ammunition is a plain stack and remains allowed.
+ if(it.typeId.startsWith('geumyi:')&&!CUSTOM_STACKS.has(it.typeId))return false;
+ if(!CUSTOM_STACKS.has(it.typeId)&&/shulker|bundle|potion|stew|spawn_egg|banner|map|book|firework|tipped|ominous|goat_horn|suspicious|knowledge|command_block|structure|debug|trial_key|vault|music_disc|enchanted_book/.test(it.typeId))return false;
  if(it.nameTag||it.getLore?.()?.length||it.keepOnDeath)return false;
  try{if(it.getDynamicPropertyIds?.()?.length)return false;}catch{return false;}
  try{if(it.getComponent('minecraft:enchantable')?.getEnchantments?.()?.length)return false;}catch{return false;}
  try{if(it.getComponent('minecraft:durability'))return false;}catch{return false;}
  try{const lm=it.lockMode;if(lm!==undefined&&lm!=='none'&&lm!==0)return false;}catch{return false;}
  return true;
+}
+function storageRejectMessage(it){
+ const id=String(it?.typeId||'');
+ if(/shulker|bundle/.test(id))return '§5아공간이 셜커를 거부합니다.';
+ if(id.startsWith('geumyi:')&&!CUSTOM_STACKS.has(id))return '§5아공간이 그 힘을 버티지 못합니다.';
+ try{if(it?.getComponent('minecraft:durability'))return '§5아공간이 그 힘을 버티지 못합니다.';}catch{}
+ try{if(it?.getComponent('minecraft:enchantable')?.getEnchantments?.()?.length)return '§5아공간이 그 힘을 버티지 못합니다.';}catch{}
+ if(it?.nameTag||it?.getLore?.()?.length)return '§5아공간이 그 힘을 버티지 못합니다.';
+ try{if(it?.getDynamicPropertyIds?.()?.length)return '§5아공간이 그 힘을 버티지 못합니다.';}catch{}
+ return '§e이 아이템은 특수 데이터 손상 방지를 위해 보관할 수 없습니다.';
 }
 const rec=it=>({id:it.typeId,n:it.amount});
 const same=(a,b)=>!!a&&!!b&&a.id===b.id&&a.n===b.n;
@@ -423,7 +434,7 @@ async function home(p){
    tell(p,'§e인벤토리 상태가 바뀌었어. 화면을 새로 불러올게.');continue;
   }
   if(!storable[button]||!isPlain(selected)){
-   tell(p,'§e이 아이템은 특수 데이터 손상 방지를 위해 보관할 수 없어.');continue;
+   tell(p,storageRejectMessage(selected));continue;
   }
   const latest=current(p);
   if(latest.rev!==a.rev){tell(p,'§e아공간 상태가 바뀌었어. 화면을 새로 불러올게.');continue;}
@@ -437,129 +448,6 @@ async function home(p){
   // Re-enter the loop immediately; there is no system.run/system.runTimeout delay between forms.
  }
 }
-
-
-// -----------------------------------------------------------------------------
-// v1.4.45 DDUI no-flicker primary mode
-// -----------------------------------------------------------------------------
-// @minecraft/server-ui 2.1.0 CustomForm keeps the form open while callbacks run.
-// Stable 2.1.0 does not expose a 9x3/icon-button layout API, so this mode prioritizes
-// zero close/reopen flicker. The chest-style ActionForm remains available as a fallback.
-async function openDdNoFlicker(p){
- if(!p?.isValid||!recover(p)||!migrate36to27(p))return;
- const invOrder=[];
- let c=inv(p);if(!c)return;
- for(let i=9;i<Math.min(36,c.size);i++)invOrder.push(i);
- for(let i=0;i<Math.min(9,c.size);i++)invOrder.push(i);
-
- const status=new ObservableString('불러오는 중...');
- const subLabel=[],subVisible=[],subDisabled=[];
- const invLabel=[],invVisible=[],invDisabled=[];
- for(let i=0;i<ACTIVE_COUNT;i++){
-  subLabel.push(new ObservableUIRawMessage({text:'빈 칸'}));
-  subVisible.push(new ObservableBoolean(false));
-  subDisabled.push(new ObservableBoolean(true));
- }
- for(let i=0;i<invOrder.length;i++){
-  invLabel.push(new ObservableUIRawMessage({text:'빈 칸'}));
-  invVisible.push(new ObservableBoolean(false));
-  invDisabled.push(new ObservableBoolean(true));
- }
-
- let form;
- const refresh=()=>{
-  if(!p.isValid)return;
-  const a=current(p),cc=inv(p);if(!cc)return;
-  let used=0;
-  for(let i=0;i<ACTIVE_COUNT;i++){
-   const item=a.slots[i];
-   if(item){
-    used++;
-    subLabel[i].setData({rawtext:[displayNameRaw(item.id),{text:` ×${item.n}`}]});
-    subVisible[i].setData(true);subDisabled[i].setData(false);
-   }else{
-    subLabel[i].setData({text:'빈 칸'});
-    subVisible[i].setData(false);subDisabled[i].setData(true);
-   }
-  }
-  let invUsed=0;
-  for(let b=0;b<invOrder.length;b++){
-   const source=invOrder[b],it=cc.getItem(source),item=it?rec(it):null;
-   if(item){
-    invUsed++;
-    const ok=isPlain(it);
-    invLabel[b].setData({rawtext:[displayNameRaw(item.id),{text:` ×${item.n}${ok?'':' (보관 불가)'}`}]});
-    invVisible[b].setData(true);invDisabled[b].setData(false);
-   }else{
-    invLabel[b].setData({text:'빈 칸'});
-    invVisible[b].setData(false);invDisabled[b].setData(true);
-   }
-  }
-  status.setData(`아공간 ${used}/${ACTIVE_COUNT}칸 · 인벤토리 ${invUsed}/${invOrder.length}칸 사용 중`);
- };
-
- try{
-  form=new CustomForm(p,'아공간');
-  form.closeButton();
-  form.label(status);
-  form.header('아공간');
-  for(let i=0;i<ACTIVE_COUNT;i++){
-   form.button(subLabel[i],()=>{
-    try{
-     if(!p.isValid)return;
-     const a=current(p),item=a.slots[i];if(!item){refresh();return;}
-     const cc=inv(p);if(!cc)return;
-     const dest=firstEmptyInventorySlot(cc);
-     if(dest<0){tell(p,'§c인벤토리에 빈 칸이 필요해.');return;}
-     const out=transact(p,'take',i,dest,a.rev,item);
-     if(!out.ok){tell(p,`§c꺼내기 실패: ${out.reason}`);if(p.getDynamicProperty(JOURNAL)!==undefined){try{form.close();}catch{};return;}}
-     refresh();
-    }catch(e){tell(p,`§cDDUI 꺼내기 오류: ${String(e)}`);}
-   },{visible:subVisible[i],disabled:subDisabled[i],tooltip:'아공간에서 인벤토리로 꺼내기'});
-  }
-  form.divider();
-  form.header('인벤토리');
-  for(let b=0;b<invOrder.length;b++){
-   form.button(invLabel[b],()=>{
-    try{
-     if(!p.isValid)return;
-     const cc=inv(p);if(!cc)return;
-     const source=invOrder[b],it=cc.getItem(source);
-     if(!it){refresh();return;}
-     if(!isPlain(it)){tell(p,'§e이 아이템은 특수 데이터 손상 방지를 위해 보관할 수 없어.');refresh();return;}
-     const a=current(p);let dest=-1;
-     for(let i=0;i<ACTIVE_COUNT;i++){if(a.slots[i]===null){dest=i;break;}}
-     if(dest<0){tell(p,'§c아공간 27칸이 모두 차 있어.');return;}
-     const snap=rec(it),out=transact(p,'put',source,dest,a.rev,snap);
-     if(!out.ok){tell(p,`§c보관 실패: ${out.reason}`);if(p.getDynamicProperty(JOURNAL)!==undefined){try{form.close();}catch{};return;}}
-     refresh();
-    }catch(e){tell(p,`§cDDUI 보관 오류: ${String(e)}`);}
-   },{visible:invVisible[b],disabled:invDisabled[b],tooltip:'인벤토리에서 아공간으로 보관하기'});
-  }
-  refresh();
-  await form.show();
- }catch(e){
-  tell(p,`§cDDUI 테스트를 열지 못했어: ${String(e)}`);
- }
-}
-
-system.afterEvents.scriptEventReceive.subscribe(ev=>{
- const p=ev.sourceEntity;
- if(!p||p.typeId!=='minecraft:player')return;
- if(ev.id==='geumyi:subspace_ddtest'){
-  system.run(()=>openDdNoFlicker(p).catch(e=>tell(p,`§cDDUI 오류: ${String(e)}`)));return;
- }
- if(ev.id==='geumyi:subspace_chest'){
-  system.run(()=>home(p).catch(e=>tell(p,`§c상자형 UI 오류: ${String(e)}`)));return;
- }
- if(ev.id==='geumyi:subspace_ui'){
-  const mode=String(ev.message??'').trim().toLowerCase();
-  if(mode!=='ddui'&&mode!=='chest'){tell(p,'§e사용법: /scriptevent geumyi:subspace_ui ddui 또는 chest');return;}
-  p.setDynamicProperty(UI_MODE_PROP,mode);
-  tell(p,mode==='ddui'?'§a아공간 UI: 무깜빡임 DDUI 모드':'§a아공간 UI: 상자형 모드 (클릭 시 화면 재생성)');
- }
-});
-
 world.afterEvents.itemCompleteUse.subscribe(ev=>{
  if(ev.itemStack?.typeId!==ITEM||ev.source?.typeId!=='minecraft:player')return;
  const p=ev.source;
@@ -570,9 +458,7 @@ world.afterEvents.itemCompleteUse.subscribe(ev=>{
    const last=p.getDynamicProperty(LEGACY_POSITION);
    tell(p,`§e이전 실험판 상자 수레는 자동 삭제·이전하지 않았어. 기존 아이템 회수 후 사용해 줘. 이전 위치: ${typeof last==='string'?last:'기록 없음'}`);
   }
-  const mode=p.getDynamicProperty(UI_MODE_PROP)==='chest'?'chest':'ddui';
-  const open=mode==='chest'?home:openDdNoFlicker;
-  open(p).catch(e=>tell(p,`§c아공간 오류: ${String(e)}`));
+  home(p).catch(e=>tell(p,`§c아공간 오류: ${String(e)}`));
  });
 });
 world.afterEvents.playerSpawn.subscribe(ev=>{if(ev.initialSpawn)system.run(()=>{if(ev.player?.isValid&&ev.player.getDynamicProperty(JOURNAL)!==undefined)recover(ev.player);});});
