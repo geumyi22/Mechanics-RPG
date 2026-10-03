@@ -1,0 +1,6 @@
+Chest-style form technique and UI layout adapted from Chest-UI by Herobrine643928 and contributors.
+Original: https://github.com/Herobrine643928/Chest-UI
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+License text: https://creativecommons.org/licenses/by/4.0/legalcode
+Modifications: separate namespaced 27-slot grid for Mechanics RPG Subspace; removed other layouts, inventory illustration, item ID rendering, and unused UI controls; linked existing RPG icons.
+Original Minecraft textures referenced in UI remain supplied by the Minecraft client.
