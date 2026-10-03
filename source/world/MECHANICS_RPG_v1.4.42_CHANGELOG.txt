@@ -1,0 +1,9 @@
+Mechanics RPG v1.4.42 - SUBSPACE VANILLA CHEST GRID BINDING FIX TEST
+
+- v1.4.41 device result: layout rendered, but manual collection_index slots did not receive form_buttons item data.
+- Replaced all manually indexed cells with one real form_buttons grid, matching the binding path that rendered icons successfully in v1.4.37.
+- 9x8 collection grid: 27 Subspace + 9 hidden spacer cells + 27 inventory + 9 hotbar.
+- Visual root remains 176x166 and cells remain 18x18.
+- Subspace capacity remains 27; v3 historical 36-slot save array and safe overflow migration remain.
+- Static checks only; Bedrock device verification still required.
+- Bottom label is fixed to literal Korean "인벤토리" instead of the Bedrock localization that displayed "보관함" on the test device.
