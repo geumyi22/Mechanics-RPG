@@ -102,7 +102,7 @@ if mf.exists():
             if j.get("file_count")!=len(actual):
                 fail(f"SOURCE-MANIFEST file_count mismatch: expected {j.get('file_count')}, actual {len(actual)}")
             if j.get("aggregate_sha256")!=h.hexdigest():
-                fail("SOURCE-MANIFEST aggregate hash mismatch")
+                fail(f"SOURCE-MANIFEST aggregate hash mismatch: expected {j.get('aggregate_sha256')}, actual {h.hexdigest()}")
         else:
             listed={x["path"]:x for x in j["files"]}
             if set(listed)!=set(actual):
