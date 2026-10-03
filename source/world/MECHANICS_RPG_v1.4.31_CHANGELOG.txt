@@ -1,0 +1,1 @@
+v1.4.31: 아공간에 geumyi:sheriff_bullet 및 geumyi:sheriff_bullet_bundle 보관 허용. 다른 강화품 제한과 기존 저장소 보존. UI 실기기 미검증.

@@ -1,41 +1,65 @@
 # Development Handoff
 
-기준일: 2026-09-29
+기준일: 2026-10-03
 
-## 현재 고정 기준
+## 현재 기준
 
-GitHub 초기 구축은 완료 상태입니다.
+### 정식
+- `main`: **v1.4.20**
+- GitHub Release: **v1.4.20**
+- Bedrock release-gate E2E: **PASS**
 
-- `main`: v1.4.20 기준 source + 검증 인프라
-- `dev`: 다음 개발 통합 브랜치
-- source baseline: `source/world/`
-- source manifest: `SOURCE-MANIFEST.json`
-- 현재 baseline 파일 수: 257
-- CI: source/static/package 검증
-- Release: tag/manifest version 일치 검사 후 package/checksum/release
-- Bedrock E2E: 아직 미실행
+### 개발
+- 최신 source snapshot: **v1.4.46 SUBSPACE_NATIVE_STORAGE_PROOF_TEST**
+- source files: **304**
+- Static: **PASS (local artifact/source)**
+- Bedrock v1.4.46 native proof: **NOT RUN**
+- `main` 승격/Release: **금지 상태**
 
-현재 게임 소스는 **v1.4.20 기준으로 동결**합니다. 신규 아이디어/밸런스/스킬 수정은 별도 개발 단계가 시작되기 전까지 진행하지 않습니다.
+## 아공간 핵심 상태
 
-## 다음 개발부터 적용할 기본 흐름
+- 활성 목표 용량: 27칸
+- v3 역사 저장 배열은 36칸 유지
+- `geumyi:subspace_v3_head`
+- `geumyi:subspace_v3_stage`
+- `geumyi:subspace_v3_journal`
+- 위 키는 임의 삭제/초기화 금지
+- v1.4.44 DDUI 무깜빡임은 실제 기기에서 확인
+- v1.4.43 상자형 UI는 실제 기기에서 확인했으나 ActionForm 재오픈 깜빡임 존재
+- v1.4.46 native storage test는 기존 v3 저장과 **격리**
 
-1. 아이디어/버그 요구사항 확정
-2. 관련 Issue 확인 또는 생성
-3. `dev`에서 기능 브랜치 생성
-4. source 수정
-5. BP/RP/world version 정합성 확인
-6. CHANGELOG / VERSION-MATRIX / 관련 문서 갱신
-7. `python tools/validate.py`
-8. `python tools/package.py`
-9. `python tools/verify_package.py`
-10. GitHub push + CI
-11. 검토 후 `dev` 통합
-12. 실제 Bedrock E2E
-13. 검증된 버전만 `main` 및 tag/Release
+상세: [docs/SUBSPACE-DEVELOPMENT.md](docs/SUBSPACE-DEVELOPMENT.md)
 
-## 중요 경계
+## 다음 작업자가 해야 할 순서
 
-- CI PASS ≠ Bedrock E2E PASS
-- 실제 실행하지 않은 기능은 정상 작동으로 단정하지 않음
-- 사신 대낫 등 기존 승인 기준은 요청 없이 변경하지 않음
-- 새 버전이 만들어지면 게임 파일과 GitHub 문서/버전/소스를 같은 작업에서 함께 갱신
+1. v1.4.46 CI Static 결과 확인
+2. GitHub-generated package artifact 사용
+3. 실제 Bedrock에서 native storage proof 테스트
+4. 재접속/월드 재시작 저장 확인
+5. 기존 v3 아공간 불변 확인
+6. Sheriff/Reaper/quest/shop 회귀
+7. 실패하면 rollback 문서에 따라 v1.4.45로 복귀
+8. 모든 gate 통과 후에만 `main`/tag/Release
+
+## 금지
+
+- E2E 없이 “완성/정상 작동” 선언
+- 기존 v3 저장 키 삭제
+- 승인된 Reaper 1인칭 대낫 임의 변경
+- Sheriff/다른 RPG 시스템을 아공간 작업 때문에 재작성
+- dev snapshot을 검증 없이 main/tag/Release로 올리기
+
+## 기본 흐름
+
+1. 요구사항 확정
+2. feature/fix branch
+3. source 수정
+4. version/linkage 정합성
+5. CHANGELOG / VERSION-MATRIX / 문서
+6. `python tools/validate.py`
+7. `python tools/package.py`
+8. `python tools/verify_package.py`
+9. CI
+10. dev 통합
+11. Bedrock E2E
+12. 검증 버전만 main/tag/Release

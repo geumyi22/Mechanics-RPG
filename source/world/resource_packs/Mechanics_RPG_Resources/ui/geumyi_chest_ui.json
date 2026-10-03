@@ -1,0 +1,389 @@
+{
+  "namespace": "geumyi_chest",
+  "chest_panel": {
+    "type": "panel",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "controls": [
+      {
+        "root": {
+          "type": "panel",
+          "size": [
+            196,
+            185
+          ],
+          "anchor_from": "center_middle",
+          "anchor_to": "center_middle",
+          "layer": 1,
+          "controls": [
+            {
+              "bg@common.dialog_background_opaque": {
+                "size": [
+                  196,
+                  185
+                ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left"
+              }
+            },
+            {
+              "subspace_label@common.section_heading_label": {
+                "offset": [
+                  8,
+                  5
+                ],
+                "size": [
+                  180,
+                  11
+                ],
+                "text": "아공간",
+                "localize": false
+              }
+            },
+            {
+              "inventory_label@common.section_heading_label": {
+                "offset": [
+                  8,
+                  81
+                ],
+                "size": [
+                  180,
+                  11
+                ],
+                "text": "인벤토리",
+                "localize": false
+              }
+            },
+            {
+              "close@common.close_button": {}
+            },
+            {
+              "grid": {
+                "type": "grid",
+                "size": [
+                  180,
+                  160
+                ],
+                "offset": [
+                  8,
+                  19
+                ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "grid_dimensions": [
+                  9,
+                  8
+                ],
+                "grid_item_template": "geumyi_chest.inventory_item_panel",
+                "collection_name": "form_buttons",
+                "layer": 2
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "inventory_item_panel": {
+    "type": "panel",
+    "size": [
+      20,
+      20
+    ],
+    "layer": 1,
+    "controls": [
+      {
+        "item@geumyi_chest.slot_button": {}
+      }
+    ]
+  },
+  "slot_button@common.button": {
+    "$pressed_button_name": "button.form_button_click",
+    "bindings": [
+      {
+        "binding_name": "#null",
+        "binding_type": "collection",
+        "binding_condition": "none",
+        "binding_collection_name": "form_buttons"
+      },
+      {
+        "binding_name": "#null",
+        "binding_type": "collection_details",
+        "binding_collection_name": "form_buttons"
+      },
+      {
+        "binding_name": "#form_button_text",
+        "binding_type": "collection",
+        "binding_collection_name": "form_buttons"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not (#form_button_text = ''))",
+        "target_property_name": "#visible"
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "pressed_control": "pressed",
+    "controls": [
+      {
+        "default@geumyi_chest.slot_default": {}
+      },
+      {
+        "hover@geumyi_chest.slot_hover": {}
+      },
+      {
+        "pressed@geumyi_chest.slot_pressed": {}
+      }
+    ],
+    "size": [
+      20,
+      20
+    ]
+  },
+  "slot_background": {
+    "type": "panel",
+    "size": [
+      20,
+      20
+    ],
+    "controls": [
+      {
+        "bg@common.cell_image": {
+          "size": [
+            20,
+            20
+          ]
+        }
+      }
+    ]
+  },
+  "texture_item": {
+    "type": "image",
+    "size": [
+      18,
+      18
+    ],
+    "layer": 4,
+    "anchor_from": "center_middle",
+    "anchor_to": "center_middle",
+    "bindings": [
+      {
+        "binding_name": "#form_button_texture",
+        "binding_name_override": "#texture",
+        "binding_type": "collection",
+        "binding_collection_name": "form_buttons"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not ((#texture = '') or (#texture = 'loading')))",
+        "target_property_name": "#visible"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(('%.8s' * #texture) = 'textures')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "native_item": {
+    "type": "panel",
+    "size": [
+      20,
+      20
+    ],
+    "anchor_from": "center_middle",
+    "anchor_to": "center_middle",
+    "controls": [
+      {
+        "render@beacon.item_renderer": {
+          "size": [
+            18,
+            18
+          ],
+          "anchor_from": "center_middle",
+          "anchor_to": "center_middle",
+          "layer": 4,
+          "bindings": [
+            {
+              "binding_name": "#form_button_texture",
+              "binding_name_override": "#native_texture",
+              "binding_type": "collection",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(not (('%.8s' * #native_texture) = 'textures'))",
+              "target_property_name": "#visible"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(not ((#native_texture = '') or (#native_texture = 'loading')))",
+              "target_property_name": "#visible"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "((#native_texture - (#native_texture % 65536)) / 65536)",
+              "target_property_name": "#item_id_aux"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "slot_default": {
+    "type": "panel",
+    "size": [
+      20,
+      20
+    ],
+    "controls": [
+      {
+        "bg@geumyi_chest.slot_background": {}
+      },
+      {
+        "icon@geumyi_chest.texture_item": {}
+      },
+      {
+        "native@geumyi_chest.native_item": {}
+      },
+      {
+        "count@geumyi_chest.stack_count": {}
+      }
+    ]
+  },
+  "slot_hover": {
+    "type": "panel",
+    "size": [
+      20,
+      20
+    ],
+    "controls": [
+      {
+        "bg@geumyi_chest.slot_background": {}
+      },
+      {
+        "icon@geumyi_chest.texture_item": {}
+      },
+      {
+        "native@geumyi_chest.native_item": {}
+      },
+      {
+        "count@geumyi_chest.stack_count": {}
+      },
+      {
+        "highlight@common.highlight_slot": {
+          "layer": 5
+        }
+      },
+      {
+        "tooltip@geumyi_chest.item_details": {}
+      }
+    ]
+  },
+  "slot_pressed": {
+    "type": "panel",
+    "size": [
+      20,
+      20
+    ],
+    "controls": [
+      {
+        "bg@geumyi_chest.slot_background": {}
+      },
+      {
+        "icon@geumyi_chest.texture_item": {}
+      },
+      {
+        "native@geumyi_chest.native_item": {}
+      },
+      {
+        "count@geumyi_chest.stack_count": {}
+      },
+      {
+        "outline@common.white_border_slot": {
+          "layer": 5
+        }
+      }
+    ]
+  },
+  "item_details": {
+    "type": "custom",
+    "renderer": "hover_text_renderer",
+    "allow_clipping": false,
+    "layer": 30,
+    "bindings": [
+      {
+        "binding_name": "#form_button_text",
+        "binding_type": "collection",
+        "binding_collection_name": "form_buttons"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#form_button_text - ('%.14s' * #form_button_text))",
+        "target_property_name": "#hover_text"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "form_buttons"
+      }
+    ]
+  },
+  "stack_count": {
+    "type": "panel",
+    "size": [
+      20,
+      20
+    ],
+    "controls": [
+      {
+        "item_amount": {
+          "type": "label",
+          "offset": [
+            0,
+            1
+          ],
+          "shadow": true,
+          "text_alignment": "left",
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right",
+          "color": "$tool_tip_text",
+          "layer": 7,
+          "text": "#stack_size",
+          "bindings": [
+            {
+              "binding_name": "#null",
+              "binding_type": "collection",
+              "binding_condition": "none",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_name": "#null",
+              "binding_type": "collection_details",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_name": "#form_button_text",
+              "binding_type": "collection",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_name": "#null",
+              "binding_type": "view",
+              "source_property_name": "((#form_button_text - 'stack#01') = #form_button_text)",
+              "target_property_name": "#visible"
+            },
+            {
+              "binding_name": "#null",
+              "binding_type": "view",
+              "source_property_name": "(('§z') + (('%.8s' * #form_button_text) - ('%.6s' * #form_button_text)))",
+              "target_property_name": "#stack_size"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

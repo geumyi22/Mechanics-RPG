@@ -1,0 +1,9 @@
+Mechanics RPG v1.4.28 — 27-slot chest-style UI TEST
+- New RP JSON UI 9x3 grid for Subspace home only; no physical entity.
+- Select empty slot -> choose player inventory item; select filled slot -> confirm withdrawal.
+- 27 slots stored via existing player dynamic properties; no schema change or migration.
+- Shift+use retains legacy v1 storage access. Old v1.4.25 cart is not deleted.
+- Form fallback: if grid RP does not load, the 27 form buttons remain available in vertical ActionForm form.
+- Caveats: UI only, no native vanilla drag/drop, no runtime E2E verification. Current vault only accepts plain, unmodified Minecraft items.
+- Rollback: install the v1.4.27 pack; data remains in geumyi:subspace_v3* properties. Preserve world backup.
+- Third-party Chest-UI attribution in THIRD_PARTY_NOTICES.txt.

@@ -1,81 +1,66 @@
 # Project Status
 
-기준일: 2026-09-29
+기준일: 2026-10-03
 
-## GitHub bootstrap
+## 정식 기준
 
-**상태: 완료 / handoff ready**
+**main / latest Release: v1.4.20 — Bedrock release-gate E2E PASS**
 
 - Repository: `geumyi22/Mechanics-RPG`
-- Visibility: Public
 - Default branch: `main`
-- Development branch: `dev`
-- v1.4.20 source baseline: main import 완료
-- CI: 실제 source 기준 PASS
-- deterministic package / verify: 완료
-- Release workflow: tag ↔ manifest version guard 포함
-- Issue / PR templates: 구성 완료
-- Handoff / development / rollback 문서: 구성 완료
-- First GitHub Release: **v1.4.20 published**
-
-## v1.4.20 verification
-
-```text
-Files: 257
-JSON: 84 PASS
-JavaScript: 7 PASS (GitHub Actions Node 22)
-Item texture entries: 52 PASS
-Particle JSON: 3 PASS
-PNG: 93 PASS
-SOURCE-MANIFEST: 257 PASS
-ZIP CRC: PASS
-Re-extracted file hashes: 257/257 MATCH
-Generated .zip/.mcworld: BYTE-IDENTICAL
-Bedrock release-gate E2E: PASS
-Release workflow: PASS
-GitHub Release: PUBLISHED
-```
-
-Source import:
-- PR #6
-- main merge: `8cb172412c92033b970d5aa0ab378af33a02469d`
-- Issue #1: closed
-
-GitHub bootstrap finalization:
-- PR #7
-- main commit used for v1.4.20 release: `69b742384fb28a14680b087000f0b76563cb38d0`
-
-Release:
-- tag: `v1.4.20`
-- Release workflow run: #1
-- Release URL: https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.20
+- Development integration: `dev`
+- v1.4.20 GitHub Release: published
 - release asset SHA-256: `a4d099cb419cdda1da68ed734406a7a2885a6c72565ba10e6d2d9741fe0ced70`
 
-## Bedrock E2E
+정식 기준선은 개발 스냅샷과 분리합니다.
 
-실제 Bedrock에서 8개 핵심 release-gate 항목을 사용자 확인으로 PASS 처리했습니다.
+## 현재 개발 스냅샷
 
-- import / world open
-- BP/RP / startup Script error
-- class/level test access
-- Sheriff revolver
-- Sheriff Dead Eye / purple VFX
-- Reaper first-person scythe preservation
-- quest/shop villager UI
-- save/re-enter
+**v1.4.46 SUBSPACE_NATIVE_STORAGE_PROOF_TEST**
 
-Issue #5는 이 **v1.4.20 release-gate E2E** 기준으로 완료 처리했습니다.
+목표:
+- 기존 ActionForm 상자형 UI의 닫힘→재오픈 깜빡임을 피할 수 있는 네이티브 storage item 방식 검증
+- 기존 `geumyi:subspace`와 v3 저장 데이터는 변경하지 않고 별도 `geumyi:subspace_native_test` 아이템으로 격리 테스트
 
-## Development backlog
+Local static validation:
 
-다음 항목은 **기록만 유지하고 현재 작업에서는 진행하지 않습니다.**
+```text
+Files: 304
+JSON: 93 PASS
+JavaScript: 10 PASS
+Item texture entries: 57 PASS
+Particle JSON: 3 PASS
+PNG: 105 PASS
+BP/RP/world linkage: PASS
+SOURCE-MANIFEST aggregate: 304 files
+ZIP CRC / re-extracted file hashes: PASS
+ZIP / MCWORLD: BYTE-IDENTICAL
+Bedrock v1.4.46 native proof: NOT RUN
+```
 
-- #2 bounty target marker
-- #3 Dead Eye homing bullets
-- #4 sheriff ammo UX
+## 아공간 device evidence
 
-## Boundary
+- **v1.4.37 partial PASS**: 본체 native renderer 표시 성공, 넣기 ActionForm 아이콘 실패
+- **v1.4.40 FAIL**: 72-button fake combined UI 실패
+- **v1.4.41 partial PASS**: 외형 성공, 실제 inventory binding 실패
+- **v1.4.42 PASS 범위**: 9×3 아공간 + 실제 inventory/hotbar item rendering
+- **v1.4.43 PASS 범위**: 확대 상자 UI + 스택 수량, 단 ActionForm 깜빡임
+- **v1.4.44 PASS 범위**: DDUI에서 조약돌 ×64 넣기/빼기 무깜빡임
+- **v1.4.45 NOT FULL E2E**: 두 UI 모드 공존
+- **v1.4.46 NOT RUN**: native storage proof
 
-v1.4.20은 release-gate E2E를 통과한 첫 GitHub Release입니다. 이는 모든 직업/멀티플레이/역사적 조합에 대한 exhaustive regression을 의미하지 않습니다.
+PASS는 각 항목에 한정하며 전체 RPG 회귀 PASS를 뜻하지 않습니다.
 
-다음 개발이 시작되면 한 버전 작업 안에서 source + CHANGELOG + VERSION-MATRIX + CI + package + E2E + Release를 함께 갱신합니다.
+## Release blocker
+
+v1.4.46 또는 이후 버전을 `main`/tag/Release로 올리기 전:
+
+1. native storage proof 실기기 동작 확인
+2. 재접속/월드 재시작 후 저장 유지 확인
+3. 기존 v3 아공간 저장 영향 없음 확인
+4. Sheriff 회귀
+5. Reaper 승인된 1인칭 대낫 보존 확인
+6. quest/shop/NPC 회귀
+7. package artifact 자체로 Bedrock release-gate E2E
+
+상세 아공간 이력: [docs/SUBSPACE-DEVELOPMENT.md](docs/SUBSPACE-DEVELOPMENT.md)
