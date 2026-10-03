@@ -96,37 +96,14 @@ if mf.exists():
                 rows.append((rel,len(b),hashlib.sha256(b).hexdigest()))
             h=hashlib.sha256()
             for rel,size,sha in rows:
-                h.update(rel.encode("utf-8")); h.update(b"\\0")
-                h.update(str(size).encode("ascii")); h.update(b"\\0")
-                h.update(sha.encode("ascii")); h.update(b"\\n")
+                h.update(rel.encode("utf-8")); h.update(bytes([0]))
+                h.update(str(size).encode("ascii")); h.update(bytes([0]))
+                h.update(sha.encode("ascii")); h.update(bytes([10]))
             if j.get("file_count")!=len(actual):
                 fail(f"SOURCE-MANIFEST file_count mismatch: expected {j.get('file_count')}, actual {len(actual)}")
             if j.get("aggregate_sha256")!=h.hexdigest():
                 fail(f"SOURCE-MANIFEST aggregate hash mismatch: expected {j.get('aggregate_sha256')}, actual {h.hexdigest()}")
-                # Diagnose checkout filters / EOL conversions by comparing working-tree bytes
-                # against the exact Git blobs recorded in HEAD.
-                try:
-                    tree = subprocess.run(
-                        ["git", "ls-tree", "-r", "HEAD", "source/world"],
-                        cwd=ROOT, capture_output=True, text=True, check=True
-                    ).stdout.splitlines()
-                    expected_git = {}
-                    for line in tree:
-                        meta, repo_path = line.split("\t", 1)
-                        parts = meta.split()
-                        if len(parts) >= 3 and parts[1] == "blob":
-                            expected_git[repo_path.removeprefix("source/world/")] = parts[2]
-                    filtered = []
-                    for rel,p in sorted(actual.items()):
-                        b=p.read_bytes()
-                        raw = hashlib.sha1(b"blob " + str(len(b)).encode("ascii") + bytes([0]) + b).hexdigest()
-                        if expected_git.get(rel) != raw:
-                            filtered.append((rel, expected_git.get(rel), raw))
-                    if filtered:
-                        print("[DIAG] working-tree bytes differ from Git blob bytes:", file=sys.stderr)
-                        for rel,exp,raw in filtered[:50]:
-                            print(f"[DIAG] {rel}: git={exp} worktree={raw}", file=sys.stderr)
-                    else:
+        else:
                         print("[DIAG] no checkout-filter byte differences detected", file=sys.stderr)
                 except Exception as e:
                     print(f"[DIAG] checkout-filter diagnostic failed: {e}", file=sys.stderr)
