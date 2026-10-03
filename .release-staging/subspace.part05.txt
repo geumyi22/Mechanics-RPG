@@ -1,0 +1,126 @@
+// If resource-pack UI overrides conflict or fail, the 72 buttons still
+// function as an ordinary ActionFormData (safe visual fallback).
+const CHEST_MARKER='§c§h§e§s§t§7§2§r';
+function firstEmptyInventorySlot(c){
+ for(let i=0;i<c.size;i++)if(!c.getItem(i))return i;
+ return -1;
+}
+function overflowCount(a){
+ let n=0;for(let i=ACTIVE_COUNT;i<COUNT;i++)if(a.slots[i])n++;return n;
+}
+function freeInventoryCount(c){
+ let n=0;for(let i=0;i<c.size;i++)if(!c.getItem(i))n++;return n;
+}
+function migrate36to27(p){
+ // Capacity is now 27, but v3 keeps the historical 36-slot array on disk so no old save is truncated.
+ // Any old items in slots 28..36 are journaled back into empty player inventory slots before the new UI opens.
+ let a=current(p),c=inv(p);if(!c)return false;
+ const need=overflowCount(a);if(need===0)return true;
+ const free=freeInventoryCount(c);
+ if(free<need){
+  tell(p,`§e아공간이 27칸으로 변경됐어. 기존 28~36번 칸의 아이템 ${need}묶음은 그대로 보존 중이야. 인벤토리 빈칸을 ${need-free}칸 더 만든 뒤 다시 열어 줘.`);
+  return false;
+ }
+ let moved=0;
+ for(let i=ACTIVE_COUNT;i<COUNT;i++){
+  a=current(p);const item=a.slots[i];if(!item)continue;
+  c=inv(p);if(!c)return false;
+  const dest=firstEmptyInventorySlot(c);if(dest<0)return false;
+  const out=transact(p,'take',i,dest,a.rev,item);
+  if(!out.ok){tell(p,`§c27칸 전환 중 ${i+1}번 칸을 안전하게 옮기지 못했어: ${out.reason}`);return false;}
+  moved++;
+ }
+ if(moved)tell(p,`§a기존 28~36번 칸의 아이템 ${moved}묶음을 인벤토리로 안전하게 옮겼어.`);
+ return true;
+}
+async function home(p){
+ if(!p.isValid||!recover(p)||!migrate36to27(p))return;
+ while(p.isValid){
+  const a=current(p),c=inv(p);if(!c)return;
+  const invOrder=[];
+  // Match the vanilla chest layout: main inventory slots 9..35, then hotbar 0..8.
+  for(let i=9;i<Math.min(36,c.size);i++)invOrder.push(i);
+  for(let i=0;i<Math.min(9,c.size);i++)invOrder.push(i);
+  const shown=[],storable=[];
+  // 72 buttons exactly: 27 Subspace + 9 hidden spacer cells + 27 main inventory + 9 hotbar.
+  const f=new ActionFormData().title(CHEST_MARKER);
+  for(let i=0;i<ACTIVE_COUNT;i++){
+   const item=a.slots[i];
+   const prefix=`stack#${String(item?.n??1).padStart(2,'0')}dur#00§r`;
+   const labelText=item
+    ?{rawtext:[{text:prefix},displayNameRaw(item.id),{text:` ×${item.n}`}]}
+    :`${prefix}빈 칸`;
+   f.button(labelText,gridIcon(item));
+  }
+  // The grid consumes these 9 collection entries as a visual gap row. Empty text makes their slot buttons invisible.
+  for(let i=0;i<9;i++)f.button('', 'textures/ui/geumyi_subspace_empty');
+  for(let b=0;b<invOrder.length;b++){
+   const source=invOrder[b],it=c.getItem(source),item=it?rec(it):null;
+   shown[b]=item;storable[b]=isPlain(it);
+   const prefix=`stack#${String(item?.n??1).padStart(2,'0')}dur#00§r`;
+   const labelText=item
+    ?{rawtext:[{text:prefix},displayNameRaw(item.id),{text:` ×${item.n}${storable[b]?'':' §c(보관 불가)'}`}]}
+    :`${prefix}빈 칸`;
+   f.button(labelText,item?gridIcon(item):'textures/ui/geumyi_subspace_empty');
+  }
+  const r=await f.show(p);if(!p.isValid||r.canceled)return;
+  if(!Number.isInteger(r.selection)||r.selection<0||r.selection>=ACTIVE_COUNT+9+invOrder.length)return;
+
+  // Top 9x3: take the selected Subspace stack to the first empty inventory slot.
+  if(r.selection<ACTIVE_COUNT){
+   const source=r.selection,item=a.slots[source];
+   if(!item){tell(p,'§7빈 아공간 칸이야.');continue;}
+   const latest=current(p);
+   if(latest.rev!==a.rev||!same(latest.slots[source],item)){
+    tell(p,'§e아공간 상태가 바뀌었어. 화면을 새로 불러올게.');continue;
+   }
+   const dest=firstEmptyInventorySlot(c);
+   if(dest<0){tell(p,'§c인벤토리에 빈 칸이 필요해.');continue;}
+   const out=transact(p,'take',source,dest,latest.rev,item);
+   if(!out.ok){
+    tell(p,`§c꺼내기 실패: ${out.reason}`);
+    if(p.getDynamicProperty(JOURNAL)!==undefined)return;
+   }
+   // ActionFormData closes after a click; immediately continue so the refreshed chest is rebuilt with no intentional delay.
+   continue;
+  }
+
+  // Hidden spacer row between Subspace and inventory. It should not be clickable; ignore safely if selected.
+  if(r.selection<ACTIVE_COUNT+9)continue;
+
+  // Bottom vanilla inventory/hotbar: put one whole stack into the first empty 27-slot Subspace cell.
+  const button=r.selection-ACTIVE_COUNT-9,source=invOrder[button],snapshot=shown[button];
+  if(!snapshot){tell(p,'§7빈 인벤토리 칸이야.');continue;}
+  const selected=c.getItem(source);
+  if(!selected||!same(rec(selected),snapshot)){
+   tell(p,'§e인벤토리 상태가 바뀌었어. 화면을 새로 불러올게.');continue;
+  }
+  if(!storable[button]||!isPlain(selected)){
+   tell(p,storageRejectMessage(selected));continue;
+  }
+  const latest=current(p);
+  if(latest.rev!==a.rev){tell(p,'§e아공간 상태가 바뀌었어. 화면을 새로 불러올게.');continue;}
+  let dest=-1;for(let i=0;i<ACTIVE_COUNT;i++){if(latest.slots[i]===null){dest=i;break;}}
+  if(dest<0){tell(p,'§c아공간 27칸이 모두 차 있어.');continue;}
+  const out=transact(p,'put',source,dest,latest.rev,snapshot);
+  if(!out.ok){
+   tell(p,`§c보관 실패: ${out.reason}`);
+   if(p.getDynamicProperty(JOURNAL)!==undefined)return;
+  }
+  // Re-enter the loop immediately; there is no system.run/system.runTimeout delay between forms.
+ }
+}
+world.afterEvents.itemCompleteUse.subscribe(ev=>{
+ if(ev.itemStack?.typeId!==ITEM||ev.source?.typeId!=='minecraft:player')return;
+ const p=ev.source;
+ system.run(()=>{
+  if(!p.isValid)return;
+  if(p.isSneaking){openLegacySubspace(p).catch(e=>tell(p,`§c이전 저장소 오류: ${String(e)}`));return;}
+  if(p.getDynamicProperty(LEGACY_CART)!==undefined){
+   const last=p.getDynamicProperty(LEGACY_POSITION);
+   tell(p,`§e이전 실험판 상자 수레는 자동 삭제·이전하지 않았어. 기존 아이템 회수 후 사용해 줘. 이전 위치: ${typeof last==='string'?last:'기록 없음'}`);
+  }
+  home(p).catch(e=>tell(p,`§c아공간 오류: ${String(e)}`));
+ });
+});
+world.afterEvents.playerSpawn.subscribe(ev=>{if(ev.initialSpawn)system.run(()=>{if(ev.player?.isValid&&ev.player.getDynamicProperty(JOURNAL)!==undefined)recover(ev.player);});});

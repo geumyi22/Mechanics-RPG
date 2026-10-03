@@ -1,0 +1,133 @@
+function decodeNativeRenderData(){
+ const alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+ const bytes=[];let buffer=0,bits=0;
+ for(const ch of VANILLA_RENDER_DATA){
+  if(ch==='=')break;
+  const v=alphabet.indexOf(ch);if(v<0)continue;
+  buffer=(buffer<<6)|v;bits+=6;
+  if(bits>=8){bits-=8;bytes.push((buffer>>bits)&255);buffer&=bits?((1<<bits)-1):0;}
+ }
+ let i=0,hash=0;const out=new Map();
+ const readVar=()=>{let v=0,shift=0;while(i<bytes.length){const b=bytes[i++];v|=(b&127)<<shift;if((b&128)===0)return v>>>0;shift+=7;if(shift>28)throw Error('아공간 아이템 렌더러 데이터 손상');}throw Error('아공간 아이템 렌더러 데이터 손상');};
+ while(i<bytes.length){hash=(hash+readVar())>>>0;const zz=readVar();const raw=(zz>>>1)^-(zz&1);out.set(hash,raw);}
+ return out;
+}
+const VANILLA_RENDER_ID=decodeNativeRenderData();
+function vanillaRenderHash(name){
+ let h=0x811c9dc5>>>0;
+ for(let i=0;i<name.length;i++){h^=name.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;}
+ h^=h>>>16;h=Math.imul(h,0x7feb352d)>>>0;h^=h>>>15;
+ return h&0xffffff;
+}
+function gridIcon(item){
+ if(!item)return 'textures/ui/geumyi_subspace_empty';
+ if(item.id.startsWith('minecraft:')){
+  const nativeId=VANILLA_RENDER_ID.get(vanillaRenderHash(typeName(item.id)));
+  if(Number.isInteger(nativeId))return String(nativeId*65536);
+ }
+ return itemTexture(item.id);
+}
+const tell=(p,s)=>{try{p.sendMessage(s);}catch{}};
+const inv=p=>p.getComponent('minecraft:inventory')?.container;
+const empty=()=>({v:3,rev:0,slots:Array(COUNT).fill(null)});
+const encode=obj=>JSON.stringify(obj);
+const parse=s=>{if(typeof s!=='string')return undefined;try{return JSON.parse(s);}catch{return undefined;}};
+function valid(a){return a&&a.v===3&&Number.isSafeInteger(a.rev)&&a.rev>=0&&Array.isArray(a.slots)&&(a.slots.length===27||a.slots.length===COUNT)&&a.slots.every(x=>x===null||(x&&typeof x.id==='string'&&supportedId(x.id)&&Number.isInteger(x.n)&&x.n>=1&&x.n<=64));}
+function current(p){const raw=p.getDynamicProperty(HEAD);if(raw===undefined)return empty();const a=parse(raw);if(!valid(a))throw Error('창고 데이터 검증 실패: 수정 금지');if(a.slots.length===27)a.slots=a.slots.concat(Array(9).fill(null));return a;}
+function isPlain(it){
+ if(!it||it.amount<1||it.amount>64||!supportedId(it.typeId))return false;
+ // RPG weapons/skill items are intentionally blocked because v3 stores only id + amount.
+ // Sheriff ammunition is a plain stack and remains allowed.
+ if(it.typeId.startsWith('geumyi:')&&!CUSTOM_STACKS.has(it.typeId))return false;
+ if(!CUSTOM_STACKS.has(it.typeId)&&/shulker|bundle|potion|stew|spawn_egg|banner|map|book|firework|tipped|ominous|goat_horn|suspicious|knowledge|command_block|structure|debug|trial_key|vault|music_disc|enchanted_book/.test(it.typeId))return false;
+ if(it.nameTag||it.getLore?.()?.length||it.keepOnDeath)return false;
+ try{if(it.getDynamicPropertyIds?.()?.length)return false;}catch{return false;}
+ try{if(it.getComponent('minecraft:enchantable')?.getEnchantments?.()?.length)return false;}catch{return false;}
+ try{if(it.getComponent('minecraft:durability'))return false;}catch{return false;}
+ try{const lm=it.lockMode;if(lm!==undefined&&lm!=='none'&&lm!==0)return false;}catch{return false;}
+ return true;
+}
+function storageRejectMessage(it){
+ const id=String(it?.typeId||'');
+ if(/shulker|bundle/.test(id))return '§5아공간이 셜커를 거부합니다.';
+ if(id.startsWith('geumyi:')&&!CUSTOM_STACKS.has(id))return '§5아공간이 그 힘을 버티지 못합니다.';
+ try{if(it?.getComponent('minecraft:durability'))return '§5아공간이 그 힘을 버티지 못합니다.';}catch{}
+ try{if(it?.getComponent('minecraft:enchantable')?.getEnchantments?.()?.length)return '§5아공간이 그 힘을 버티지 못합니다.';}catch{}
+ if(it?.nameTag||it?.getLore?.()?.length)return '§5아공간이 그 힘을 버티지 못합니다.';
+ try{if(it?.getDynamicPropertyIds?.()?.length)return '§5아공간이 그 힘을 버티지 못합니다.';}catch{}
+ return '§e이 아이템은 특수 데이터 손상 방지를 위해 보관할 수 없습니다.';
+}
+const rec=it=>({id:it.typeId,n:it.amount});
+const same=(a,b)=>!!a&&!!b&&a.id===b.id&&a.n===b.n;
+const slotRecord=(c,i)=>{const it=c?.getItem(i);return it?rec(it):null;};
+const label=a=>a?`${displayName(a.id)} ×${a.n}`:'빈 칸';
+const icon=a=>a?itemTexture(a.id):'textures/ui/geumyi_subspace_empty';
+function transact(p,kind,from,to,expectedRev,expected){
+ if(locks.has(p.id))return {ok:false,reason:'현재 다른 작업을 처리하는 중이야.'};
+ locks.add(p.id);
+ try{
+  if(p.getDynamicProperty(JOURNAL)!==undefined)return {ok:false,reason:'미완료 입출금 기록이 있어. 재접속 후 복구 상태를 확인해 줘.'};
+  const a=current(p),c=inv(p);
+  if(!c||a.rev!==expectedRev)return {ok:false,reason:'화면이 오래됐어. 다시 열어 줘.'};
+  const b={v:3,rev:a.rev+1,slots:a.slots.map(x=>x?{...x}:null)};
+  let tx;
+  if(kind==='put'){
+   const it=c.getItem(from);
+   if(!isPlain(it)||!same(rec(it),expected))return {ok:false,reason:'아이템이 바뀌었거나 보관할 수 없는 아이템이야.'};
+   if(b.slots[to]!==null)return {ok:false,reason:'창고의 선택한 칸이 이미 사용 중이야.'};
+   b.slots[to]=rec(it);
+   tx={v:1,kind,from,to,old:a.rev,next:b.rev,item:rec(it)};
+  } else {
+   const saved=b.slots[from];
+   if(!same(saved,expected)||c.getItem(to))return {ok:false,reason:'창고나 인벤토리 상태가 바뀌었어.'};
+   // Decoding is checked before any inventory/storage mutation.
+   const candidate=new ItemStack(saved.id,saved.n);
+   if(!isPlain(candidate))return {ok:false,reason:'이 아이템은 현재 복원할 수 없어.'};
+   b.slots[from]=null;
+   tx={v:1,kind,from,to,old:a.rev,next:b.rev,item:{...saved}};
+  }
+  // Keep a durable intent + staged next revision before touching either inventory.
+  p.setDynamicProperty(JOURNAL,encode(tx));
+  p.setDynamicProperty(STAGE,encode(b));
+  if(encode(parse(p.getDynamicProperty(STAGE)))!==encode(b))throw Error('새 저장 데이터 재검증 실패');
+  // No awaits or callbacks between player inventory mutation and head update.
+  if(kind==='put'){
+   const now=c.getItem(from);
+   if(!isPlain(now)||!same(rec(now),tx.item))throw Error('아이템 변경 감지: 안전 잠금');
+   c.setItem(from,undefined);
+  }else{
+   if(c.getItem(to)!==undefined)throw Error('인벤토리 목적지 변경: 안전 잠금');
+   c.setItem(to,new ItemStack(tx.item.id,tx.item.n));
+  }
+  p.setDynamicProperty(HEAD,encode(b));
+  p.setDynamicProperty(JOURNAL,undefined);
+  p.setDynamicProperty(STAGE,undefined);
+  return {ok:true};
+ }catch(e){return {ok:false,reason:`저장 처리 중 오류: ${String(e)}. 복구 확인 전 추가 작업 차단.`};}
+ finally{locks.delete(p.id);}
+}
+function recover(p){
+ const tx=parse(p.getDynamicProperty(JOURNAL));
+ if(!tx)return p.getDynamicProperty(JOURNAL)===undefined?true:(tell(p,'§c아공간 작업 기록이 손상됐어. 창고 접근을 차단했어.'),false);
+ try{
+  const a=current(p),b=parse(p.getDynamicProperty(STAGE)),c=inv(p);
+  if(!c||!valid(b)||tx.v!==1||b.rev!==tx.next||tx.next!==tx.old+1||!['put','take'].includes(tx.kind))throw Error('복구 데이터 불일치');
+  const cell=slotRecord(c,tx.kind==='put'?tx.from:tx.to);
+  const before=tx.kind==='put'?same(cell,tx.item):cell===null;
+  const after=tx.kind==='put'?cell===null:same(cell,tx.item);
+  if(a.rev===tx.next&&after){
+   p.setDynamicProperty(JOURNAL,undefined);p.setDynamicProperty(STAGE,undefined);tell(p,'§a아공간의 완료된 작업 기록을 정리했어.');return true;
+  }
+  if(a.rev===tx.old&&before){
+   p.setDynamicProperty(JOURNAL,undefined);p.setDynamicProperty(STAGE,undefined);tell(p,'§e완료되지 않은 아공간 작업을 취소했어.');return true;
+  }
+  if(a.rev===tx.old&&after){
+   p.setDynamicProperty(HEAD,encode(b));
+   p.setDynamicProperty(JOURNAL,undefined);p.setDynamicProperty(STAGE,undefined);
+   tell(p,'§a중단된 아공간 작업을 저장 기록과 대조하여 완료했어.');return true;
+  }
+  throw Error('인벤토리와 보관 데이터가 서로 맞지 않음');
+ }catch(e){tell(p,`§c아공간 보호 잠금: ${String(e)}. 월드 백업을 보존하고 관리자에게 알려 줘.`);return false;}
+}
+// Chest-styled icons come from the RP. An ActionForm cannot implement vanilla drag-and-drop.
+// The title marker is only interpreted by our RP/ui/server_form.json override.
