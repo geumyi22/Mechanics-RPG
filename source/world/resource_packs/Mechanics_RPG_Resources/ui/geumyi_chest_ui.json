@@ -128,3 +128,133 @@
     "hover_control": "hover",
     "pressed_control": "pressed",
     "controls": [
+      {
+        "default@geumyi_chest.slot_default": {}
+      },
+      {
+        "hover@geumyi_chest.slot_hover": {}
+      },
+      {
+        "pressed@geumyi_chest.slot_pressed": {}
+      }
+    ],
+    "size": [
+      20,
+      20
+    ]
+  },
+  "slot_background": {
+    "type": "panel",
+    "size": [
+      20,
+      20
+    ],
+    "controls": [
+      {
+        "bg@common.cell_image": {
+          "size": [
+            20,
+            20
+          ]
+        }
+      }
+    ]
+  },
+  "texture_item": {
+    "type": "image",
+    "size": [
+      18,
+      18
+    ],
+    "layer": 4,
+    "anchor_from": "center_middle",
+    "anchor_to": "center_middle",
+    "bindings": [
+      {
+        "binding_name": "#form_button_texture",
+        "binding_name_override": "#texture",
+        "binding_type": "collection",
+        "binding_collection_name": "form_buttons"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not ((#texture = '') or (#texture = 'loading')))",
+        "target_property_name": "#visible"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(('%.8s' * #texture) = 'textures')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "native_item": {
+    "type": "panel",
+    "size": [
+      20,
+      20
+    ],
+    "anchor_from": "center_middle",
+    "anchor_to": "center_middle",
+    "controls": [
+      {
+        "render@beacon.item_renderer": {
+          "size": [
+            18,
+            18
+          ],
+          "anchor_from": "center_middle",
+          "anchor_to": "center_middle",
+          "layer": 4,
+          "bindings": [
+            {
+              "binding_name": "#form_button_texture",
+              "binding_name_override": "#native_texture",
+              "binding_type": "collection",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(not (('%.8s' * #native_texture) = 'textures'))",
+              "target_property_name": "#visible"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(not ((#native_texture = '') or (#native_texture = 'loading')))",
+              "target_property_name": "#visible"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "((#native_texture - (#native_texture % 65536)) / 65536)",
+              "target_property_name": "#item_id_aux"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "slot_default": {
+    "type": "panel",
+    "size": [
+      20,
+      20
+    ],
+    "controls": [
+      {
+        "bg@geumyi_chest.slot_background": {}
+      },
+      {
+        "icon@geumyi_chest.texture_item": {}
+      },
+      {
+        "native@geumyi_chest.native_item": {}
+      },
+      {
+        "count@geumyi_chest.stack_count": {}
+      }
+    ]
+  },
+  "slot_hover": {
+    "type": "panel",
+    "size": [
+      20,
