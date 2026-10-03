@@ -1,52 +1,33 @@
-# Mechanics RPG — GitHub Bootstrap / Handoff Roadmap
+# Mechanics RPG Roadmap
 
-기준일: 2026-09-29
+기준일: 2026-10-04
 
-| 단계 | 목표 | 상태 |
-|---|---|---|
-| 1 | 독립 저장소 생성 | 완료 |
-| 2 | 문서 / 보안 / 버전 기준 | 완료 |
-| 3 | v1.4.20 원본 분석 및 정적 검증 | 완료 |
-| 4 | import / validate / package / verify 도구 | 완료 |
-| 5 | GitHub Actions CI | 완료 |
-| 6 | Release workflow + version guard | 완료 |
-| 7 | main/dev + Issue/PR 운영 흐름 | 완료 |
-| 8 | v1.4.20 source tree import | 완료 — PR #6 |
-| 9 | 개발/rollback/handoff 문서 | 완료 |
-| 10 | GitHub 초기 구축 마감 | 완료 — PR #7 |
-| 11 | v1.4.20 Bedrock release-gate E2E | **PASS — Issue #5** |
-| 12 | 첫 정식 GitHub Release | **완료 — v1.4.20** |
+## 완료
 
-## 현재 기준
+- 독립 GitHub 저장소/CI/Release workflow 구축
+- v1.4.20 첫 정식 Release + release-gate E2E
+- v1.4.27~43 Subspace UI 연구/수렴
+- v1.4.48 검증된 9×3 상자형 경로 복귀
+- v1.4.48 SAFE GUARD: 위험 아이템/셜커 저장 차단
+- source/static/package 검증 체계 유지
 
-- `main`: 승인된 v1.4.20 source + GitHub 인프라
-- `dev`: 다음 개발 통합 브랜치
+## 현재 안정화 기준
+
+- `main`: v1.4.48 SAFE GUARD stable
 - source: `source/world/`
 - manifest: `SOURCE-MANIFEST.json`
-- CI: source가 없으면 fail-closed
-- Release: tag와 BP manifest version이 다르면 실패
-- Release URL: https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.20
+- 3인칭 무기 실험은 stable 제외
 
-## v1.4.20 E2E / Release
+## 다음 개발
 
-- 실제 Bedrock release-gate E2E 8개 항목 PASS
-- tag `v1.4.20`
-- Release workflow PASS
-- `.mcworld`, `.zip`, `SHA256SUMS.txt` 게시
-- release asset SHA-256: `a4d099cb419cdda1da68ed734406a7a2885a6c72565ba10e6d2d9741fe0ced70`
+1. v1.4.48 exact-package Bedrock release-gate 회귀 E2E
+2. 무기 3인칭 — 기존 1인칭 완전 고정 + third-person/rightItem만 조정
+3. Subspace 특수 데이터 무손실 저장은 별도 proof에서만 연구
+4. 신규 기능은 stable과 분리된 feature branch에서 진행
 
-## 보류된 개발 backlog
+## 금지
 
-현재 GitHub 마감 작업에서는 아래 기능을 진행하지 않습니다.
-
-- #2 현상수배 마커
-- #3 데드아이 실제 유도탄
-- #4 보안관 탄약 UX
-
-다음 개발 단계에서 요구사항 확정 후 별도 브랜치로 진행합니다.
-
-## 새 버전 기본 흐름
-
-`feature/fix → dev → CI → Bedrock E2E → main → matching tag → Release`
-
-세부 절차: `docs/DEVELOPMENT-WORKFLOW.md`
+- E2E 없이 완료 선언
+- v3 Subspace 키 삭제
+- 승인된 사신 대낫/리볼버 1인칭 임의 변경
+- Subspace 작업 때문에 Sheriff/Reaper/quest/shop 전체 재작성

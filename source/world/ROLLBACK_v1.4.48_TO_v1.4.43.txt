@@ -1,0 +1,10 @@
+ROLLBACK v1.4.48 -> v1.4.43
+
+1) 월드 백업을 먼저 보존합니다.
+2) v1.4.48은 v1.4.43 아공간 구현을 그대로 복원하고 버전/문서만 올린 판입니다.
+3) 문제가 있으면 v1.4.43 BP/RP/world pack refs를 함께 복원합니다.
+4) 아래 동적 속성은 삭제하지 않습니다.
+   geumyi:subspace_v3_head
+   geumyi:subspace_v3_stage
+   geumyi:subspace_v3_journal
+5) journal이 남아 있다면 복원판에서 recovery가 끝난 뒤 추가 입출금을 진행합니다.

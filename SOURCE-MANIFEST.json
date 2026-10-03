@@ -1,9 +1,9 @@
 {
   "project": "Mechanics RPG",
-  "baseline_version": "1.4.20",
-  "baseline_artifact": "Mechanics_RPG_v1.4.20_DEAD_EYE_VFX_RELOAD_FIX",
+  "baseline_version": "1.4.48",
+  "baseline_artifact": "Mechanics_RPG_v1.4.48_SUBSPACE_SAFE_GUARD",
   "source_root": "source/world",
-  "file_count": 257,
+  "file_count": 294,
   "files": [
     {
       "path": "BALANCE_ONLY_PATCH.txt",
@@ -96,6 +96,96 @@
       "sha256": "929abc88ec1f34b7764d5034ad0cda992c2b788b5ff3e164661700d64c1cd747"
     },
     {
+      "path": "MECHANICS_RPG_v1.4.27_CHANGELOG.txt",
+      "size": 733,
+      "sha256": "06e9828825487b24b1b205dd81a2842133d3511f824287ca73f29f78249519af"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.28_CHANGELOG.txt",
+      "size": 808,
+      "sha256": "f62177a8b48ffce7310363dce11b7fca8c35fe0b751759e0848c736b903d8e4d"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.29_CHANGELOG.txt",
+      "size": 461,
+      "sha256": "bc6f0d91a523787a6ee973eeee9f4f8bf8422be09715194e404c3badfa50b600"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.30_CHANGELOG.txt",
+      "size": 653,
+      "sha256": "31d37ce896b06838ed12e97806c7fdd5790d8b683b3ec06d3b9f565478eb415a"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.31_CHANGELOG.txt",
+      "size": 168,
+      "sha256": "1bd3c5abbf60ead4650cea6b0f18d9dafcf8b34451cc831f956419b1d01d3e0c"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.32_CHANGELOG.txt",
+      "size": 871,
+      "sha256": "ae88fbec5a85a6c3b3c91c20bc7125993d7976f8aedf2813eff30a7bf2f7aa3b"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.33_CHANGELOG.txt",
+      "size": 923,
+      "sha256": "12c2897d9cdc94d80d9e419d4f60fcac190c5ff3bfee20b717cde37eda5c48b7"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.34_CHANGELOG.txt",
+      "size": 604,
+      "sha256": "1d4ebe9006f242492197a853f9337568dfa3faca1389a3a1e903529b64956839"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.35_CHANGELOG.txt",
+      "size": 712,
+      "sha256": "5d15de2feb4c49361cb424868c3ff30a5821d7d03de1e9fac560dc9c9ba5ebe4"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.36_CHANGELOG.txt",
+      "size": 1033,
+      "sha256": "8dad451940997fd460f0454da6548697f5191d9d7d296973b4af089a6314e92d"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.37_CHANGELOG.txt",
+      "size": 982,
+      "sha256": "9f38dec31b94c35bf885ee1aec8b67986feed301c17ec6f6d829519613889e46"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.38_CHANGELOG.txt",
+      "size": 834,
+      "sha256": "42eedf566a12cd34769f89b042765a1ea656e59042773fb269d4b243277daecf"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.39_CHANGELOG.txt",
+      "size": 1454,
+      "sha256": "f9ae39070fbcfde0bd10b277972c954b6556ec69e2679511ae87053c81e48952"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.40_CHANGELOG.txt",
+      "size": 977,
+      "sha256": "7810da841c457c47f1a15f92717f730aa974b795e9eea4709022d25e45042f4b"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.41_CHANGELOG.txt",
+      "size": 709,
+      "sha256": "de89599911018d2b5453e942a773f32b92a068175160868678dc11aff4b11da5"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.42_CHANGELOG.txt",
+      "size": 775,
+      "sha256": "ee9016d657a31ca99fe4a28f8732db70fa249dc556d327033c2d90461fd61a3d"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.43_CHANGELOG.txt",
+      "size": 1100,
+      "sha256": "ca7f119ad4b8c8fcbb0dbd6f0837b8269deefdcfe43ef3554c511143c214730f"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.48_CHANGELOG.txt",
+      "size": 1177,
+      "sha256": "b18b611f55084d758e6f63ddcaf71557c70ab9e6ab8f349e1dfa8fce0885bfb1"
+    },
+    {
       "path": "MECHANICS_RPG_v1.4.6_PATCH.txt",
       "size": 212,
       "sha256": "2cb6d7302bd8a331ddf543ee6c2b007ee71506f14e1c689b4d803826fbe6bfb0"
@@ -109,6 +199,16 @@
       "path": "MECHANICS_RPG_v1.4.9_PATCH.txt",
       "size": 1520,
       "sha256": "25dbe6381758acbed39ddaeb80f75de2226fc55d8d964cb1f7cb75ddf6415af2"
+    },
+    {
+      "path": "ROLLBACK_v1.4.48_TO_v1.4.43.txt",
+      "size": 502,
+      "sha256": "c411de0b0393de449db2ee4a2769cdc395cb8270ab15a8e6cb5eeb5073a5752f"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.txt",
+      "size": 569,
+      "sha256": "c107ec64dc5d61b276725058e8e318b5b76260e4ce1b2c0928ca3d1f7102a4a3"
     },
     {
       "path": "V0.4.5_README.txt",
@@ -596,6 +696,11 @@
       "sha256": "7b6ae14c3b017659307877d18340b322011d937f6ff9117db649273e97ab9de9"
     },
     {
+      "path": "behavior_packs/Mechanics_RPG/items/sheriff_bullet_bundle.json",
+      "size": 483,
+      "sha256": "6314eed978e6837b4a3499d63cd87f2f0b75ef03a174f84cacc463bfde758f42"
+    },
+    {
       "path": "behavior_packs/Mechanics_RPG/items/sheriff_deadeye.json",
       "size": 643,
       "sha256": "45ca74d9bd16cbde1212f18167514901ac37c92f0ec86e7345d3e00af87ff7e7"
@@ -619,6 +724,11 @@
       "path": "behavior_packs/Mechanics_RPG/items/sheriff_rope.json",
       "size": 627,
       "sha256": "e7a8af32527a756880076274d1c500bb52f1a3ba5fe9faab3cc0d5639c71d79f"
+    },
+    {
+      "path": "behavior_packs/Mechanics_RPG/items/subspace.json",
+      "size": 612,
+      "sha256": "6c9132548a25f2af52a69e70133fe88ad764892c400eccb6b560fd94723d2cf2"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/items/sun_guard.json",
@@ -652,8 +762,8 @@
     },
     {
       "path": "behavior_packs/Mechanics_RPG/manifest.json",
-      "size": 1039,
-      "sha256": "40026a7990f13d9d9d0683bf2792364985da9aa4d87d9e3eead5b3bdf97a4a07"
+      "size": 1040,
+      "sha256": "0ac8c70cd637f4b404a8bd522400938bc58d4b6f8e56b757f7f645e456ec120b"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/pack_icon.png",
@@ -666,14 +776,19 @@
       "sha256": "9b121572f7a8bce7ec362816ced38a6d61a3eee13a9099228c074be305c02b97"
     },
     {
+      "path": "behavior_packs/Mechanics_RPG/recipes/sheriff_bullet_bundle.json",
+      "size": 736,
+      "sha256": "4a2fec3be36cdb46007d97340a97fb10a9f57bcef6f91660bacd736fa08e8071"
+    },
+    {
       "path": "behavior_packs/Mechanics_RPG/scripts/core.js",
       "size": 20529,
       "sha256": "5daeccd328ce0734c629370fc57341f4298642ea52cecbcce4ca7a9a82be9100"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/scripts/main.js",
-      "size": 111,
-      "sha256": "f439d890496f3d1c44bf3929906cd1401147640a06a9a1063c3d08b09676f4aa"
+      "size": 135,
+      "sha256": "976b4d9c49b176aabca3a1cb452565af619bb1768b55fee7076beb4b6b90119f"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/scripts/quest.js",
@@ -682,8 +797,8 @@
     },
     {
       "path": "behavior_packs/Mechanics_RPG/scripts/sheriff.js",
-      "size": 30866,
-      "sha256": "0ac5c0537020fc7fd2477363a38c21394246984f656f3c07ac736cd1cb485957"
+      "size": 31886,
+      "sha256": "ff820b09cedf644f1ab1e3737c1f7bcade7aa8fdef4accdfef915294f3b63f55"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/scripts/shop.js",
@@ -694,6 +809,16 @@
       "path": "behavior_packs/Mechanics_RPG/scripts/skills.js",
       "size": 106375,
       "sha256": "0b8e8fc23cab3b9c1b6bdcb3d4082dcbbafa96bee0da9ee07106912afe0d9400"
+    },
+    {
+      "path": "behavior_packs/Mechanics_RPG/scripts/subspace.js",
+      "size": 37367,
+      "sha256": "770313a7a2381bf1156291354dd02500dc0717506cc5916e5d7535f484b143a4"
+    },
+    {
+      "path": "behavior_packs/Mechanics_RPG/scripts/subspace_legacy.js",
+      "size": 3778,
+      "sha256": "a55396455614af6dd58f084aa49001161505ff3474952733a91ec2d4aae530b0"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/scripts/sunlight.js",
@@ -757,8 +882,8 @@
     },
     {
       "path": "resource_packs/Mechanics_RPG_Resources/manifest.json",
-      "size": 516,
-      "sha256": "7caef39d8ca345613912265a8040907f3e9951f636c7b489d85ace638e2edc2f"
+      "size": 524,
+      "sha256": "27270054caf1aa1fb02ecedf97f0f9f5d038c322795f3a2c96a10fc88c0b5710"
     },
     {
       "path": "resource_packs/Mechanics_RPG_Resources/models/entity/reaper_massacre_orbit.geo.json",
@@ -1002,8 +1127,8 @@
     },
     {
       "path": "resource_packs/Mechanics_RPG_Resources/textures/item_texture.json",
-      "size": 4544,
-      "sha256": "6514714e00bf47a4986694bb425509c8795fd2e524b8c5b536316fc3d358c66c"
+      "size": 4722,
+      "sha256": "446dc4f5a403d6323bdba8d304be0e6add5e8a1d6316f2411f1f2a94a4000e8a"
     },
     {
       "path": "resource_packs/Mechanics_RPG_Resources/textures/items/archer_arrow.png",
@@ -1216,6 +1341,11 @@
       "sha256": "a83af9b5aeab214db35b2ac57364621ebb414a87a31411b2247cffec5c3a97e4"
     },
     {
+      "path": "resource_packs/Mechanics_RPG_Resources/textures/items/sheriff_bullet_bundle.png",
+      "size": 581,
+      "sha256": "ff09dd31ea7e351d60c4c114a98fd8fefe1a03ca5f992e52ae89f6f01b9d21b0"
+    },
+    {
       "path": "resource_packs/Mechanics_RPG_Resources/textures/items/sheriff_deadeye.png",
       "size": 428,
       "sha256": "faa24fbd2d5c17fdd32ce094997b4b26e890e2a4609a24b3ac157c72152049dc"
@@ -1239,6 +1369,11 @@
       "path": "resource_packs/Mechanics_RPG_Resources/textures/items/sheriff_rope.png",
       "size": 537,
       "sha256": "d8001ad7b11346f95769a9d3976cae1957b92963fb533ecf41886be33c61c556"
+    },
+    {
+      "path": "resource_packs/Mechanics_RPG_Resources/textures/items/subspace.png",
+      "size": 7840,
+      "sha256": "d32ecfe095da68898e505c0e40e14511c119fef14f59b9639af1f0d2d64b94c0"
     },
     {
       "path": "resource_packs/Mechanics_RPG_Resources/textures/items/sword_dash.png",
@@ -1281,14 +1416,64 @@
       "sha256": "96e6fc18fd62a9cecfc7eacece93cca3dadc05fc65900dfb634f9759004119e3"
     },
     {
+      "path": "resource_packs/Mechanics_RPG_Resources/textures/ui/geumyi_subspace_barrel.png",
+      "size": 716,
+      "sha256": "ecb2399c78c16fc4ebbcab8f3b49231641236f3741bd76853f91f207acb87c65"
+    },
+    {
+      "path": "resource_packs/Mechanics_RPG_Resources/textures/ui/geumyi_subspace_close.png",
+      "size": 281,
+      "sha256": "fcd48545000e44462e5bd9dba5dc905847425cc53c06794683a22d5e3ca7eec0"
+    },
+    {
+      "path": "resource_packs/Mechanics_RPG_Resources/textures/ui/geumyi_subspace_empty.png",
+      "size": 83,
+      "sha256": "ba04f531df0c7a12124750d521add77c55b16a6432d653c5559c16680dbd9f50"
+    },
+    {
+      "path": "resource_packs/Mechanics_RPG_Resources/textures/ui/geumyi_subspace_full.png",
+      "size": 265,
+      "sha256": "d6bbac42d830391b217a48267c88e90c81bb02b18b272118873b49ef92ad87de"
+    },
+    {
+      "path": "resource_packs/Mechanics_RPG_Resources/textures/ui/geumyi_subspace_put.png",
+      "size": 239,
+      "sha256": "447202f8dc3b20e931831d88ef683f4baad3818637ee526db835a59a68a59711"
+    },
+    {
+      "path": "resource_packs/Mechanics_RPG_Resources/textures/ui/geumyi_subspace_slot_bg.png",
+      "size": 147,
+      "sha256": "6e7368d72743f79b3adbbabbd7679df9fa7eabae8ada856131fe918fcae89f2f"
+    },
+    {
+      "path": "resource_packs/Mechanics_RPG_Resources/textures/ui/geumyi_subspace_unknown.png",
+      "size": 212,
+      "sha256": "9bb3c8dd6d965938458d0065073cbf41d92722a859a8f08956b7ca7fb5db260e"
+    },
+    {
+      "path": "resource_packs/Mechanics_RPG_Resources/ui/_ui_defs.json",
+      "size": 53,
+      "sha256": "a2c245b24249761c7c3e6f4085fbeab4dd16c81eed8db0ce9446f294067aa407"
+    },
+    {
+      "path": "resource_packs/Mechanics_RPG_Resources/ui/geumyi_chest_ui.json",
+      "size": 9237,
+      "sha256": "4c1e037e050f65b238521b0830aaaad0a974ea93306b7ab574bcb5bca5942eb6"
+    },
+    {
+      "path": "resource_packs/Mechanics_RPG_Resources/ui/server_form.json",
+      "size": 823,
+      "sha256": "30b4c0a8a851c001ce1ab778b224fc03ae81e5ab41ba4a02e46ecde3c1347ab9"
+    },
+    {
       "path": "world_behavior_packs.json",
       "size": 117,
-      "sha256": "caae493132d728cae4615565affa80ffffe1e32690e8492a97e7cea4d981af86"
+      "sha256": "7b07af0471d8d7a9fb2365f92dac4a9d96932d6d3e4e16715d5d69578b7a6d11"
     },
     {
       "path": "world_resource_packs.json",
       "size": 117,
-      "sha256": "7f5e124552e7238ac8c27da61d43c19d6912c9e5920b4d94994332db68e22505"
+      "sha256": "84bd4193c0c9d2b6ec65871fe547a62874e1c468aad5817f3cce52827973af62"
     }
   ]
 }

@@ -1,0 +1,13 @@
+Mechanics RPG v1.4.41 — Vanilla Small Chest Subspace UI TEST
+
+- 아공간 활성 용량: 9x3 = 27칸
+- 화면 치수/슬롯 간격: Mojang small chest desktop layout 기준 176x166, 18x18 slots
+- 위: 아공간 27칸
+- 아래: 인벤토리 27칸 + 핫바 9칸
+- 인벤토리 표시는 실제 바닐라 순서(9..35, 이후 0..8 핫바)
+- v3 저장 포맷은 36칸 배열을 유지해 구버전 데이터 절단 방지
+- 기존 28~36번 칸 아이템은 충분한 빈 인벤토리 칸이 있을 때 journal transaction으로 안전 이동 후 UI 오픈
+- 저장/복구 journal 로직은 유지
+- Sheriff/Reaper/기타 RPG 시스템 변경 없음
+
+STATUS: static validation only; Bedrock device E2E required.

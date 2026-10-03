@@ -1,6 +1,7 @@
 import { world, system, EquipmentSlot, EntityDamageCause } from "@minecraft/server";
 
 const AMMO_KEY="geumyi:sheriff_ammo_v1";
+const BUNDLE_ID="geumyi:sheriff_bullet_bundle";
 const MAX_AMMO=6;
 const BASE_DAMAGE=10;
 const BASE_HEADSHOT=1.75;
@@ -55,7 +56,32 @@ function inventory(p){return safe(()=>p.getComponent("minecraft:inventory")?.con
 function countItem(p,typeId){const c=inventory(p);if(!c)return 0;let n=0;for(let i=0;i<c.size;i++){const it=safe(()=>c.getItem(i));if(it?.typeId===typeId)n+=Number(it.amount??0);}return n;}
 function consumeItem(p,typeId,count){const c=inventory(p);if(!c||count<=0)return 0;let remain=count,used=0;for(let i=0;i<c.size&&remain>0;i++){const it=safe(()=>c.getItem(i));if(!it||it.typeId!==typeId)continue;const take=Math.min(remain,Number(it.amount??0));if(take<=0)continue;const left=Number(it.amount??0)-take;if(left<=0)safe(()=>c.setItem(i,undefined));else{it.amount=left;safe(()=>c.setItem(i,it));}remain-=take;used+=take;}return used;}
 function reloadTicks(p){return (quickReloadUntil.get(p.id)??0)>now()||(enhancedUntil.get(p.id)??0)>now()?FAST_RELOAD_TICKS:NORMAL_RELOAD_TICKS;}
-function beginReload(p,forced=false){if(!isSheriff(p))return false;if(reloading.has(p.id))return false;const cur=ammo(p),missing=MAX_AMMO-cur;if(missing<=0){if(!forced)bar(p,"§7리볼버가 이미 6/6 장전되어 있습니다.");return false;}const crafted=countItem(p,"geumyi:sheriff_bullet"),nuggets=countItem(p,"minecraft:iron_nugget"),load=Math.min(missing,crafted+nuggets);if(load<=0){bar(p,"§c탄환/철 조각이 없어 재장전할 수 없습니다. §7(철 조각 1개 = 1발)",60);sound(p,"random.anvil_land",1.75,.18);return false;}const ticks=reloadTicks(p),st={end:now()+ticks,planned:load,startAmmo:cur,ticks};reloading.set(p.id,st);safe(()=>p.addEffect("slowness",ticks+5,{amplifier:1,showParticles:false}));sound(p,"random.bow",.55,.35);let elapsed=0;const h=system.runInterval(()=>{try{const curSt=reloading.get(p.id);if(curSt!==st){system.clearRun(h);return;}elapsed+=4;const pct=Math.min(100,Math.round(elapsed/ticks*100));bar(p,`§7재장전 중... §f${pct}% §8| §e${ammo(p)}/${MAX_AMMO}`,8);if(now()>=st.end){system.clearRun(h);let used=consumeItem(p,"geumyi:sheriff_bullet",st.planned);if(used<st.planned)used+=consumeItem(p,"minecraft:iron_nugget",st.planned-used);setAmmo(p,ammo(p)+used,false);reloading.delete(p.id);sound(p,"random.anvil_use",1.7,.32);bar(p,`§a재장전 완료! §f잔탄 §e${ammo(p)}/${MAX_AMMO} §7(탄환 ${used}발)`,50);}}catch{safe(()=>system.clearRun(h));reloading.delete(p.id);}},4);return true;}
+function beginReload(p,forced=false){
+  if(!isSheriff(p)||reloading.has(p.id))return false;
+  const cur=ammo(p),missing=MAX_AMMO-cur;
+  if(missing<=0){if(!forced)bar(p,"§7리볼버가 이미 6/6 장전되어 있습니다.");return false;}
+  const singles=countItem(p,"geumyi:sheriff_bullet"),nuggets=countItem(p,"minecraft:iron_nugget");
+  const availableSingles=singles+nuggets;
+  // Single rounds always have priority. A six-pack is consumed only for an empty cylinder,
+  // so it cannot silently discard its unused rounds.
+  const bundle=availableSingles===0&&cur===0&&countItem(p,BUNDLE_ID)>0;
+  const load=bundle?6:Math.min(missing,availableSingles);
+  if(load<=0){bar(p,cur>0?"§c남은 탄을 소모한 뒤 묶음 탄약을 사용해 줘.":"§c탄환이 없어 재장전할 수 없습니다.",55);return false;}
+  const ticks=Math.max(1,reloadTicks(p)-(bundle?2:0)); // 0.12 sec ≈ 2.4 ticks; round to 2 ticks (0.10 s)
+  const st={end:now()+ticks,planned:load,bundle,ticks};reloading.set(p.id,st);
+  safe(()=>p.addEffect("slowness",ticks+5,{amplifier:1,showParticles:false}));sound(p,"random.bow",.55,.35);
+  const h=system.runInterval(()=>{try{
+    if(reloading.get(p.id)!==st){system.clearRun(h);return;}
+    bar(p,`§7재장전 중... §f${Math.min(100,Math.round((1-(st.end-now())/ticks)*100))}% §8| §e${ammo(p)}/6`,8);
+    if(now()<st.end)return;
+    system.clearRun(h);let used=0;
+    if(st.bundle){if(ammo(p)===0&&consumeItem(p,BUNDLE_ID,1)===1)used=6;}
+    else {used=consumeItem(p,"geumyi:sheriff_bullet",st.planned);if(used<st.planned)used+=consumeItem(p,"minecraft:iron_nugget",st.planned-used);}
+    setAmmo(p,ammo(p)+used,false);reloading.delete(p.id);
+    sound(p,"random.anvil_use",1.7,.32);bar(p,`§a재장전 완료! §e${ammo(p)}/6 §7(${st.bundle?"묶음 탄약":`${used}발`})`,50);
+  }catch{safe(()=>system.clearRun(h));reloading.delete(p.id);}},2);
+  return true;
+}
 
 function passableBlock(id){if(!id)return true;if(id==="minecraft:air"||id==="minecraft:cave_air"||id==="minecraft:void_air"||id==="minecraft:water")return true;return id.includes("grass")||id.includes("flower")||id.includes("fern")||id.includes("vine")||id.includes("sapling")||id.includes("mushroom")||id.includes("torch")||id.includes("snow_layer");}
 function wallDistance(dim,origin,dir,maxRange){for(let s=.35;s<=maxRange;s+=.30){const p={x:origin.x+dir.x*s,y:origin.y+dir.y*s,z:origin.z+dir.z*s};const b=safe(()=>dim.getBlock({x:Math.floor(p.x),y:Math.floor(p.y),z:Math.floor(p.z)}));if(b&&!passableBlock(b.typeId))return Math.max(.2,s-.20);}return maxRange;}
@@ -113,7 +139,31 @@ function showTargetCamera(p,t){try{const q=targetPoint(t),dx=p.location.x-t.loca
 function pointBlocked(dim,pos){const b=safe(()=>dim.getBlock({x:Math.floor(pos.x),y:Math.floor(pos.y),z:Math.floor(pos.z)}));return !!(b&&!passableBlock(b.typeId));}
 function deadEyeMarked(t){const st=deadEyeDebuffs.get(t?.id);return !!(st&&st.until>now());}
 function guaranteedDeadEyeDamage(p,t,raw){const opts={cause:EntityDamageCause.entityAttack,damagingEntity:p};const accepted=safe(()=>t.applyDamage(raw,opts),false);if(accepted!==false)return true;const hc=safe(()=>t.getComponent("minecraft:health"));if(!hc||typeof hc.setCurrentValue!=="function")return false;const cur=Number(safe(()=>hc.currentValue,0)??0),mult=deadEyeMarked(t)?1.5:1,amount=raw*mult;if(cur<=0||amount<=0)return false;const min=Number(safe(()=>hc.effectiveMin,0)??0);safe(()=>hc.setCurrentValue(Math.max(min,cur-amount)));return true;}
-function homingDeadEyeBullet(p,t,index){if(!targetable(t)||health(t)<=0)return;const origin=safe(()=>p.getHeadLocation())??{x:p.location.x,y:p.location.y+1.6,z:p.location.z};const tp=safe(()=>t.getHeadLocation())??targetPoint(t);const dx=tp.x-origin.x,dy=tp.y-origin.y,dz=tp.z-origin.z,l=Math.hypot(dx,dy,dz)||1,dir={x:dx/l,y:dy/l,z:dz/l};const wall=wallDistance(p.dimension,origin,dir,l);trajectory(p.dimension,origin,dir,Math.min(l,wall),"minecraft:dragon_breath_trail");gunSound(p,"deadeye");if(wall+0.35<l){particle(p.dimension,"minecraft:basic_smoke_particle",{x:origin.x+dir.x*wall,y:origin.y+dir.y*wall,z:origin.z+dir.z*wall});return;}const raw=(30+strengthBonus(p))*BASE_HEADSHOT;const ok=guaranteedDeadEyeDamage(p,t,raw);if(!ok)return;particle(p.dimension,"minecraft:critical_hit_emitter",tp);const shown=raw*(deadEyeMarked(t)?1.5:1);bar(p,`§5데드 아이 §f${index+1}번째 탄환 적중 · 헤드샷 §d${shown.toFixed(shown%1?1:0)}`,16);}
+function homingDeadEyeBullet(p,t,index){
+  if(!targetable(t)||health(t)<=0)return;
+  const start=safe(()=>p.getHeadLocation())??{x:p.location.x,y:p.location.y+1.6,z:p.location.z};
+  let pos={...start},ticks=0;
+  gunSound(p,"deadeye");
+  const h=system.runInterval(()=>{try{
+    if(!targetable(t)||health(t)<=0||p.dimension.id!==t.dimension.id||++ticks>90){system.clearRun(h);return;}
+    const aim=targetPoint(t),dx=aim.x-pos.x,dy=aim.y-pos.y,dz=aim.z-pos.z;
+    const length=Math.hypot(dx,dy,dz)||.001,step=Math.min(1.55,length);
+    const dir={x:dx/length,y:dy/length,z:dz/length};
+    const next={x:pos.x+dir.x*step,y:pos.y+dir.y*step,z:pos.z+dir.z*step};
+    // Sample the path, not just the destination, to prevent clipping through walls.
+    for(let k=.2;k<=step+.001;k+=.2){const d=Math.min(k,step),v={x:pos.x+dir.x*d,y:pos.y+dir.y*d,z:pos.z+dir.z*d};
+      if(pointBlocked(p.dimension,v)){particle(p.dimension,"minecraft:basic_smoke_particle",v);system.clearRun(h);return;}}
+    pos=next;
+    particle(p.dimension,"minecraft:dragon_breath_trail",pos);
+    if(length>1.55)return;
+    system.clearRun(h);
+    const raw=(30+strengthBonus(p))*BASE_HEADSHOT;
+    if(!guaranteedDeadEyeDamage(p,t,raw))return;
+    particle(p.dimension,"minecraft:critical_hit_emitter",aim);
+    const shown=raw*(deadEyeMarked(t)?1.5:1);
+    bar(p,`§5데드 아이 §f${index+1}번째 탄환 적중 · 헤드샷 §d${shown.toFixed(shown%1?1:0)}`,16);
+  }catch{safe(()=>system.clearRun(h));}},1);
+}
 function castDeadEye(p){system.run(()=>selectRevolver(p));if(!validateSkill(p,"sheriff_deadeye",100,65,"데드 아이"))return;const t=strongestTarget(p,35);if(!t){bar(p,"§c주변에 추적할 적이 없습니다.");return;}const startAmmo=ammo(p),missing=Math.max(0,MAX_AMMO-startAmmo),rounds=MAX_AMMO;startCd(p,"sheriff_deadeye",65);beginBusy(p,3.4);safe(()=>p.onScreenDisplay.setTitle("§5§lDEAD EYE",{subtitle:"§f표적 추적 · 리볼버 재장전 중...",fadeInDuration:2,stayDuration:25,fadeOutDuration:5}));areaSound(p,"raid.horn",1.12,.20,48);deadEyeChargeFx(t,0);for(let i=1;i<15;i++)system.runTimeout(()=>{if(targetable(t)&&health(t)>0)deadEyeChargeFx(t,i);},i*4);if(missing>0){for(let i=1;i<=missing;i++){const tick=Math.max(2,Math.floor(i*36/missing));system.runTimeout(()=>{if(!isSheriff(p)||!targetable(t)||health(t)<=0)return;setAmmo(p,startAmmo+i,false);sound(p,"random.click",.72+i*.06,.28);bar(p,`§5데드 아이 준비 §7· §f재장전 §e${ammo(p)}/${MAX_AMMO}`,7);},tick);}}else bar(p,"§5데드 아이 준비 §7· §f리볼버 §e6/6",12);for(let i=0;i<8;i++)system.runTimeout(()=>{if(targetable(t)&&health(t)>0)bar(p,`§5데드 아이 §f추적 중... ${Math.min(100,(i+1)*13)}% §8| §e${ammo(p)}/${MAX_AMMO}`,8);},i*5);system.runTimeout(()=>{if(!targetable(t)||health(t)<=0){clearBusy(p);bar(p,"§7추적 대상이 사라졌습니다.");return;}setAmmo(p,MAX_AMMO,false);bar(p,"§5데드 아이 §f준비 완료 §8| §e6/6",12);showTargetCamera(p,t);areaSound(p,"random.levelup",.72,.72,42,targetPoint(t));},40);system.runTimeout(()=>{if(!targetable(t)||health(t)<=0){clearBusy(p);return;}deadEyeDebuffs.set(t.id,{target:t,until:now()+200});safe(()=>t.addTag("geumyi_sheriff_deadeye_mark"));msg(p,"§5[데드 아이] §f표적에게 10초간 받는 피해 +50%!");setAmmo(p,0,false);for(let i=0;i<rounds;i++)system.runTimeout(()=>{if(targetable(t))homingDeadEyeBullet(p,t,i);},i*5);clearBusy(p);system.runTimeout(()=>{if(isSheriff(p)&&ammo(p)===0)beginReload(p,true);},Math.max(8,rounds*5+5));},60);}
 
 function awardBounty(p,target){const mh=maxHealth(target);if(Math.random()<.38){const buffs=[

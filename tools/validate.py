@@ -88,16 +88,31 @@ mf=ROOT/"SOURCE-MANIFEST.json"
 if mf.exists():
     j=load(mf)
     if j:
-        listed={x["path"]:x for x in j["files"]}
         actual={p.relative_to(WORLD).as_posix():p for p in WORLD.rglob("*") if p.is_file()}
-        if set(listed)!=set(actual):
-            fail("SOURCE-MANIFEST path set mismatch")
-        else:
-            for rel,p in actual.items():
+        if j.get("format")=="aggregate-v1":
+            rows=[]
+            for rel,p in sorted(actual.items()):
                 b=p.read_bytes()
-                if listed[rel]["size"]!=len(b) or listed[rel]["sha256"]!=hashlib.sha256(b).hexdigest():
-                    fail(f"SOURCE-MANIFEST hash mismatch: {rel}")
-                    break
+                rows.append((rel,len(b),hashlib.sha256(b).hexdigest()))
+            h=hashlib.sha256()
+            for rel,size,sha in rows:
+                h.update(rel.encode("utf-8")); h.update(bytes([0]))
+                h.update(str(size).encode("ascii")); h.update(bytes([0]))
+                h.update(sha.encode("ascii")); h.update(bytes([10]))
+            if j.get("file_count")!=len(actual):
+                fail(f"SOURCE-MANIFEST file_count mismatch: expected {j.get('file_count')}, actual {len(actual)}")
+            if j.get("aggregate_sha256")!=h.hexdigest():
+                fail(f"SOURCE-MANIFEST aggregate hash mismatch: expected {j.get('aggregate_sha256')}, actual {h.hexdigest()}")
+        else:
+            listed={x["path"]:x for x in j["files"]}
+            if set(listed)!=set(actual):
+                fail("SOURCE-MANIFEST path set mismatch")
+            else:
+                for rel,p in actual.items():
+                    b=p.read_bytes()
+                    if listed[rel]["size"]!=len(b) or listed[rel]["sha256"]!=hashlib.sha256(b).hexdigest():
+                        fail(f"SOURCE-MANIFEST hash mismatch: {rel}")
+                        break
         print(f"[PASS] SOURCE-MANIFEST: {len(actual)}")
 
 if errors:

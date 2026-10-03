@@ -1,33 +1,40 @@
 # Changelog
 
+## 2026-10-04 — v1.4.48 SAFE GUARD stable release
+
+- 안정화 기준을 `v1.4.48 SUBSPACE CHEST RESTORE`로 승격
+- v1.4.43에서 실기기 확인된 9×3 상자형 아공간 구현으로 복귀
+- 활성 아공간 27칸, 역사적 v3 36칸 저장 배열 및 overflow migration 유지
+- 기존 v3 키 유지:
+  - `geumyi:subspace_v3_head`
+  - `geumyi:subspace_v3_stage`
+  - `geumyi:subspace_v3_journal`
+- 위험 아이템 저장 차단을 종류별 메시지로 명확화
+  - 무기/스킬템/내구도/인챈트/이름/Lore/동적 속성 등: `아공간이 그 힘을 버티지 못합니다.`
+  - 셜커/Bundle 계열: `아공간이 셜커를 거부합니다.`
+- SAFE GUARD는 v1.4.48 원본 대비 `scripts/subspace.js` 1개만 변경
+- 보안관/사신/직업/퀘스트/상점/햇빛 로직은 SAFE GUARD 작업 범위에서 변경하지 않음
+- 사신 대낫/리볼버의 기존 정상 1인칭 렌더는 릴리즈에서 변경하지 않음
+- 무기 3인칭 TEST1~7은 미완성 실험으로 릴리즈 제외
+- Static / deterministic package / ZIP CRC / re-extracted hashes PASS
+- **v1.4.48 exact-package full Bedrock release-gate E2E는 NOT RUN** — 완료로 과장하지 않음
+
+## 2026-10-03 — v1.4.27 ~ v1.4.48 Subspace development
+
+- v1.4.27~40: ActionForm/JSON UI/native renderer/36칸/결합 UI 실험
+- v1.4.41~43: 9×3 아공간 + 인벤토리/핫바 상자형 UI로 수렴
+- v1.4.42: 실기기에서 결합 UI와 아이템 렌더링 확인
+- v1.4.43: 확대 UI/스택 수량 표시 확인, ActionForm 닫힘→재오픈 한계 유지
+- v1.4.44: DDUI 무깜빡임 범위 실기기 확인
+- v1.4.45~47: dual/native/bridge 계열 실험, 최종 경로로 채택하지 않음
+- v1.4.48: 검증된 v1.4.43 상자형 아공간 경로로 복귀
+
 ## 2026-09-29 — v1.4.20 first GitHub Release
 
 - 실제 Bedrock release-gate E2E 8개 핵심 항목 PASS
 - E2E 대상은 GitHub CI #31이 생성한 정확한 `.mcworld`
 - release candidate SHA-256: `a4d099cb419cdda1da68ed734406a7a2885a6c72565ba10e6d2d9741fe0ced70`
-- main commit `69b742384fb28a14680b087000f0b76563cb38d0` 기준 release
-- tag `v1.4.20` 생성
-- Release workflow에서 validate / package / verify / tag-version guard / checksum / publish 전부 PASS
-- GitHub Release에 `.mcworld`, `.zip`, `SHA256SUMS.txt` 게시
-- Issue #5를 v1.4.20 release-gate E2E 완료로 종료
-- 신규 게임 아이디어는 이번 Release에 포함하지 않음
-
-## 2026-09-29 — v1.4.20 GitHub baseline import complete
-
-- v1.4.20 `DEAD_EYE_VFX_RELOAD_FIX` 원본 월드 257개 파일을 `source/world/`에 import
-- `SOURCE-MANIFEST.json`으로 전체 파일 SHA-256 추적
-- dev push / PR #6 / main merge 전 과정에서 GitHub Actions 검증
-- JSON 84 / JS 7 / item texture 52 / particle 3 / PNG 93 검증
-- 결정적 `.zip` / `.mcworld` 패키징 및 CRC/재추출 hash 검증
-- Issue #1 source baseline import 완료 처리
-
-## 2026-09-29 — GitHub repository bootstrap
-
-- 독립 `geumyi22/Mechanics-RPG` 저장소 생성 및 문서 체계 구성
-- import/validate/package/verify 도구 추가
-- GitHub CI/Release workflow 기반 추가
-- main/dev 및 Issue/PR 운영 체계 추가
-- Static / Mock / Bedrock E2E 상태 분리
+- tag `v1.4.20` / GitHub Release 게시
 
 ## v1.4.20 — DEAD EYE VFX / RELOAD FIX
 
@@ -35,28 +42,5 @@
 - 카메라 전부터 초록/노랑 확산 연출
 - 준비시간 동안 6/6 자동 재장전
 - 궁극기 준비 재장전은 일반 탄약 미소비
-- 데드아이 30 피해/발 기준
-- **첫 GitHub 정식 Release**
-
-## v1.4.19 — SHERIFF BALANCE FIX
-
-- 일반 리볼버 기본 피해 10
-- 최소 사거리 30 / 정지 조준 최대 70
 - 데드아이 30 피해/발
-- 파티클 및 연속 명중 로직 보강
-
-## v1.4.18 — SHERIFF FIX2
-
-- 리볼버/헤드샷/탄약/스킬 연동 보강
-- 일반 사격속도와 속사 분리
-- 스킬 아이콘/파티클 개선
-
-## v1.4.17 — SHERIFF FIX
-
-- v1.4.15 clean baseline에서 보안관 직업 통합
-- 기존 레벨/스킬/다른 직업 구조 유지 원칙 확립
-
-## v1.4.15
-
-- 이후 보안관 작업의 clean baseline
-- 상점/NPC/햇빛 관련 작업 포함
+- 첫 GitHub 정식 Release

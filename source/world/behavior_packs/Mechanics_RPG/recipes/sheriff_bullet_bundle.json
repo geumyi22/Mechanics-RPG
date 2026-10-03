@@ -1,0 +1,40 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "geumyi:sheriff_bullet_bundle_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "geumyi:sheriff_bullet"
+      },
+      {
+        "item": "geumyi:sheriff_bullet"
+      },
+      {
+        "item": "geumyi:sheriff_bullet"
+      },
+      {
+        "item": "geumyi:sheriff_bullet"
+      },
+      {
+        "item": "geumyi:sheriff_bullet"
+      },
+      {
+        "item": "geumyi:sheriff_bullet"
+      }
+    ],
+    "result": {
+      "item": "geumyi:sheriff_bullet_bundle",
+      "count": 1
+    },
+    "unlock": [
+      {
+        "item": "geumyi:sheriff_bullet"
+      }
+    ]
+  }
+}

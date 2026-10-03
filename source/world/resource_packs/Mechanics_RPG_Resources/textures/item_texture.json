@@ -157,6 +157,12 @@
     },
     "geumyi:sheriff_deadeye": {
       "textures": "textures/items/sheriff_deadeye"
+    },
+    "geumyi:sheriff_bullet_bundle": {
+      "textures": "textures/items/sheriff_bullet_bundle"
+    },
+    "geumyi:subspace": {
+      "textures": "textures/items/subspace"
     }
   }
 }

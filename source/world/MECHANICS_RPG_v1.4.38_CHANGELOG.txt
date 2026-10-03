@@ -1,0 +1,17 @@
+Mechanics RPG v1.4.38 - SUBSPACE PUT GRID RENDER FIX
+
+[변경]
+- v1.4.37 실기기 결과: 아공간 9x4 본체 native renderer 정상 확인.
+- 아공간 "넣기" 메뉴의 일반 ActionForm 목록 UI를 제거.
+- "넣기" 메뉴도 동일한 9x4 chest UI/native raw renderer를 사용하도록 변경.
+- 인벤토리 36칸을 9x4 그리드에 1:1 대응.
+- 보관 불가/빈 칸은 빈 슬롯 아이콘으로 표시하고 선택 시 안전하게 안내 후 재표시.
+
+[유지]
+- Mojang Bedrock 1.26.50.4 기준 1,623개 바닐라 raw renderer ID 매핑 유지.
+- 아공간 36칸, 개인 저장, v3 저장 키/스키마 유지.
+- transact/recover/current/isPlain 등 저장·복구 로직 변경 없음.
+- 보안관/사신 및 기타 RPG 시스템 변경 없음.
+
+[검증 상태]
+- 정적 검사 통과/Bedrock 실기기 미검증.

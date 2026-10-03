@@ -1,81 +1,56 @@
 # Project Status
 
-기준일: 2026-09-29
+기준일: 2026-10-04
 
-## GitHub bootstrap
-
-**상태: 완료 / handoff ready**
+## Stable baseline
 
 - Repository: `geumyi22/Mechanics-RPG`
-- Visibility: Public
-- Default branch: `main`
-- Development branch: `dev`
-- v1.4.20 source baseline: main import 완료
-- CI: 실제 source 기준 PASS
-- deterministic package / verify: 완료
-- Release workflow: tag ↔ manifest version guard 포함
-- Issue / PR templates: 구성 완료
-- Handoff / development / rollback 문서: 구성 완료
-- First GitHub Release: **v1.4.20 published**
+- Stable baseline: **v1.4.48 SAFE GUARD**
+- Source root: `source/world/`
+- Source files: **294**
+- Static validation: **PASS**
+- deterministic package / CRC / re-extracted hashes: **PASS**
+- exact-package full Bedrock release-gate E2E: **NOT RUN**
 
-## v1.4.20 verification
+## v1.4.48 scope
+
+### Included
+- 9×3 / 27-slot chest-style Subspace
+- v3 head/stage/journal preservation
+- historical 36-slot array + safe overflow migration
+- unsafe metadata-bearing item block
+- Shulker/Bundle block
+- sheriff bullet/bundle safe custom-stack exception
+- existing RPG systems and approved first-person weapons preserved
+
+### Excluded
+- Subspace native-storage proof from v1.4.46
+- DDUI/native bridge experiments v1.4.44~47
+- weapon third-person TEST1~7
+
+## Verification evidence
 
 ```text
-Files: 257
-JSON: 84 PASS
-JavaScript: 7 PASS (GitHub Actions Node 22)
-Item texture entries: 52 PASS
-Particle JSON: 3 PASS
-PNG: 93 PASS
-SOURCE-MANIFEST: 257 PASS
+Files: 294
+JSON: 90 PASS
+JavaScript: 9 PASS (Node syntax)
+Item texture entries: 54 PASS
+RP PNG: 102 PASS
+SOURCE-MANIFEST: 294 PASS
 ZIP CRC: PASS
-Re-extracted file hashes: 257/257 MATCH
+Re-extracted file set/hashes: 294/294 MATCH
 Generated .zip/.mcworld: BYTE-IDENTICAL
-Bedrock release-gate E2E: PASS
-Release workflow: PASS
-GitHub Release: PUBLISHED
+Full v1.4.48 Bedrock release-gate E2E: NOT RUN
 ```
 
-Source import:
-- PR #6
-- main merge: `8cb172412c92033b970d5aa0ab378af33a02469d`
-- Issue #1: closed
+## Historical E2E
 
-GitHub bootstrap finalization:
-- PR #7
-- main commit used for v1.4.20 release: `69b742384fb28a14680b087000f0b76563cb38d0`
+v1.4.20은 실제 Bedrock release-gate E2E 8개 핵심 항목 PASS 기록을 유지합니다.
 
-Release:
-- tag: `v1.4.20`
-- Release workflow run: #1
-- Release URL: https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.20
-- release asset SHA-256: `a4d099cb419cdda1da68ed734406a7a2885a6c72565ba10e6d2d9741fe0ced70`
+아공간은 v1.4.42~43에서 9×3 결합 UI/아이템 렌더링/스택 표시 범위의 실기기 확인 기록이 있습니다. 이 기록은 v1.4.48 전체 회귀 E2E와 동일하지 않습니다.
 
-## Bedrock E2E
+## Development state
 
-실제 Bedrock에서 8개 핵심 release-gate 항목을 사용자 확인으로 PASS 처리했습니다.
-
-- import / world open
-- BP/RP / startup Script error
-- class/level test access
-- Sheriff revolver
-- Sheriff Dead Eye / purple VFX
-- Reaper first-person scythe preservation
-- quest/shop villager UI
-- save/re-enter
-
-Issue #5는 이 **v1.4.20 release-gate E2E** 기준으로 완료 처리했습니다.
-
-## Development backlog
-
-다음 항목은 **기록만 유지하고 현재 작업에서는 진행하지 않습니다.**
-
-- #2 bounty target marker
-- #3 Dead Eye homing bullets
-- #4 sheriff ammo UX
-
-## Boundary
-
-v1.4.20은 release-gate E2E를 통과한 첫 GitHub Release입니다. 이는 모든 직업/멀티플레이/역사적 조합에 대한 exhaustive regression을 의미하지 않습니다.
-
-다음 개발이 시작되면 한 버전 작업 안에서 source + CHANGELOG + VERSION-MATRIX + CI + package + E2E + Release를 함께 갱신합니다.
+- v1.4.46 native-storage proof는 개발 이력으로 보존하며 stable에 포함하지 않습니다.
+- 무기 3인칭은 TEST6에서 **기존 1인칭을 건드리지 않는 player third-person/rightItem 접근**까지 확인했으나, 3인칭 위치/각도는 미완성입니다.
+- 다음 작업은 stable v1.4.48에서 별도 feature branch로 시작합니다.
