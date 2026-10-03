@@ -1,0 +1,10 @@
+Mechanics RPG v1.4.43 - SUBSPACE STACK COUNT / SCALE / FAST REFRESH TEST
+
+- v1.4.42 device result: combined 9x3 Subspace + player inventory/hotbar layout and item rendering confirmed working.
+- Fixed stack-count label binding to the proven chest-server-form pattern (#stack_size -> label text). Counts of 2+ should render at the bottom-right; stack size 1 stays hidden like vanilla.
+- Enlarged the chest UI moderately: root 176x166 -> 196x185; cells 18x18 -> 20x20; rendered item icons 16x16 -> 18x18.
+- Preserved the 9x3 Subspace / spacer / 9x3 inventory / 9-slot hotbar structure.
+- Removed successful put/take chat messages and kept the refresh loop delay-free to minimize the visible close/reopen interval.
+- Important limitation: @minecraft/server-ui 2.1.0 ActionFormData returns a button response after the modal form closes, so a true in-place no-close refresh is not possible without changing UI architecture/API version.
+- Storage capacity remains 27; historical v3 36-slot save array and safe overflow migration remain unchanged.
+- Static checks only; Bedrock device verification required.
