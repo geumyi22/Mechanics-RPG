@@ -1,8 +1,16 @@
 # Changelog
 
-## 2026-10-04 — v1.4.48 SAFE GUARD stable release
+## 2026-10-04 — Repository status cleanup
 
-- 안정화 기준을 `v1.4.48 SUBSPACE CHEST RESTORE`로 승격
+- v1.4.48 표기를 **“최신 정식 Release / full Bedrock E2E NOT RUN”**으로 통일
+- v1.4.48을 “안정화 검증 완료”로 오해할 수 있는 문구 제거
+- 마지막 full release-gate Bedrock E2E PASS 기준은 v1.4.20으로 명시
+- 무기 3인칭 TEST1~28 실험 종료
+- TEST22 계열에서 1인칭 보존은 실기기 확인했으나 3인칭 손잡이/손 정렬은 최종 해결하지 못함
+- TEST1~28은 source/main/Release에 승격하지 않음
+
+## 2026-10-04 — v1.4.48 SAFE GUARD release
+
 - v1.4.43에서 실기기 확인된 9×3 상자형 아공간 구현으로 복귀
 - 활성 아공간 27칸, 역사적 v3 36칸 저장 배열 및 overflow migration 유지
 - 기존 v3 키 유지:
@@ -14,10 +22,9 @@
   - 셜커/Bundle 계열: `아공간이 셜커를 거부합니다.`
 - SAFE GUARD는 v1.4.48 원본 대비 `scripts/subspace.js` 1개만 변경
 - 보안관/사신/직업/퀘스트/상점/햇빛 로직은 SAFE GUARD 작업 범위에서 변경하지 않음
-- 사신 대낫/리볼버의 기존 정상 1인칭 렌더는 릴리즈에서 변경하지 않음
-- 무기 3인칭 TEST1~7은 미완성 실험으로 릴리즈 제외
+- 사신 대낫/리볼버의 기존 1인칭 렌더는 릴리즈에서 변경하지 않음
 - Static / deterministic package / ZIP CRC / re-extracted hashes PASS
-- **v1.4.48 exact-package full Bedrock release-gate E2E는 NOT RUN** — 완료로 과장하지 않음
+- **v1.4.48 exact-package full Bedrock release-gate E2E는 NOT RUN**
 
 ## 2026-10-03 — v1.4.27 ~ v1.4.48 Subspace development
 
@@ -27,7 +34,7 @@
 - v1.4.43: 확대 UI/스택 수량 표시 확인, ActionForm 닫힘→재오픈 한계 유지
 - v1.4.44: DDUI 무깜빡임 범위 실기기 확인
 - v1.4.45~47: dual/native/bridge 계열 실험, 최종 경로로 채택하지 않음
-- v1.4.48: 검증된 v1.4.43 상자형 아공간 경로로 복귀
+- v1.4.48: v1.4.43 상자형 경로로 복귀
 
 ## 2026-09-29 — v1.4.20 first GitHub Release
 
