@@ -1,27 +1,42 @@
 # Weapon Third-person Experiments
 
-기준일: 2026-10-04
+기준일: 2026-10-04  
+상태: **종료 / 미완료 / 릴리즈 미포함**
 
-이 문서는 **정식 릴리즈에 포함되지 않는 연구 기록**입니다.
+이 문서는 정식 릴리즈에 포함되지 않은 로컬 연구 기록입니다.
 
 ## 고정 요구사항
 
-- 사신 대낫 1인칭: 기존 정상 상태 고정
-- 보안관 리볼버 1인칭: 기존 정상 상태 고정
+- 사신 대낫 1인칭: 기존 정상 상태 보존
+- 보안관 리볼버 1인칭: 기존 정상 상태 보존
 - 수정 대상: 다른 플레이어가 보는 3인칭만
+- 실제 Bedrock 확인 전 성공/완료 선언 금지
 
-## 결과
+## 실험 요약
 
-- TEST1: attachable 기반 분리 — 1인칭/3인칭 모두 위치 붕괴
-- TEST2: 1인칭 attachable 비활성 시도 — 무기 투명화
-- TEST3: texture_mesh/custom bow 계열 — 표시 성공, 1인칭까지 변경됨
-- TEST4: grip zero-offset — 개선됐지만 손잡이 고정 실패
-- TEST5: local_pivot를 PNG 픽셀 좌표처럼 해석 — 무기가 플레이어와 크게 분리, 폐기
-- TEST6: **player third-person/rightItem bone만 보정** — 기존 1인칭 유지 확인
-- TEST7: TEST6 구조의 3인칭 수치 튜닝 단계 — 미완성
+- TEST1~5: attachable / geometry / pivot 계열 — 위치 붕괴, 투명화, 1인칭 영향 등으로 채택하지 않음
+- TEST6~15: player third-person / rightItem / texture-mesh 계열 — 1인칭 보존 가능성은 확인했으나 3인칭 정렬 미완성
+- TEST16~21: local-pivot / item-slot binding / bow-style 계열 — 손과 분리되거나 1인칭 회귀가 발생해 채택하지 않음
+- TEST22: TEST6 계열로 복귀, **사용자 실기기에서 1인칭 정상 보존 확인**
+- TEST23~28: 3인칭 회전/상하·좌우 방향/위치 튜닝 — 손잡이 끝을 손에 정확히 붙이는 최종 정렬 실패
+- TEST28 이후 사용자 지시로 실험 종료
 
-## 현재 결론
+## 최종 결론
 
-앞으로는 TEST6 구조를 기준으로 **1인칭/아이템/PNG/attachable을 변경하지 않고 third-person rightItem 값만 조정**합니다.
+- 1인칭 정상 상태는 보존해야 함
+- 3인칭 사신 대낫 위치/각도는 **미완료**
+- 3인칭 보안관 리볼버 역시 정식 승격하지 않음
+- TEST1~28 중 **어떤 패키지도 검증된 릴리즈 후보가 아님**
+- TEST 패키지/수치는 `source/world/`, `main`, v1.4.48 Release에 반영하지 않음
 
-TEST1~7은 v1.4.48 stable package에 포함하지 않습니다.
+## 재개 시 원칙
+
+과거 TEST 번호나 좌표를 곧바로 기준으로 사용하지 않습니다.
+
+1. 최신 release baseline에서 별도 feature branch 생성
+2. 1인칭 렌더 경로를 수정 대상에서 완전히 분리
+3. Bedrock의 실제 held-item/rightItem 렌더 좌표계를 먼저 재현
+4. 손잡이 끝 기준점을 명시적으로 확인
+5. 한 번에 위치/회전/스케일 중 하나만 변경
+6. 전면/후면/측면/1인칭 실기기 스크린샷으로 각각 판정
+7. 회귀 E2E 통과 전 main/Release 승격 금지
