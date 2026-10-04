@@ -11,8 +11,9 @@ Minecraft Bedrock 기반 커스텀 RPG 프로젝트 **메크닉스 RPG(Mechanics
 | 저장소 | `geumyi22/Mechanics-RPG` |
 | 기본 브랜치 | `main` |
 | 개발 브랜치 | `dev` |
-| 최신 안정화 기준 | **v1.4.48 SAFE GUARD** |
-| 최신 정식 Release | **v1.4.48** |
+| 최신 정식 Release | **v1.4.48 SAFE GUARD** |
+| v1.4.48 분류 | **최신 릴리즈/기능 기준 베이스 — full Bedrock E2E 미검증** |
+| 마지막 full release-gate E2E PASS | **v1.4.20** |
 | source file count | **294** |
 | Static validation | **PASS** |
 | deterministic package / CRC / re-extracted hashes | **PASS** |
@@ -31,14 +32,15 @@ Minecraft Bedrock 기반 커스텀 RPG 프로젝트 **메크닉스 RPG(Mechanics
 - 셜커/Bundle 계열은 저장 차단
   - `아공간이 셜커를 거부합니다.`
 - 보안관 탄환/6발 묶음 등 명시적 안전 커스텀 스택은 기존 허용 규칙 유지
-- 사신 대낫 및 보안관 리볼버의 **기존 정상 1인칭 외형은 릴리즈에서 변경하지 않음**
-- 무기 3인칭 개선 TEST1~7은 **실험 브랜치/기록 전용이며 v1.4.48 릴리즈에 포함하지 않음**
+- 사신 대낫 및 보안관 리볼버의 기존 1인칭 외형은 릴리즈에서 변경하지 않음
+- 무기 3인칭 TEST1~28은 **종료된 로컬 실험**이며 v1.4.48 source/main/Release에 포함하지 않음
 
 ## 검증 경계
 
-v1.4.48은 source/static/package 검증을 통과한 안정화 기준입니다. 다만 **v1.4.48 릴리즈 패키지 전체에 대한 새 release-gate E2E는 별도 실행 전까지 PASS로 기록하지 않습니다.**
+v1.4.48은 **source/static/package 검증을 통과한 최신 릴리즈 베이스**입니다.  
+그러나 exact-package 전체 Bedrock release-gate E2E가 실행되지 않았으므로 **안정화 검증 완료 버전이라고 부르지 않습니다.**
 
-이전 v1.4.20은 실제 Bedrock release-gate E2E 8개 항목을 통과한 첫 GitHub Release입니다.
+v1.4.20은 실제 Bedrock release-gate E2E 8개 핵심 항목을 통과한 마지막 정식 검증 기준입니다.
 
 ## 운영 원칙
 
@@ -48,6 +50,7 @@ v1.4.48은 source/static/package 검증을 통과한 안정화 기준입니다. 
 - 큰 변경은 기능 단위 브랜치/커밋으로 나눕니다.
 - 릴리스용 `.mcworld`, `.zip`은 source tree에 누적하지 않고 Actions artifact / GitHub Release로 관리합니다.
 - manifest UUID/API dependency는 기준 패키지를 보존합니다.
+- 로컬 TEST 패키지는 사용자 승인 및 E2E 전까지 main/source/Release로 승격하지 않습니다.
 
 ## 저장소 구조
 
