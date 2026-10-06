@@ -18,7 +18,6 @@ function cls(p) {
   if (safe(() => p.hasTag("geumyi_class_hero"))) return "hero";
   if (safe(() => p.hasTag("geumyi_class_reaper"))) return "reaper";
   if (safe(() => p.hasTag("geumyi_class_sheriff"))) return "sheriff";
-  if (safe(() => p.hasTag("geumyi_class_hacker"))) return "hacker";
   return "none";
 }
 function className(c) {
@@ -32,7 +31,6 @@ function className(c) {
   if (c === "hero") return "용사";
   if (c === "reaper") return "사신";
   if (c === "sheriff") return "보안관";
-  if (c === "hacker") return "해커";
   return "미전직";
 }
 function msg(p,t){ safe(()=>p.sendMessage(t)); }
@@ -69,7 +67,6 @@ function clearClassTags(p){
   safe(()=>p.removeTag("geumyi_class_hero"));
   safe(()=>p.removeTag("geumyi_class_reaper"));
   safe(()=>p.removeTag("geumyi_class_sheriff"));
-  safe(()=>p.removeTag("geumyi_class_hacker"));
 }
 function setClass(p,c,admin=false){
   clearClassTags(p);
@@ -83,7 +80,6 @@ function setClass(p,c,admin=false){
   if(c==="hero") safe(()=>p.addTag("geumyi_class_hero"));
   if(c==="reaper") safe(()=>p.addTag("geumyi_class_reaper"));
   if(c==="sheriff") safe(()=>p.addTag("geumyi_class_sheriff"));
-  if(c==="hacker") safe(()=>p.addTag("geumyi_class_hacker"));
   if(!safe(()=>p.hasTag("geumyi_title_beginner"))) safe(()=>p.addTag("geumyi_title_beginner"));
   nextPrompt.set(p.id,now()+100);
   msg(p,`§6[전직] §f${className(c)}로 전직했습니다.${admin?" §7(테스트)":""}`);
@@ -236,29 +232,6 @@ Shift로 올가미/채찍/와이어 모드를 변경합니다. 모드 변경 쿨
 §eLv.100 데드 아이§r
 2초간 가장 강한 적을 추적하고 1초간 카메라로 보여준 뒤, 10초간 받는 모든 피해 +50% 디버프를 부여합니다. 현재 잔탄을 모두 소비해 1발당 20데미지의 보라색 유도탄으로 집중 공격합니다.
 쿨타임 65초`;
-  if(c==="hacker") return `§l해커 §r§7<중방 디버퍼/전술 딜러>§r
-
-적의 전투 데이터를 분석하고 취약점을 악용해 전장을 조작합니다.
-
-§f해킹 터미널 <0렙>§r
-터미널로 적을 공격하면 분석 스택 +1. 최대 10스택이며 Shift로 현재 분석량을 확인할 수 있습니다.
-스캔된 대상에게는 터미널 추가 피해가 적용됩니다.
-
-§eLv.10 취약점 스캔§r
-분석 2 소모. 반경 12칸의 강한 적 최대 6명을 12초간 스캔하고 공격력·기동력을 약화합니다.
-쿨타임 25초
-
-§eLv.40 익스플로잇§r
-분석 3 소모. 스캔된 강적을 우선 공격해 45데미지, 스캔 대상은 60데미지, 관리자 취약 대상은 75데미지. 2초간 행동 봉쇄.
-쿨타임 20초
-
-§eLv.70 백도어§r
-분석 5 소모. 일반 적은 8초간 제어되어 플레이어를 공격하지 못하고 주변 적을 공격합니다. 보스급 적은 제어 대신 10초간 약화·스캔됩니다.
-쿨타임 45초
-
-§eLv.100 관리자 권한 탈취§r
-분석 10 소모. 반경 16칸 적을 15초간 관리자 취약 상태로 만들고 약화·둔화합니다. 자신은 신속 II·힘 I·저항 I을 15초간 얻습니다.
-쿨타임 70초`;
 
   return "직업 정보가 없습니다.";
 }
@@ -307,10 +280,9 @@ async function showClassMenu(p,manual=false){
       .button("§b용사\n§7전방 탱커/공방수")
       .button("§4사신\n§7중반 딜러/공격수")
       .button("§6보안관\n§7중반 딜러/공격수")
-      .button("§a해커\n§7중방 디버퍼/전술 딜러")
       .show(p);
     if(r.canceled){ nextPrompt.set(p.id,now()+100); return; }
-    const c=r.selection===0?"sword":r.selection===1?"archer":r.selection===2?"mage":r.selection===3?"cleric":r.selection===4?"berserker":r.selection===5?"assassin":r.selection===6?"fighter":r.selection===7?"hero":r.selection===8?"reaper":r.selection===9?"sheriff":r.selection===10?"hacker":null;
+    const c=r.selection===0?"sword":r.selection===1?"archer":r.selection===2?"mage":r.selection===3?"cleric":r.selection===4?"berserker":r.selection===5?"assassin":r.selection===6?"fighter":r.selection===7?"hero":r.selection===8?"reaper":r.selection===9?"sheriff":null;
     if(c) system.runTimeout(()=>confirmClass(p,c),2);
   }catch(e){
     nextPrompt.set(p.id,now()+40);
@@ -344,7 +316,6 @@ system.runInterval(()=>{
       if(p.hasTag("geumyi_force_hero")){p.removeTag("geumyi_force_hero");setClass(p,"hero",true);}
       if(p.hasTag("geumyi_force_reaper")){p.removeTag("geumyi_force_reaper");setClass(p,"reaper",true);}
       if(p.hasTag("geumyi_force_sheriff")){p.removeTag("geumyi_force_sheriff");setClass(p,"sheriff",true);}
-      if(p.hasTag("geumyi_force_hacker")){p.removeTag("geumyi_force_hacker");setClass(p,"hacker",true);}
       if(p.hasTag("geumyi_reset_class")){p.removeTag("geumyi_reset_class");resetClass(p);}
       if(p.hasTag("geumyi_open_class")){
         p.removeTag("geumyi_open_class");
