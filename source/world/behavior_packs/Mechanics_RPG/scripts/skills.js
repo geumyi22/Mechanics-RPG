@@ -14,6 +14,22 @@ const heroGuardVisual=new Map(), heroSneakPrev=new Map(), fighterSneakPrev=new M
 const reaperFlipState=new Map(), reaperJudgmentOverflow=new Map();
 const reaperSkillDamageBypass=new Map();
 const judgedSoulIds=new Set();
+
+// Redesigned Hacker state. Stack entries expire independently and are never consumed by skills.
+const hackerStackExpiries=new Map();
+const hackerAttackDebuffs=new Map();
+const hackerRevealUntil=new Map();
+const hackerMoveDebuffs=new Map();
+const hackerMovementBase=new Map();
+const hackerActionLocks=new Map();
+const hackerHealBlocks=new Map();
+const hackerSuppressedBuffs=new Map();
+const HACKER_BLUE_PARTICLE="minecraft:trial_spawner_detection_ominous";
+const HACKER_POSITIVE_EFFECTS=new Set([
+ "speed","haste","strength","regeneration","resistance","fire_resistance","water_breathing",
+ "invisibility","night_vision","absorption","saturation","jump_boost","slow_falling",
+ "conduit_power","dolphins_grace","village_hero","luck","instant_health"
+]);
 const HERO_VALOR_KEY="geumyi:hero_valor_v1", HERO_VALOR_MAX=30;
 const REAPER_SOUL_KEY="geumyi:reaper_soul_v1", REAPER_SOUL_MAX=100, FIGHTER_FURY_MAX=10;
 const SKILLS={
@@ -34,13 +50,18 @@ const SKILLS={
  hero_heart:{cls:"hero",level:10,cd:40,name:"용맹한 전사의 마음"}, hero_smite:{cls:"hero",level:40,cd:40,name:"강타"},
  hero_parry:{cls:"hero",level:70,cd:50,name:"패링"}, hero_courage:{cls:"hero",level:100,cd:65,name:"용맹한 기사의 용기"},
  reaper_absorb:{cls:"reaper",level:10,cd:20,name:"영혼 흡수"}, reaper_ambush:{cls:"reaper",level:40,cd:20,name:"사신의 복병"},
- reaper_massacre:{cls:"reaper",level:70,cd:30,name:"사신의 학살"}, reaper_judgment:{cls:"reaper",level:100,cd:45,name:"사신의 심판"}
+ reaper_massacre:{cls:"reaper",level:70,cd:30,name:"사신의 학살"}, reaper_judgment:{cls:"reaper",level:100,cd:45,name:"사신의 심판"},
+ hacker_computer:{cls:"hacker",level:0,cd:25,name:"컴퓨터"},
+ hacker_scan:{cls:"hacker",level:10,cd:30,cast:2,name:"취약점 스캔"},
+ hacker_xxs:{cls:"hacker",level:40,cd:40,cast:3.5,name:"XXS"},
+ hacker_impair:{cls:"hacker",level:70,cd:50,cast:5,name:"Impair Defenses"},
+ hacker_ddos:{cls:"hacker",level:100,cd:70,cast:7,name:"랜섬 웨어&DDoS"}
 };
 const ALL_ITEMS=[...Object.keys(SKILLS),"warrior_sword","archer_bow","archer_arrow","mage_staff","cleric_bible","berserker_axe","assassin_dagger","fighter_gauntlet","hero_sword","reaper_scythe","sheriff_revolver","sheriff_quickdraw","sheriff_rope","sheriff_enhance","sheriff_deadeye"];
 function safe(fn){try{return fn();}catch{return undefined;}}
 function now(){return system.currentTick;} function level(p){return safe(()=>p.level)??0;}
-function cls(p){if(safe(()=>p.hasTag("geumyi_class_sword")))return"sword";if(safe(()=>p.hasTag("geumyi_class_archer")))return"archer";if(safe(()=>p.hasTag("geumyi_class_mage")))return"mage";if(safe(()=>p.hasTag("geumyi_class_cleric")))return"cleric";if(safe(()=>p.hasTag("geumyi_class_berserker")))return"berserker";if(safe(()=>p.hasTag("geumyi_class_assassin")))return"assassin";if(safe(()=>p.hasTag("geumyi_class_fighter")))return"fighter";if(safe(()=>p.hasTag("geumyi_class_hero")))return"hero";if(safe(()=>p.hasTag("geumyi_class_reaper")))return"reaper";if(safe(()=>p.hasTag("geumyi_class_sheriff")))return"sheriff";return"none";}
-function cname(c){return c==="sword"?"검사":c==="archer"?"궁수":c==="mage"?"마법사":c==="cleric"?"성직자":c==="berserker"?"광전사":c==="assassin"?"암살자":c==="fighter"?"격투가":c==="hero"?"용사":c==="reaper"?"사신":c==="sheriff"?"보안관":"미전직";}
+function cls(p){if(safe(()=>p.hasTag("geumyi_class_sword")))return"sword";if(safe(()=>p.hasTag("geumyi_class_archer")))return"archer";if(safe(()=>p.hasTag("geumyi_class_mage")))return"mage";if(safe(()=>p.hasTag("geumyi_class_cleric")))return"cleric";if(safe(()=>p.hasTag("geumyi_class_berserker")))return"berserker";if(safe(()=>p.hasTag("geumyi_class_assassin")))return"assassin";if(safe(()=>p.hasTag("geumyi_class_fighter")))return"fighter";if(safe(()=>p.hasTag("geumyi_class_hero")))return"hero";if(safe(()=>p.hasTag("geumyi_class_reaper")))return"reaper";if(safe(()=>p.hasTag("geumyi_class_sheriff")))return"sheriff";if(safe(()=>p.hasTag("geumyi_class_hacker")))return"hacker";return"none";}
+function cname(c){return c==="sword"?"검사":c==="archer"?"궁수":c==="mage"?"마법사":c==="cleric"?"성직자":c==="berserker"?"광전사":c==="assassin"?"암살자":c==="fighter"?"격투가":c==="hero"?"용사":c==="reaper"?"사신":c==="sheriff"?"보안관":c==="hacker"?"해커":"미전직";}
 function msg(p,t){safe(()=>p.sendMessage(t));}
 function bar(p,t,duration=100){
   const seq=(skillUiSeq.get(p.id)??0)+1; skillUiSeq.set(p.id,seq); skillUiUntil.set(p.id,now()+duration);
@@ -84,7 +105,7 @@ function assassinGasVisualAt(dim,c,phase=0){for(let i=0;i<18;i++){const u=(i+.5)
 function classItemId(id){return id?.startsWith("geumyi:")&&ALL_ITEMS.includes(id.substring(7));}
 function setClassItemLocks(p,locked=true){try{const c=p.getComponent("minecraft:inventory")?.container;if(!c)return;for(let i=0;i<c.size;i++){const slot=c.getSlot(i);if(!slot?.hasItem?.()||!classItemId(slot.typeId))continue;slot.lockMode=locked?ItemLockMode.inventory:ItemLockMode.none;slot.keepOnDeath=locked;}}catch{}}
 function clearItems(p){setClassItemLocks(p,false);for(const id of ALL_ITEMS)safe(()=>p.runCommand(`clear @s geumyi:${id}`));}
-function giveItems(p,c){clearItems(p);if(c==="sword"){safe(()=>p.runCommand("give @s geumyi:warrior_sword 1"));for(const id of["sword_draw","sword_dash","sword_rise","sword_ult"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}else if(c==="archer"){for(const id of["archer_triple","archer_boom","archer_wire","archer_ult"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}else if(c==="mage"){safe(()=>p.runCommand("give @s geumyi:mage_staff 1"));for(const id of["mage_fireball","mage_shield","mage_vine","mage_thunder"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}else if(c==="cleric"){safe(()=>p.runCommand("give @s geumyi:cleric_bible 1"));for(const id of["cleric_recovery","cleric_shield","cleric_spear","cleric_prayer"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}else if(c==="berserker"){safe(()=>p.runCommand("give @s geumyi:berserker_axe 1"));for(const id of["berserker_rage","berserker_slam","berserker_tornado","berserker_ult"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}else if(c==="assassin"){safe(()=>p.runCommand("give @s geumyi:assassin_dagger 1"));for(const id of["assassin_prep","assassin_move","assassin_gas","assassin_ult"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`)); }else if(c==="fighter"){safe(()=>p.runCommand("give @s geumyi:fighter_gauntlet 1"));for(const id of["fighter_step","fighter_burst","fighter_flurry","fighter_limit"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`)); }else if(c==="hero"){safe(()=>p.runCommand("give @s geumyi:hero_sword 1"));for(const id of["hero_heart","hero_smite","hero_parry","hero_courage"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}else if(c==="reaper"){safe(()=>p.runCommand("give @s geumyi:reaper_scythe 1"));for(const id of["reaper_absorb","reaper_ambush","reaper_massacre","reaper_judgment"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}else if(c==="sheriff"){safe(()=>p.runCommand("give @s geumyi:sheriff_revolver 1"));for(const id of["sheriff_quickdraw","sheriff_rope","sheriff_enhance","sheriff_deadeye"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}system.runTimeout(()=>setClassItemLocks(p,true),2);}
+function giveItems(p,c){clearItems(p);if(c==="sword"){safe(()=>p.runCommand("give @s geumyi:warrior_sword 1"));for(const id of["sword_draw","sword_dash","sword_rise","sword_ult"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}else if(c==="archer"){for(const id of["archer_triple","archer_boom","archer_wire","archer_ult"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}else if(c==="mage"){safe(()=>p.runCommand("give @s geumyi:mage_staff 1"));for(const id of["mage_fireball","mage_shield","mage_vine","mage_thunder"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}else if(c==="cleric"){safe(()=>p.runCommand("give @s geumyi:cleric_bible 1"));for(const id of["cleric_recovery","cleric_shield","cleric_spear","cleric_prayer"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}else if(c==="berserker"){safe(()=>p.runCommand("give @s geumyi:berserker_axe 1"));for(const id of["berserker_rage","berserker_slam","berserker_tornado","berserker_ult"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}else if(c==="assassin"){safe(()=>p.runCommand("give @s geumyi:assassin_dagger 1"));for(const id of["assassin_prep","assassin_move","assassin_gas","assassin_ult"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`)); }else if(c==="fighter"){safe(()=>p.runCommand("give @s geumyi:fighter_gauntlet 1"));for(const id of["fighter_step","fighter_burst","fighter_flurry","fighter_limit"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`)); }else if(c==="hero"){safe(()=>p.runCommand("give @s geumyi:hero_sword 1"));for(const id of["hero_heart","hero_smite","hero_parry","hero_courage"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}else if(c==="reaper"){safe(()=>p.runCommand("give @s geumyi:reaper_scythe 1"));for(const id of["reaper_absorb","reaper_ambush","reaper_massacre","reaper_judgment"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}else if(c==="sheriff"){safe(()=>p.runCommand("give @s geumyi:sheriff_revolver 1"));for(const id of["sheriff_quickdraw","sheriff_rope","sheriff_enhance","sheriff_deadeye"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}else if(c==="hacker"){for(const id of["hacker_computer","hacker_scan","hacker_xxs","hacker_impair","hacker_ddos"])safe(()=>p.runCommand(`give @s geumyi:${id} 1`));}system.runTimeout(()=>setClassItemLocks(p,true),2);}
 function resetFighterMovement(p){const mc=safe(()=>p.getComponent("minecraft:movement"));if(mc)safe(()=>mc.resetToDefaultValue());}
 function onClassChanged(p,c){activeSkillCast.delete(p.id);skillUiUntil.delete(p.id);safe(()=>p.removeTag("geumyi_skill_ui_lock"));fighterFury.delete(p.id);fighterLimitUntil.delete(p.id);fighterCombo.delete(p.id);resetFighterMovement(p);assassinUltInvuln.delete(p.id);endHeroGuard(p);heroParryUntil.delete(p.id);heroSneakPrev.delete(p.id);fighterSneakPrev.delete(p.id);const hu=heroUltState.get(p.id);if(hu?.handle)safe(()=>system.clearRun(hu.handle));heroUltState.delete(p.id);reaperFlipState.delete(p.id);reaperJudgmentOverflow.delete(p.id);if(c==="none"){clearItems(p);safe(()=>p.removeEffect("speed"));safe(()=>p.removeEffect("health_boost"));safe(()=>p.removeEffect("invisibility"));assassinPrepStealthUntil.delete(p.id);fighterBonusHp.set(p.id,0);fighterBonusMaxSeen.set(p.id,0);return;}giveItems(p,c);if(c!=="archer")safe(()=>p.removeEffect("speed"));if(c!=="fighter")safe(()=>p.removeEffect("health_boost"));if(c!=="assassin"){safe(()=>p.removeEffect("invisibility"));assassinPrepStealthUntil.delete(p.id);}msg(p,"§7[장비] 전용 장비와 스킬 아이템 지급 완료");}
 function fighterBonusMax(p){if(cls(p)!=="fighter")return 0;let n=0;for(const t of[10,30,50,70,100])if(level(p)>=t)n+=2;return n;}
@@ -298,7 +319,216 @@ function reaperJudgmentTargetMark(p,e){try{const c=targetPoint(e);for(let i=0;i<
 function reaperJudgmentFinisher(p,e){if(!targetable(e)||health(e)<=0){endActiveSkill(p,"reaper_judgment");return;}const origin={...p.location};reaperJudgmentTargetMark(p,e);areaSound(p,"random.orb",.62,.28,32,origin);for(let i=0;i<8;i++){const a=i*Math.PI/4;particle(p.dimension,REAPER_DARK_PARTICLE,{x:origin.x+Math.cos(a)*.65,y:origin.y+.3+(i%3)*.35,z:origin.z+Math.sin(a)*.65});}moveReaperInFront(p,e);const arrival={...p.location};for(let i=0;i<10;i++){const a=i*Math.PI/5;particle(p.dimension,i%2?REAPER_DARK_PARTICLE:REAPER_RED_PARTICLE,{x:arrival.x+Math.cos(a)*.8,y:arrival.y+.25+(i%4)*.3,z:arrival.z+Math.sin(a)*.8});}system.runTimeout(()=>{try{if(!targetable(e)||health(e)<=0){endActiveSkill(p,"reaper_judgment");return;}const tp=targetPoint(e),dx=e.location.x-p.location.x,dz=e.location.z-p.location.z,l=Math.hypot(dx,dz)||1,forward={x:dx/l,y:0,z:dz/l};areaSound(p,"random.sweep",.62,.42,36,tp);reaperLongSlash(p,{x:tp.x,y:tp.y-.18,z:tp.z},16.5,forward);system.runTimeout(()=>{try{if(!targetable(e)||health(e)<=0){endActiveSkill(p,"reaper_judgment");return;}const dealt=reaperDamage(e,100,p,.20,true);particle(p.dimension,"minecraft:critical_hit_emitter",tp);for(let i=0;i<12;i++){const a=i*Math.PI*2/12;particle(p.dimension,REAPER_RED_PARTICLE,{x:tp.x+Math.cos(a)*(1.0+(i%2)*.45),y:tp.y-.45+(i%3)*.45,z:tp.z+Math.sin(a)*(1.0+(i%2)*.45)});}areaSound(p,"random.explode",.72,.30,36,tp);if(dealt>0){for(let i=1;i<=10;i++)system.runTimeout(()=>{try{if(!targetable(e)||health(e)<=0)return;const tickDmg=reaperDamage(e,7,p,.20,true);if(tickDmg>0){const q=targetPoint(e);particle(p.dimension,REAPER_RED_PARTICLE,q);if(i===1||i===5||i===10)areaSound(p,"random.sweep",1.42,.10,24,q);}}catch{}},i*20);}bar(p,"§4§l심판 참격! §r§f강적 100데미지 + 출혈 10초 총 70데미지");endActiveSkill(p,"reaper_judgment");}catch{endActiveSkill(p,"reaper_judgment");}},7);}catch{endActiveSkill(p,"reaper_judgment");}},3);}
 function castReaperJudgment(p){if(!validate(p,"reaper_judgment"))return;if(!spendReaperSoul(p,15))return;startCd(p,"reaper_judgment",45);beginActiveSkill(p,"reaper_judgment");const center={...p.location},processed=new Set(),chargeTicks=6;let strongest=strongestReaperTarget(p,center,14);bar(p,"§4§l사신의 심판... §r§7영혼이 들끓기 시작합니다.",70);reaperJudgmentChargeFx(p,center);areaSound(p,"random.orb",.58,.30,32,center);for(let r=1;r<=14;r++){system.runTimeout(()=>{try{const count=Math.max(14,Math.round(r*3.4));for(let i=0;i<count;i++){const a=i*Math.PI*2/count;particle(p.dimension,REAPER_RED_PARTICLE,{x:center.x+Math.cos(a)*r,y:center.y+.09,z:center.z+Math.sin(a)*r});}if(r===5||r===10||r===14)areaSound(p,"random.sweep",.55+r*.025,.16+r*.008,36,center);for(const e of p.dimension.getEntities({location:center,maxDistance:r+.8})){if(!targetable(e)||processed.has(e.id))continue;const d=dist(center,e.location);if(d<=r+.65){processed.add(e.id);judgmentExecute(p,e);}}if(r===14){areaSound(p,"random.sweep",.78,.30,36,center);if(!targetable(strongest)||health(strongest)<=0)strongest=strongestReaperTarget(p,center,14);bar(p,`§4사신의 심판! §f영혼 15 / 붉은 파동 반지름 14칸 / 대상 ${processed.size}명`);if(strongest&&targetable(strongest)&&health(strongest)>0)system.runTimeout(()=>reaperJudgmentFinisher(p,strongest),4);else endActiveSkill(p,"reaper_judgment");}}catch{if(r===14)endActiveSkill(p,"reaper_judgment");}},chargeTicks+r);}}
 
-function cast(p,id){if(!p||p.typeId!=="minecraft:player")return;const lk=`${p.id}:${id}`,lt=lastUse.get(lk)??-999;if(now()-lt<3)return;lastUse.set(lk,now());if(id==="sword_draw")castDraw(p);else if(id==="sword_dash")castDash(p);else if(id==="sword_rise")castRise(p);else if(id==="sword_ult")castSwordUlt(p);else if(id==="archer_triple")castTriple(p);else if(id==="archer_boom")castBoom(p);else if(id==="archer_wire")castWire(p);else if(id==="archer_ult")castArcherUlt(p);else if(id==="mage_fireball")castFireball(p);else if(id==="mage_shield")castShield(p);else if(id==="mage_vine")castVine(p);else if(id==="mage_thunder")castThunder(p);else if(id==="mage_staff")castStaff(p);else if(id==="cleric_bible")castBible(p);else if(id==="cleric_recovery")castClericRecovery(p);else if(id==="cleric_shield")castClericShield(p);else if(id==="cleric_spear")castClericSpear(p);else if(id==="cleric_prayer")castClericPrayer(p);else if(id==="berserker_axe")castBerserkerAxe(p);else if(id==="berserker_rage")castBerserkerRage(p);else if(id==="berserker_slam")castBerserkerSlam(p);else if(id==="berserker_tornado")castBerserkerTornado(p);else if(id==="berserker_ult")castBerserkerUlt(p);else if(id==="assassin_prep")castAssassinPrep(p);else if(id==="assassin_move")castAssassinMove(p);else if(id==="assassin_gas")castAssassinGas(p);else if(id==="assassin_ult")castAssassinUlt(p);else if(id==="fighter_step")castFighterStep(p);else if(id==="fighter_burst")castFighterBurst(p);else if(id==="fighter_flurry")castFighterFlurry(p);else if(id==="fighter_limit")castFighterLimit(p);else if(id==="hero_sword")castHeroSword(p);else if(id==="hero_heart")castHeroHeart(p);else if(id==="hero_smite")castHeroSmite(p);else if(id==="hero_parry")castHeroParry(p);else if(id==="hero_courage")castHeroCourage(p);else if(id==="reaper_scythe")castReaperScythe(p);else if(id==="reaper_absorb")castReaperAbsorb(p);else if(id==="reaper_ambush")castReaperAmbush(p);else if(id==="reaper_massacre")castReaperMassacre(p);else if(id==="reaper_judgment")castReaperJudgment(p);}
+// Hacker / redesigned tactical debuffer.
+function hackerValidEntity(e){return targetable(e)&&health(e)>0;}
+function hackerStackCount(e){
+  if(!e)return 0;
+  const arr=hackerStackExpiries.get(e.id);
+  if(!arr)return 0;
+  const live=arr.filter(t=>t>now());
+  if(live.length)hackerStackExpiries.set(e.id,live);else hackerStackExpiries.delete(e.id);
+  return live.length;
+}
+function addHackerStacks(e,n,seconds){
+  if(!hackerValidEntity(e)||n<=0)return 0;
+  const arr=(hackerStackExpiries.get(e.id)??[]).filter(t=>t>now());
+  const until=now()+Math.round(seconds*20);
+  for(let i=0;i<n;i++)arr.push(until);
+  hackerStackExpiries.set(e.id,arr.slice(-99));
+  return arr.length;
+}
+function addHackerAttackDebuff(e,multiplier,seconds){
+  if(!hackerValidEntity(e))return;
+  const list=(hackerAttackDebuffs.get(e.id)??[]).filter(x=>x.until>now());
+  list.push({entity:e,multiplier,until:now()+Math.round(seconds*20)});
+  hackerAttackDebuffs.set(e.id,list);
+}
+function hackerAttackMultiplier(e){
+  if(!e)return 1;
+  const list=(hackerAttackDebuffs.get(e.id)??[]).filter(x=>x.until>now());
+  if(!list.length){hackerAttackDebuffs.delete(e.id);return 1;}
+  hackerAttackDebuffs.set(e.id,list);
+  return Math.min(...list.map(x=>x.multiplier));
+}
+function setHackerReveal(e,seconds){if(hackerValidEntity(e))hackerRevealUntil.set(e.id,{entity:e,until:now()+Math.round(seconds*20)});}
+function ensureHackerMovementBase(e){
+  if(hackerMovementBase.has(e.id))return hackerMovementBase.get(e.id);
+  const mc=safe(()=>e.getComponent("minecraft:movement"));
+  const base=mc?Number(mc.currentValue):undefined;
+  if(Number.isFinite(base))hackerMovementBase.set(e.id,{entity:e,base});
+  return hackerMovementBase.get(e.id);
+}
+function setHackerMoveDebuff(e,seconds,scale=.8){
+  if(!hackerValidEntity(e))return;
+  ensureHackerMovementBase(e);
+  const old=hackerMoveDebuffs.get(e.id);
+  hackerMoveDebuffs.set(e.id,{entity:e,scale:Math.min(scale,old?.scale??1),until:Math.max(old?.until??0,now()+Math.round(seconds*20))});
+}
+function setHackerActionLock(e,seconds){
+  if(!hackerValidEntity(e))return;
+  ensureHackerMovementBase(e);
+  const until=now()+Math.round(seconds*20);
+  hackerActionLocks.set(e.id,{entity:e,until:Math.max(hackerActionLocks.get(e.id)?.until??0,until)});
+  safe(()=>e.addTag("geumyi_hacker_locked"));
+}
+function refreshHackerMovement(id,e){
+  if(!e)return;
+  const lock=hackerActionLocks.get(id),move=hackerMoveDebuffs.get(id),base=hackerMovementBase.get(id);
+  const lockActive=!!lock&&lock.until>now();
+  const moveActive=!!move&&move.until>now();
+  const mc=safe(()=>e.getComponent("minecraft:movement"));
+  if(mc&&base){
+    if(lockActive)safe(()=>mc.setCurrentValue(0));
+    else if(moveActive)safe(()=>mc.setCurrentValue(Math.max(mc.effectiveMin??0,base.base*move.scale)));
+    else safe(()=>mc.setCurrentValue(base.base));
+  }
+  if(lockActive)safe(()=>e.clearVelocity());
+  if(lock&&!lockActive){hackerActionLocks.delete(id);safe(()=>e.removeTag("geumyi_hacker_locked"));}
+  if(move&&!moveActive)hackerMoveDebuffs.delete(id);
+  if(!lockActive&&!moveActive)hackerMovementBase.delete(id);
+}
+function hackerWave(p,radius){
+  const center={...p.location},dim=p.dimension;
+  for(let r=1;r<=radius;r++){
+    system.runTimeout(()=>{for(let i=0;i<18;i++){const a=i*Math.PI*2/18;particle(dim,HACKER_BLUE_PARTICLE,{x:center.x+Math.cos(a)*r,y:center.y+.22,z:center.z+Math.sin(a)*r});}},Math.floor(r*1.2));
+  }
+}
+function hackerMarker(e){
+  try{
+    const c=targetPoint(e);
+    for(let i=0;i<6;i++){const a=i*Math.PI/3;particle(e.dimension,HACKER_BLUE_PARTICLE,{x:c.x+Math.cos(a)*.68,y:c.y-.35+(i%3)*.55,z:c.z+Math.sin(a)*.68});}
+    particle(e.dimension,HACKER_BLUE_PARTICLE,{x:c.x,y:c.y+1.2,z:c.z});
+  }catch{}
+}
+function hackerTargets(p,r,minStacks=0){
+  return (safe(()=>p.dimension.getEntities({location:p.location,maxDistance:r}))??[])
+    .filter(e=>hackerValidEntity(e)&&hackerStackCount(e)>=minStacks);
+}
+function beginHackerCast(p,id,seconds,finish){
+  if(!validate(p,id))return;
+  startCd(p,id,SKILLS[id].cd);
+  beginActiveSkill(p,id);
+  const ticks=Math.round(seconds*20);
+  bar(p,`§3[${SKILLS[id].name}] §f해킹 중... §b${seconds}초`,Math.min(ticks,100));
+  for(let i=0;i<Math.ceil(seconds);i++)system.runTimeout(()=>{try{const c={x:p.location.x,y:p.location.y+1,z:p.location.z};for(let k=0;k<8;k++){const a=(k/8)*Math.PI*2+i*.45;particle(p.dimension,HACKER_BLUE_PARTICLE,{x:c.x+Math.cos(a)*(.55+i*.08),y:c.y+(k%2)*.22,z:c.z+Math.sin(a)*(.55+i*.08)});}}catch{}},i*20);
+  system.runTimeout(()=>{try{if(cls(p)==="hacker")finish();}finally{endActiveSkill(p,id);}},ticks);
+}
+function castHackerComputer(p){
+  if(!validate(p,"hacker_computer"))return;
+  startCd(p,"hacker_computer",25);
+  hackerWave(p,10);
+  const ts=hackerTargets(p,10,0);
+  for(const e of ts){setHackerReveal(e,10);addHackerAttackDebuff(e,.80,10);addHackerStacks(e,1,20);}
+  sound(p,"random.orb",1.72,.62);
+  bar(p,`§3컴퓨터 탐지! §f반경 10칸 / 적 ${ts.length}명 / 공격피해 -20% 10초 / 해킹 +1(20초)`);
+}
+function castHackerScan(p){
+  beginHackerCast(p,"hacker_scan",2,()=>{
+    hackerWave(p,20);
+    const ts=hackerTargets(p,20,0);
+    for(const e of ts){addHackerAttackDebuff(e,.65,50);setHackerMoveDebuff(e,50,.80);addHackerStacks(e,2,50);}
+    sound(p,"random.orb",1.42,.78);
+    bar(p,`§3취약점 스캔 완료! §f적 ${ts.length}명 / 공격피해 -35%·이동속도 -20% / 해킹 +2(50초)`);
+  });
+}
+function castHackerXXS(p){
+  beginHackerCast(p,"hacker_xxs",3.5,()=>{
+    const ts=hackerTargets(p,30,5);
+    for(const e of ts){damage(e,20,p);setHackerActionLock(e,5);hackerMarker(e);}
+    sound(p,"random.anvil_land",1.45,.62);
+    bar(p,`§bXXS 실행! §f해킹 5+ 대상 ${ts.length}명 / 20데미지 / 5초 행동 금지 / 스택 소비 없음`);
+  });
+}
+function saveAndSuppressHackerBuffs(e,state){
+  const effects=safe(()=>e.getEffects())??[];
+  for(const eff of effects){
+    try{
+      const id=String(eff.typeId??"").replace(/^minecraft:/,"");
+      if(id==="health_boost"||!HACKER_POSITIVE_EFFECTS.has(id))continue;
+      const prev=state.saved.get(id);
+      if(!prev||eff.duration>prev.duration||eff.amplifier>prev.amplifier)state.saved.set(id,{typeId:eff.typeId,duration:eff.duration,amplifier:eff.amplifier});
+      safe(()=>e.removeEffect(eff.typeId));
+    }catch{}
+  }
+}
+function beginHackerHealBlock(e,seconds){
+  if(!hackerValidEntity(e))return;
+  const hc=safe(()=>e.getComponent("minecraft:health"));
+  const old=hackerHealBlocks.get(e.id);
+  const ceiling=Math.min(Number.isFinite(old?.ceiling)?old.ceiling:Infinity,Number(hc?.currentValue??Infinity));
+  hackerHealBlocks.set(e.id,{entity:e,until:Math.max(old?.until??0,now()+Math.round(seconds*20)),ceiling});
+}
+function beginHackerBuffSuppression(e,seconds){
+  if(!hackerValidEntity(e))return;
+  let st=hackerSuppressedBuffs.get(e.id);
+  if(!st)st={entity:e,until:0,saved:new Map()};
+  st.until=Math.max(st.until,now()+Math.round(seconds*20));
+  hackerSuppressedBuffs.set(e.id,st);
+  saveAndSuppressHackerBuffs(e,st);
+}
+function restoreHackerBuffs(st){
+  const e=st?.entity;if(!e)return;
+  for(const x of st.saved.values())safe(()=>e.addEffect(x.typeId,Math.max(1,x.duration),{amplifier:x.amplifier,showParticles:false}));
+}
+function castHackerImpair(p){
+  beginHackerCast(p,"hacker_impair",5,()=>{
+    const ts=hackerTargets(p,30,7);
+    for(const e of ts){beginHackerBuffSuppression(e,25);beginHackerHealBlock(e,25);addHackerStacks(e,5,60);damage(e,25,p);hackerMarker(e);}
+    sound(p,"random.anvil_land",.82,.62);
+    bar(p,`§3Impair Defenses! §f해킹 7+ 대상 ${ts.length}명 / 버프·회복 25초 차단 / 25데미지 / 해킹 +5(60초)`);
+  });
+}
+function castHackerDDOS(p){
+  beginHackerCast(p,"hacker_ddos",7,()=>{
+    const ts=hackerTargets(p,20,20).sort((a,b)=>health(b)-health(a));
+    const e=ts[0];
+    if(!e){bar(p,"§c반경 20칸에 해킹 스택 20 이상인 적이 없습니다.");return;}
+    setHackerActionLock(e,10);
+    hackerMarker(e);
+    const totalHits=50,totalTicks=60,perHit=6;
+    for(let i=0;i<totalHits;i++){
+      const delay=Math.floor(i*totalTicks/totalHits);
+      system.runTimeout(()=>{try{if(!hackerValidEntity(e))return;damage(e,perHit,p);const c=targetPoint(e);particle(e.dimension,HACKER_BLUE_PARTICLE,c);particle(e.dimension,"minecraft:critical_hit_emitter",c);if(i%5===0)sound(p,"random.click",1.1+(i%10)*.03,.22);}catch{}},delay);
+    }
+    sound(p,"random.levelup",.62,.82);
+    bar(p,`§3§l랜섬 웨어&DDoS! §r§f${e.typeId} / 10초 행동 금지 / 3초 50타·총 300데미지`,100);
+  });
+}
+
+// Periodic state enforcement: exact damage/movement debuffs, location markers, heal suppression and buff restoration.
+system.runInterval(()=>{
+  const t=now();
+  for(const[id,st]of[...hackerRevealUntil.entries()]){
+    if(st.until<=t||!hackerValidEntity(st.entity)){hackerRevealUntil.delete(id);continue;}
+    hackerMarker(st.entity);
+  }
+  const movementIds=new Set([...hackerMovementBase.keys(),...hackerMoveDebuffs.keys(),...hackerActionLocks.keys()]);
+  for(const id of movementIds){
+    const e=hackerMovementBase.get(id)?.entity??hackerMoveDebuffs.get(id)?.entity??hackerActionLocks.get(id)?.entity;
+    if(!hackerValidEntity(e)){hackerMovementBase.delete(id);hackerMoveDebuffs.delete(id);hackerActionLocks.delete(id);continue;}
+    refreshHackerMovement(id,e);
+  }
+  for(const[id,st]of[...hackerHealBlocks.entries()]){
+    if(st.until<=t||!hackerValidEntity(st.entity)){hackerHealBlocks.delete(id);continue;}
+    const hc=safe(()=>st.entity.getComponent("minecraft:health"));if(!hc)continue;
+    const cur=Number(hc.currentValue??0);
+    if(cur<st.ceiling)st.ceiling=cur;
+    else if(cur>st.ceiling+.001)safe(()=>hc.setCurrentValue(st.ceiling));
+  }
+  for(const[id,st]of[...hackerSuppressedBuffs.entries()]){
+    if(st.until<=t||!hackerValidEntity(st.entity)){if(st.until<=t)restoreHackerBuffs(st);hackerSuppressedBuffs.delete(id);continue;}
+    saveAndSuppressHackerBuffs(st.entity,st);
+  }
+  for(const[id,list]of[...hackerAttackDebuffs.entries()]){
+    const live=list.filter(x=>x.until>t&&hackerValidEntity(x.entity));
+    if(live.length)hackerAttackDebuffs.set(id,live);else hackerAttackDebuffs.delete(id);
+  }
+  for(const[id,arr]of[...hackerStackExpiries.entries()]){
+    const live=arr.filter(x=>x>t);if(live.length)hackerStackExpiries.set(id,live);else hackerStackExpiries.delete(id);
+  }
+},5);
+
+function cast(p,id){if(!p||p.typeId!=="minecraft:player")return;const lk=`${p.id}:${id}`,lt=lastUse.get(lk)??-999;if(now()-lt<3)return;lastUse.set(lk,now());if(id==="sword_draw")castDraw(p);else if(id==="sword_dash")castDash(p);else if(id==="sword_rise")castRise(p);else if(id==="sword_ult")castSwordUlt(p);else if(id==="archer_triple")castTriple(p);else if(id==="archer_boom")castBoom(p);else if(id==="archer_wire")castWire(p);else if(id==="archer_ult")castArcherUlt(p);else if(id==="mage_fireball")castFireball(p);else if(id==="mage_shield")castShield(p);else if(id==="mage_vine")castVine(p);else if(id==="mage_thunder")castThunder(p);else if(id==="mage_staff")castStaff(p);else if(id==="cleric_bible")castBible(p);else if(id==="cleric_recovery")castClericRecovery(p);else if(id==="cleric_shield")castClericShield(p);else if(id==="cleric_spear")castClericSpear(p);else if(id==="cleric_prayer")castClericPrayer(p);else if(id==="berserker_axe")castBerserkerAxe(p);else if(id==="berserker_rage")castBerserkerRage(p);else if(id==="berserker_slam")castBerserkerSlam(p);else if(id==="berserker_tornado")castBerserkerTornado(p);else if(id==="berserker_ult")castBerserkerUlt(p);else if(id==="assassin_prep")castAssassinPrep(p);else if(id==="assassin_move")castAssassinMove(p);else if(id==="assassin_gas")castAssassinGas(p);else if(id==="assassin_ult")castAssassinUlt(p);else if(id==="fighter_step")castFighterStep(p);else if(id==="fighter_burst")castFighterBurst(p);else if(id==="fighter_flurry")castFighterFlurry(p);else if(id==="fighter_limit")castFighterLimit(p);else if(id==="hero_sword")castHeroSword(p);else if(id==="hero_heart")castHeroHeart(p);else if(id==="hero_smite")castHeroSmite(p);else if(id==="hero_parry")castHeroParry(p);else if(id==="hero_courage")castHeroCourage(p);else if(id==="reaper_scythe")castReaperScythe(p);else if(id==="reaper_absorb")castReaperAbsorb(p);else if(id==="reaper_ambush")castReaperAmbush(p);else if(id==="reaper_massacre")castReaperMassacre(p);else if(id==="reaper_judgment")castReaperJudgment(p);else if(id==="hacker_computer")castHackerComputer(p);else if(id==="hacker_scan")castHackerScan(p);else if(id==="hacker_xxs")castHackerXXS(p);else if(id==="hacker_impair")castHackerImpair(p);else if(id==="hacker_ddos")castHackerDDOS(p);}
 
 world.afterEvents.itemCompleteUse.subscribe(ev=>{try{const type=ev.itemStack?.typeId??"";if(!type.startsWith("geumyi:"))return;const id=type.substring(7);if(id==="reaper_soul_100"){system.run(()=>useReaperSoul100(ev.source));return;}if(SKILLS[id]||id==="mage_staff"||id==="cleric_bible"||id==="berserker_axe"||id==="hero_sword"||id==="reaper_scythe")system.run(()=>cast(ev.source,id));}catch{}});
 world.beforeEvents.itemUse.subscribe(ev=>{try{const p=ev.source,id=ev.itemStack?.typeId??"";if(id==="geumyi:archer_bow"&&cls(p)!=="archer"){ev.cancel=true;system.run(()=>bar(p,"§c궁수 전용 활입니다."));}else if(id==="geumyi:mage_staff"&&cls(p)!=="mage"){ev.cancel=true;system.run(()=>bar(p,"§c마법사 전용 지팡이입니다."));}else if(id==="geumyi:cleric_bible"&&cls(p)!=="cleric"){ev.cancel=true;system.run(()=>bar(p,"§c성직자 전용 성경책입니다."));}else if(id==="geumyi:berserker_axe"&&cls(p)!=="berserker"){ev.cancel=true;system.run(()=>bar(p,"§c광전사 전용 손도끼입니다."));}else if(id==="geumyi:assassin_dagger"&&cls(p)!=="assassin"){ev.cancel=true;system.run(()=>bar(p,"§c암살자 전용 단검입니다."));}else if(id==="geumyi:fighter_gauntlet"&&cls(p)!=="fighter"){ev.cancel=true;system.run(()=>bar(p,"§c격투가 전용 건틀릿입니다."));}else if(id==="geumyi:hero_sword"&&cls(p)!=="hero"){ev.cancel=true;system.run(()=>bar(p,"§c용사 전용검입니다."));}else if(id==="geumyi:reaper_scythe"&&cls(p)!=="reaper"){ev.cancel=true;system.run(()=>bar(p,"§c사신 전용 대낫입니다."));}}catch{}});
@@ -318,7 +548,8 @@ world.beforeEvents.entityHurt.subscribe(ev=>{try{
  if(hurt.typeId==="minecraft:player"&&berserkerSlamFallGuard.has(hurt.id)&&(ev.damageSource.cause===EntityDamageCause.fall||ev.damageSource.cause==="fall")){ev.cancel=true;return;}
  if(hurt.typeId==="minecraft:player"&&cls(hurt)==="reaper"&&(reaperFlipState.get(hurt.id)??0)>now()&&(ev.damageSource.cause===EntityDamageCause.fall||ev.damageSource.cause==="fall")){ev.cancel=true;return;}
  if(proj?.hasTag("geumyi_skill_arrow")){ev.cancel=true;return;}
- if(atk?.hasTag("geumyi_stunned")||atk?.hasTag("geumyi_paralyzed")||atk?.hasTag("geumyi_cleric_stunned")||atk?.hasTag("geumyi_berserker_locked")||atk?.hasTag("geumyi_assassin_locked")||atk?.hasTag("geumyi_fighter_locked")){ev.cancel=true;return;}
+ if(atk?.hasTag("geumyi_stunned")||atk?.hasTag("geumyi_paralyzed")||atk?.hasTag("geumyi_cleric_stunned")||atk?.hasTag("geumyi_berserker_locked")||atk?.hasTag("geumyi_assassin_locked")||atk?.hasTag("geumyi_fighter_locked")||atk?.hasTag("geumyi_hacker_locked")){ev.cancel=true;return;}
+ const hackerScale=hackerAttackMultiplier(atk);if(hackerScale<1)ev.damage=Math.max(0,ev.damage*hackerScale);
  if(hurt.typeId==="minecraft:player"&&hurt.hasTag("geumyi_sword_ult")){ev.cancel=true;return;}
  if(hurt.typeId==="minecraft:player"&&cls(hurt)==="assassin"&&assassinStealthed(hurt)&&atk&&atk.typeId!=="minecraft:player"){ev.cancel=true;return;}
  if(hurt.typeId==="minecraft:player"&&fighterLimitActive(hurt)&&!fighterDefenseBypass.has(hurt.id)){
@@ -342,7 +573,7 @@ world.beforeEvents.entityHurt.subscribe(ev=>{try{
  if(hurt.typeId==="minecraft:player"&&!damageBypass.has(hurt.id)&&hurt.hasTag("geumyi_class_fighter")){const b=fighterBonusHp.get(hurt.id)??0;if(b>0){const used=Math.min(b,ev.damage),remain=Math.max(0,ev.damage-used);fighterBonusHp.set(hurt.id,b-used);ev.cancel=true;if(remain>0){const cause=ev.damageSource.cause,damager=atk;system.run(()=>{damageBypass.add(hurt.id);safe(()=>hurt.applyDamage(remain,damager?{cause,damagingEntity:damager}:{cause}));system.runTimeout(()=>damageBypass.delete(hurt.id),2);});}}}
 }catch{}});
 
-world.beforeEvents.entityHeal.subscribe(ev=>{try{const p=ev.healedEntity;if(p?.typeId!=="minecraft:player"||cls(p)!=="fighter")return;if(ev.healSource?.cause===EntityHealCause.SelfHeal||ev.healSource?.cause==="SelfHeal")ev.healing=Math.max(0,ev.healing*2);}catch{}});
+world.beforeEvents.entityHeal.subscribe(ev=>{try{const p=ev.healedEntity;if(p&&hackerHealBlocks.get(p.id)?.until>now()){ev.cancel=true;return;}if(p?.typeId!=="minecraft:player"||cls(p)!=="fighter")return;if(ev.healSource?.cause===EntityHealCause.SelfHeal||ev.healSource?.cause==="SelfHeal")ev.healing=Math.max(0,ev.healing*2);}catch{}});
 
 world.afterEvents.playerInteractWithEntity.subscribe(ev=>{try{const p=ev.player,e=ev.target;if(!p||!e||e.typeId!=="geumyi:reaper_soul")return;system.run(()=>absorbSoulEntity(p,e));}catch{}});
 world.afterEvents.entityDie.subscribe(ev=>{try{const dead=ev.deadEntity,killer=ev.damageSource?.damagingEntity;if(!dead||judgedSoulIds.delete(dead.id))return;if(!killer||killer.typeId!=="minecraft:player"||cls(killer)!=="reaper")return;if(dead.typeId==="minecraft:player"||dead.typeId==="geumyi:reaper_soul"||dead.typeId==="geumyi:reaper_scythe_projectile"||dead.typeId==="geumyi:reaper_massacre_orbit"||dead.typeId==="minecraft:armor_stand"||dead.typeId==="minecraft:npc")return;const loc={...dead.location},dim=dead.dimension,maxHp=Math.max(1,reaperMaxHealth(dead));spawnReaperSoulDrops(dim,loc,maxHp);}catch{}});
