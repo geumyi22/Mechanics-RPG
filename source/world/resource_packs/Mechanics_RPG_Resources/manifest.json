@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Mechanics RPG Resources v1.4.62 Revolver Back2 More",
-    "description": "v1.4.61 기준 리볼버 3인칭 2단 추가 뒤로",
+    "name": "Mechanics RPG Resources v1.4.64 Hacker Redesign Alpha",
+    "description": "v1.4.62 기반 신규 해커 설계 아이템 리소스 등록",
     "uuid": "e5a69eb5-8dbf-4919-88c5-a539db5b5b4a",
     "version": [
       1,
       4,
-      62
+      64
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         4,
-        62
+        64
       ]
     }
   ]
