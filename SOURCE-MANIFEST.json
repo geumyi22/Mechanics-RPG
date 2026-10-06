@@ -1,9 +1,9 @@
 {
   "project": "Mechanics RPG",
-  "baseline_version": "1.4.62-working-handoff",
-  "baseline_artifact": "Mechanics_RPG_v1.4.62_REVOLVER_BACK2_MORE",
+  "baseline_version": "1.4.64-hacker-redesign-alpha",
+  "baseline_artifact": "Mechanics_RPG_v1.4.64_HACKER_REDESIGN_ALPHA",
   "source_root": "source/world",
-  "file_count": 302,
+  "file_count": 308,
   "files": [
     {
       "path": "BALANCE_ONLY_PATCH.txt",
@@ -102,8 +102,8 @@
     },
     {
       "path": "behavior_packs/Mechanics_RPG/functions/rpg/test/class_hacker.mcfunction",
-      "size": 39,
-      "sha256": "15483fe93cd60080d5aced2d97974d78e6b3454cc44f29c1447caeafc8d54612"
+      "size": 101,
+      "sha256": "6880cabddf3dd6373c4ca62782a4bae1ef219b2a1c0498553e2c5d4fdb1ba4db"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/functions/rpg/test/class_hero.mcfunction",
@@ -336,6 +336,31 @@
       "sha256": "59e8a8e37e03c4e5f3921e0e0dc282dfff8fe62f0b6d17f503f5735375728a2d"
     },
     {
+      "path": "behavior_packs/Mechanics_RPG/items/hacker_computer.json",
+      "size": 675,
+      "sha256": "07d3bcfaaace779fa3a9200f45cef4c9f46125cb9ad73cd2cc16451cccef27c9"
+    },
+    {
+      "path": "behavior_packs/Mechanics_RPG/items/hacker_ddos.json",
+      "size": 679,
+      "sha256": "cce8bdf06b94e0db6b0e11e682e7389fe6bbc1163383afb1254423138cac9b6b"
+    },
+    {
+      "path": "behavior_packs/Mechanics_RPG/items/hacker_impair.json",
+      "size": 677,
+      "sha256": "38094741420c73c1904d17a6bcea4e5b304dc2849470fbf7423a6bd4c07c1371"
+    },
+    {
+      "path": "behavior_packs/Mechanics_RPG/items/hacker_scan.json",
+      "size": 674,
+      "sha256": "0df90781ebe978a7dd65cb4d0bb86f9f642f8f7dffbee1f8323019b2f429505d"
+    },
+    {
+      "path": "behavior_packs/Mechanics_RPG/items/hacker_xxs.json",
+      "size": 659,
+      "sha256": "d2653e708edc477dbda676db5acb9a42a7733a7b5cec4cb3860a230b8912a6c8"
+    },
+    {
       "path": "behavior_packs/Mechanics_RPG/items/hero_courage.json",
       "size": 684,
       "sha256": "139f09b9f5f7bef6bbe73b446b9ff7ba8cb2e5d27e56a4eb289d1c0bce7b69b8"
@@ -487,8 +512,8 @@
     },
     {
       "path": "behavior_packs/Mechanics_RPG/manifest.json",
-      "size": 1040,
-      "sha256": "9acb7726f1bb2c7155d1cb596c150460b2126b56bb111662a78651880de2549e"
+      "size": 1062,
+      "sha256": "282156a2c8bef97d7bb2096fb43d13b88ca925f2642615cb77910f1dfc3c5c13"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/pack_icon.png",
@@ -507,8 +532,8 @@
     },
     {
       "path": "behavior_packs/Mechanics_RPG/scripts/core.js",
-      "size": 20529,
-      "sha256": "5daeccd328ce0734c629370fc57341f4298642ea52cecbcce4ca7a9a82be9100"
+      "size": 22617,
+      "sha256": "10c61b98db81374d136e8d957698dbbe6f246c1bd64e23b36eab3ac5bf3c2936"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/scripts/main.js",
@@ -532,8 +557,8 @@
     },
     {
       "path": "behavior_packs/Mechanics_RPG/scripts/skills.js",
-      "size": 106375,
-      "sha256": "0b8e8fc23cab3b9c1b6bdcb3d4082dcbbafa96bee0da9ee07106912afe0d9400"
+      "size": 118543,
+      "sha256": "622a05e7ba681a83aa0727bed4d02f9e93cb15bc4eac3736c1b8e8566f9f185f"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/scripts/subspace_legacy.js",
@@ -766,6 +791,11 @@
       "sha256": "82224b7152b069b84ff9326330c93a0e555b0c7827aeca515e2fe4540e8d3bd3"
     },
     {
+      "path": "MECHANICS_RPG_v1.4.64_HACKER_REDESIGN_ALPHA.txt",
+      "size": 1817,
+      "sha256": "2749a259390b4e0a69f7d512e931bae5dcb26236839d4df3ef0c6e7350a7cf6a"
+    },
+    {
       "path": "MECHANICS_RPG_v1.4.7_PATCH.txt",
       "size": 178,
       "sha256": "cd66255da21d21452c07bb949d3712b4d24e8e56adf0dabec60e01faa7645f04"
@@ -822,8 +852,8 @@
     },
     {
       "path": "resource_packs/Mechanics_RPG_Resources/manifest.json",
-      "size": 524,
-      "sha256": "31c1cc5b7340c10a3a280ede269c4eb91bb60d5cbb7039b3ee1ae10dfba261f5"
+      "size": 537,
+      "sha256": "0e419b264a9f0ba359a96fa99ba751bc6ebb42f5cc97e34822657ba92440d578"
     },
     {
       "path": "resource_packs/Mechanics_RPG_Resources/models/entity/reaper_massacre_orbit.geo.json",
@@ -1067,8 +1097,8 @@
     },
     {
       "path": "resource_packs/Mechanics_RPG_Resources/textures/item_texture.json",
-      "size": 4722,
-      "sha256": "446dc4f5a403d6323bdba8d304be0e6add5e8a1d6316f2411f1f2a94a4000e8a"
+      "size": 5141,
+      "sha256": "42eb9e0f79421a8b25442033bab9b40dc419d2273515ef7fc3c9ad9b2ecb0d93"
     },
     {
       "path": "resource_packs/Mechanics_RPG_Resources/textures/items/archer_arrow.png",
@@ -1508,12 +1538,12 @@
     {
       "path": "world_behavior_packs.json",
       "size": 117,
-      "sha256": "81648bcdb44ef5e4bd6f3569a4cce03c01a1dc0f72427f4e6b017044738b8a68"
+      "sha256": "f5f4fec14fda4331d2ddea65cde75062037b3afa140b5af8c265391bb3529746"
     },
     {
       "path": "world_resource_packs.json",
       "size": 117,
-      "sha256": "500e30b9bb219856668b0f97cdfc1791b8f9d4a732eed71b325f28804a063850"
+      "sha256": "d9d329c0fe65c7b2a2aded9f79ea7e9ac50a03096c5cc7196cdfecfd6125b539"
     }
   ]
 }
