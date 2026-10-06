@@ -1,0 +1,34 @@
+Mechanics RPG v1.4.64 — Hacker Redesign Alpha
+
+BASE
+- v1.4.62_REVOLVER_BACK2_MORE
+- branch: feature/2026-10-07-v1.4.64-class-redesign
+- weapon transforms unchanged
+
+HACKER
+- Role: middle debuffer / tactician
+- Computer Lv.0: radius 10 blue pulse, 10s target marker, outgoing damage -20% for 10s, +1 stack for 20s, CD 25s
+- Vulnerability Scan Lv.10: 2s hack, radius 20, outgoing damage -35%, movement -20%, +2 stacks for 50s, CD 30s
+- XXS Lv.40: 3.5s hack, radius 30, targets with 5+ stacks, 20 damage + 5s action lock, CD 40s
+- Impair Defenses Lv.70: 5s hack, radius 30, targets with 7+ stacks, suppress positive buffs except health_boost and block all healing for 25s, restore suppressed buffs afterward, +5 stacks for 60s, 25 damage, CD 50s
+- Ransomware&DDoS Lv.100: 7s hack, radius 20, strongest target with 20+ stacks, 10s action lock, 50 hits over 3s for total 300 damage, CD 70s
+
+STACK RULE
+- Stack instances have independent expiration timers.
+- Skill activation never consumes stacks.
+
+IMPLEMENTATION NOTES
+- Bedrock has no native Java-style Glowing status effect. Location reveal is rendered as persistent blue target marker particles for 10s.
+- Attack reduction is direct outgoing-damage scaling, not Weakness.
+- Movement reduction uses the movement attribute directly.
+- Action lock blocks outgoing attack damage and forces movement to zero while active.
+- Healing block cancels heal events and clamps direct health increases every tick.
+- Buff suppression stores active positive effects (except health_boost), removes them during the block, and restores them afterward.
+
+USER-UNSPECIFIED VALUE
+- Impair Defenses damage was not numerically specified; Alpha uses 25 damage as a provisional value.
+
+VALIDATION
+- JS syntax: PASS before CI
+- related JSON parse: PASS before CI
+- Bedrock runtime E2E: NOT RUN
