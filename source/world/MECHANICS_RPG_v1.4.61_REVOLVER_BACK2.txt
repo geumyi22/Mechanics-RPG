@@ -1,0 +1,10 @@
+Mechanics RPG v1.4.61 — Revolver Back2
+
+BASE: v1.4.60_REVOLVER_BACK5_DOWN2
+CHANGE: Sheriff revolver THIRD PERSON only
+Position: [0, -8, -2] -> [0, -8, 0]
+Delta: [0, 0, +2]
+Rotation: unchanged at X=355°
+First person: unchanged
+Reaper scythe: unchanged
+Bedrock runtime E2E: NOT RUN

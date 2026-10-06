@@ -1,0 +1,29 @@
+{
+  "status": "STATIC_ONLY",
+  "runtime_tested": false,
+  "baseline": "v1.4.61_REVOLVER_BACK2",
+  "scythe_unchanged": true,
+  "revolver": {
+    "rotation_x": [
+      355,
+      355
+    ],
+    "position_before": [
+      0,
+      -8,
+      0
+    ],
+    "position_after": [
+      0,
+      -8,
+      2
+    ],
+    "delta": [
+      0,
+      0,
+      2
+    ],
+    "note": "3P only: 2 more steps back (Z +2)"
+  },
+  "first_person_excluded": true
+}

@@ -1,0 +1,26 @@
+Mechanics RPG v1.4.60 — Revolver Back5 Down2
+
+BASE
+- Mechanics_RPG_v1.4.59_REVOLVER_LOWER(1).mcworld
+- This file is the new working baseline requested by the user.
+
+CHANGE SCOPE
+- Sheriff revolver THIRD PERSON only.
+- Rotation unchanged: X 355°
+- Position before: [0, -6, -7]
+- Position after : [0, -8, -2]
+- Delta          : [0, -2, +5]
+  * 2 steps down
+  * 5 steps back
+
+LOCKED / UNCHANGED
+- Reaper scythe transform
+- First-person rendering
+- Item texture
+- Sheriff mechanics
+- Other RPG systems
+
+VALIDATION
+- JSON parse: static
+- ZIP CRC: static
+- Bedrock runtime E2E: NOT RUN by assistant

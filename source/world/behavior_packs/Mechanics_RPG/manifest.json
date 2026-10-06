@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Mechanics RPG v1.4.48",
-    "description": "메크닉스 RPG v1.4.48 - 검증된 9×3 상자형 아공간 복귀판",
-    "uuid": "82e0a3d5-8684-4b3b-9f69-4ae303374ac8",
+    "name": "Mechanics RPG v1.4.62 Revolver Back2 More",
+    "description": "v1.4.61 기준 리볼버 3인칭 2단 추가 뒤로",
+    "uuid": "2119b3a4-ca89-4cb0-9171-955946f01beb",
     "version": [
       1,
       4,
-      48
+      62
     ],
     "min_engine_version": [
       1,
@@ -18,32 +18,32 @@
   "modules": [
     {
       "type": "data",
-      "uuid": "b5d40394-d2ef-4d95-be4b-040f05b25190",
+      "uuid": "547a6b3c-868f-40f0-bd10-039be2065dc9",
       "version": [
         1,
         4,
-        48
+        62
       ]
     },
     {
       "type": "script",
       "language": "javascript",
       "entry": "scripts/main.js",
-      "uuid": "e6d819d5-d545-41da-96f6-27dfb3208406",
+      "uuid": "c42c305e-1819-467e-b97c-a0947b33f386",
       "version": [
         1,
         4,
-        48
+        62
       ]
     }
   ],
   "dependencies": [
     {
-      "uuid": "824ae8eb-4b6d-486a-92d1-b687a0dac928",
+      "uuid": "e5a69eb5-8dbf-4919-88c5-a539db5b5b4a",
       "version": [
         1,
         4,
-        48
+        62
       ]
     },
     {

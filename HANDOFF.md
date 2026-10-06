@@ -1,49 +1,50 @@
 # Development Handoff
 
-기준일: 2026-10-04
+기준일: 2026-10-06
 
-## 현재 고정 기준
+## 빠른 시작
 
-- `main`: **v1.4.48 SAFE GUARD latest release baseline**
-- 분류: **full Bedrock E2E 미검증**
-- source baseline: `source/world/`
-- source manifest: `SOURCE-MANIFEST.json`
-- baseline file count: **294**
-- CI: static/package 검증
-- v1.4.48 exact-package full Bedrock E2E: **NOT RUN**
-- 마지막 full release-gate E2E PASS: **v1.4.20**
+현재 정식 main baseline과 작업 baseline이 다릅니다.
+
+- **정식 main:** v1.4.48 SAFE GUARD — full Bedrock E2E NOT RUN
+- **마지막 full release-gate E2E PASS:** v1.4.20
+- **현재 작업 snapshot:** v1.4.62_REVOLVER_BACK2_MORE
+- **handoff branch:** `handoff/2026-10-06-v1.4.62`
+- **상세 재개 문서:** `docs/SESSION-2026-10-06-HANDOFF.md`
+
+새 채팅에서는 반드시 상세 재개 문서를 먼저 읽고 작업합니다.
+
+## 현재 weapon working values
+
+- Reaper scythe 3P: rotation X=260°, position `[0,-4,-10]`
+- Sheriff revolver 3P: rotation X=355°, position `[0,-8,2]`
+- custom weapon transform: third-person only
+- first-person path: 변경 금지
+- v1.4.62 exact Bedrock runtime E2E: **NOT RUN**
+
+대낫은 아직 손잡이-손 정렬이 미완료입니다. 과거 TEST/J 캘리브레이션을 검증된 정답으로 취급하지 않습니다.
+
+## 신규 직업 아이디어
+
+- Hacker: 스킬 초안만 존재, **미구현**
+- Glitcher: 역할 분리 아이디어만 존재, **미구현**
+- Hacker 구현 요청 직후 handoff로 전환되었으므로 파일에는 Hacker 코드가 없습니다.
 
 ## 절대 보존
 
-- `geumyi:subspace_v3_head`
-- `geumyi:subspace_v3_stage`
-- `geumyi:subspace_v3_journal`
-- 기존 사신 대낫 1인칭 렌더 경로
-- 기존 보안관 리볼버 1인칭 렌더 경로
-- 기존 정상 직업/퀘스트/상점/햇빛 로직
+- 기존 사신/보안관 1인칭
+- Sheriff mechanics
+- Reaper mechanics / skills
+- quest / shop / status / sunlight
+- Subspace v3 저장 체계 및 SAFE GUARD
+- E2E 없는 완료 선언 금지
 
-## Subspace release behavior
+## 검증 경계
 
-- 9×3 / 27칸
-- historical 36-slot save array 유지
-- unsafe metadata-bearing item 저장 차단
-- Shulker/Bundle 저장 차단
-- SAFE GUARD 변경 범위는 v1.4.48 원본 대비 `scripts/subspace.js` 1개
+v1.4.62 local artifact:
+- JSON 92: PASS
+- ZIP CRC: PASS
+- Bedrock runtime E2E: NOT RUN
+- SHA-256: `a08717a4cfe0b9790dbf979554b7e04226bcd704588c53c0fd2c5518b2f1a132`
 
-## Weapon 3P — 종료 상태
-
-- TEST1~5: attachable/geometry/pivot 계열 실패
-- TEST6~21: rightItem/mesh/attachable/bow-style 등 여러 접근 실험
-- TEST22: 원본 1인칭을 유지하는 third-person/rightItem 경로 재확인
-- TEST23~28: 3인칭 회전/위치 튜닝
-- 최종 결과: **1인칭 보존은 확인했지만 3인칭 손잡이 끝을 손에 정확히 정렬하지 못함**
-- 사용자 지시로 TEST 종료
-- **TEST1~28 어느 것도 source/main/Release에 포함하지 않음**
-
-다시 시작할 경우 과거 TEST 수치를 검증된 기준으로 취급하지 말고, 별도 feature branch에서 렌더 구조부터 다시 검증합니다.
-
-## 다음 개발 흐름
-
-`feature → static/package CI → 실제 Bedrock E2E → main → matching tag/Release`
-
-CI PASS ≠ Bedrock E2E PASS입니다.
+main의 정식 release 상태를 v1.4.62로 바꾸지 않습니다. 이 branch는 다음 채팅 재개용 working snapshot입니다.

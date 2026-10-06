@@ -1,0 +1,36 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.player.holding": {
+      "loop": true,
+      "bones": {
+        "leftarm": {
+          "rotation": [
+            "variable.is_holding_left ? (-this * 0.5 - 18.0) : 0.0",
+            0.0,
+            0.0
+          ]
+        },
+        "rightarm": {
+          "rotation": [
+            "variable.is_holding_right ? (-this * 0.5 - 18.0) : 0.0",
+            0.0,
+            0.0
+          ]
+        },
+        "rightitem": {
+          "rotation": [
+            "(!variable.is_first_person && query.is_item_name_any('slot.weapon.mainhand', 'geumyi:reaper_scythe')) ? 260.0 : ((!variable.is_first_person && query.is_item_name_any('slot.weapon.mainhand', 'geumyi:sheriff_revolver')) ? 355.0 : 0.0)",
+            0.0,
+            0.0
+          ],
+          "position": [
+            0.0,
+            "(!variable.is_first_person && query.is_item_name_any('slot.weapon.mainhand', 'geumyi:reaper_scythe')) ? -4.0 : ((!variable.is_first_person && query.is_item_name_any('slot.weapon.mainhand', 'geumyi:sheriff_revolver')) ? -8.0 : 0.0)",
+            "(!variable.is_first_person && query.is_item_name_any('slot.weapon.mainhand', 'geumyi:reaper_scythe')) ? -10.0 : ((!variable.is_first_person && query.is_item_name_any('slot.weapon.mainhand', 'geumyi:sheriff_revolver')) ? 2.0 : 0.0)"
+          ]
+        }
+      }
+    }
+  }
+}

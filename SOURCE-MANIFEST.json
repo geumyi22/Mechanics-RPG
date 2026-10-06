@@ -1,9 +1,9 @@
 {
   "project": "Mechanics RPG",
-  "baseline_version": "1.4.48",
-  "baseline_artifact": "Mechanics_RPG_v1.4.48_SUBSPACE_SAFE_GUARD",
+  "baseline_version": "1.4.62-working-handoff",
+  "baseline_artifact": "Mechanics_RPG_v1.4.62_REVOLVER_BACK2_MORE",
   "source_root": "source/world",
-  "file_count": 294,
+  "file_count": 300,
   "files": [
     {
       "path": "BALANCE_ONLY_PATCH.txt",
@@ -186,6 +186,21 @@
       "sha256": "b18b611f55084d758e6f63ddcaf71557c70ab9e6ab8f349e1dfa8fce0885bfb1"
     },
     {
+      "path": "MECHANICS_RPG_v1.4.60_REVOLVER_BACK5_DOWN2.txt",
+      "size": 596,
+      "sha256": "05d2ad777325a7f9da00721bc5a1ce384db8dff9ffb833847358daca4db7f53a"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.61_REVOLVER_BACK2.txt",
+      "size": 283,
+      "sha256": "03c6f63ee3fb779bc0e1230261ab94834371593cccc48dd741a54e95937f1597"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.62_REVOLVER_BACK2_MORE.txt",
+      "size": 281,
+      "sha256": "7d55adcae0bcdefae683f6773d75627de16443488643dff7f19e687b6f89910f"
+    },
+    {
       "path": "MECHANICS_RPG_v1.4.6_PATCH.txt",
       "size": 212,
       "sha256": "2cb6d7302bd8a331ddf543ee6c2b007ee71506f14e1c689b4d803826fbe6bfb0"
@@ -204,6 +219,16 @@
       "path": "ROLLBACK_v1.4.48_TO_v1.4.43.txt",
       "size": 502,
       "sha256": "c411de0b0393de449db2ee4a2769cdc395cb8270ab15a8e6cb5eeb5073a5752f"
+    },
+    {
+      "path": "SCYTHE_3P_CHANGELOG.txt",
+      "size": 469,
+      "sha256": "e55b4e9128a12cbe05bc725c5cca1e1e3876aebcaaa4a62be74e0f1c963a3448"
+    },
+    {
+      "path": "SCYTHE_3P_VALIDATION.json",
+      "size": 440,
+      "sha256": "111011221662b9c0d581da2c45dc2c9dc835b94dccc7499bdb1c0fbcb6e6f4c4"
     },
     {
       "path": "THIRD_PARTY_NOTICES.txt",
@@ -763,7 +788,7 @@
     {
       "path": "behavior_packs/Mechanics_RPG/manifest.json",
       "size": 1040,
-      "sha256": "0ac8c70cd637f4b404a8bd522400938bc58d4b6f8e56b757f7f645e456ec120b"
+      "sha256": "9acb7726f1bb2c7155d1cb596c150460b2126b56bb111662a78651880de2549e"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/pack_icon.png",
@@ -846,6 +871,11 @@
       "sha256": "c29df69fc3d7ece4e508c273e7dc31a936cb2bf7bb566e320056c7b96776ed4f"
     },
     {
+      "path": "resource_packs/Mechanics_RPG_Resources/animations/scythe_third_person.animation.json",
+      "size": 1377,
+      "sha256": "a69fb836495b85f5083062142e332f7bc507e8f60db77e5eeeef27d48f0be129"
+    },
+    {
       "path": "resource_packs/Mechanics_RPG_Resources/entity/cleric_light_spear.entity.json",
       "size": 622,
       "sha256": "e5769c87b7f5eb54a9d1b9dac317e78aeb6f2ce0c8ce121f8af7f46604848a20"
@@ -883,7 +913,7 @@
     {
       "path": "resource_packs/Mechanics_RPG_Resources/manifest.json",
       "size": 524,
-      "sha256": "27270054caf1aa1fb02ecedf97f0f9f5d038c322795f3a2c96a10fc88c0b5710"
+      "sha256": "31c1cc5b7340c10a3a280ede269c4eb91bb60d5cbb7039b3ee1ae10dfba261f5"
     },
     {
       "path": "resource_packs/Mechanics_RPG_Resources/models/entity/reaper_massacre_orbit.geo.json",
@@ -1468,12 +1498,12 @@
     {
       "path": "world_behavior_packs.json",
       "size": 117,
-      "sha256": "7b07af0471d8d7a9fb2365f92dac4a9d96932d6d3e4e16715d5d69578b7a6d11"
+      "sha256": "81648bcdb44ef5e4bd6f3569a4cce03c01a1dc0f72427f4e6b017044738b8a68"
     },
     {
       "path": "world_resource_packs.json",
       "size": 117,
-      "sha256": "84bd4193c0c9d2b6ec65871fe547a62874e1c468aad5817f3cce52827973af62"
+      "sha256": "500e30b9bb219856668b0f97cdfc1791b8f9d4a732eed71b325f28804a063850"
     }
   ]
 }
