@@ -1,0 +1,28 @@
+Mechanics RPG v1.4.63 — Hacker Alpha
+
+BASE: v1.4.62_REVOLVER_BACK2_MORE
+ROLLBACK BASE COMMIT: fb36c90fa22ccf965ee0b7e38dfda1749a87bef2
+WORKING BRANCH: handoff/2026-10-06-v1.4.62
+
+HACKER ALPHA:
+- Hacker Terminal attacks accumulate Analysis (max 10).
+- Lv.10 Vulnerability Scan: consume 2 Analysis; scan/debuff nearby enemies.
+- Lv.40 Exploit: consume 3 Analysis; 45/60/75 damage depending on target state + 2s action lock.
+- Lv.70 Backdoor: consume 5 Analysis; normal enemy controlled for 8s and attacks nearby enemies; boss-class targets receive debuffs instead.
+- Lv.100 Admin Privilege Takeover: consume 10 Analysis; area vulnerability/debuff + self buffs for 15s.
+- Test: function rpg/test/class_hacker
+
+WEAPON FREEZE:
+- Reaper scythe 3P: X=260, position [0,-4,-10]
+- Sheriff revolver 3P: X=355, position [0,-8,2]
+- User requested no further scythe/revolver adjustment.
+- First-person paths unchanged.
+
+STATIC CHECKS:
+- core.js syntax: PASS
+- skills.js syntax: PASS
+- related JSON parse: PASS
+- BP/RP/world refs: 1.4.63 aligned
+- full tools/validate.py/package/ZIP CRC: NOT RUN
+- Bedrock runtime E2E: NOT RUN
+- main release promotion: NOT DONE
