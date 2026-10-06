@@ -1,112 +1,52 @@
 # Mechanics RPG — Session Handoff 2026-10-06
 
-## 가장 중요한 기준
+## Current baseline
 
-- 정식 `main` 릴리즈 기준은 여전히 **v1.4.48 SAFE GUARD**이며 full Bedrock E2E는 NOT RUN입니다.
-- 현재 **working 기준**은 **v1.4.63_HACKER_ALPHA**입니다. 베이스는 v1.4.62_REVOLVER_BACK2_MORE입니다.
-- working 브랜치: `handoff/2026-10-06-v1.4.62` (브랜치명 유지)
-- exact local artifact: `Mechanics_RPG_v1.4.62_REVOLVER_BACK2_MORE.mcworld`
-- exact local artifact SHA-256: `a08717a4cfe0b9790dbf979554b7e04226bcd704588c53c0fd2c5518b2f1a132`
-- v1.4.62 package static result: JSON 92 PASS / ZIP CRC PASS / **Bedrock runtime E2E NOT RUN**
-- v1.4.63 Hacker Alpha는 source 정적 부분검사만 통과했으며, full package 검증/Bedrock E2E 전에는 “완성/안정화”로 부르지 않습니다.
+- Formal main release: v1.4.48 SAFE GUARD — full Bedrock E2E NOT RUN
+- Last full release-gate E2E PASS: v1.4.20
+- Current working snapshot: v1.4.62_REVOLVER_BACK2_MORE
+- Working branch: handoff/2026-10-06-v1.4.62
+- Exact local v1.4.62 artifact SHA-256: a08717a4cfe0b9790dbf979554b7e04226bcd704588c53c0fd2c5518b2f1a132
+- v1.4.62 package static result: JSON 92 PASS / ZIP CRC PASS / Bedrock runtime E2E NOT RUN
 
-## v1.4.59 → v1.4.62 작업 이력
+## Weapon state
 
-사용자가 `Mechanics_RPG_v1.4.59_REVOLVER_LOWER(1).mcworld`를 앞으로 사용할 기준으로 지정했습니다.
+Reaper scythe third person:
+- rotation X=260°
+- position [0,-4,-10]
 
-### v1.4.59 당시 3인칭 값
-- Reaper scythe: rotation X=260°, position `[0,-4,-10]`
-- Sheriff revolver: rotation X=355°, position `[0,-6,-7]`
-- 두 무기 모두 custom transform은 `!variable.is_first_person` 조건으로 3인칭에만 적용
-- 기존 1인칭을 건드리지 않는 것이 고정 조건
+Sheriff revolver third person:
+- rotation X=355°
+- position [0,-8,2]
 
-### v1.4.60
-- 리볼버만 5단 뒤 + 2단 아래
-- `[0,-6,-7] -> [0,-8,-2]`
-- rotation X=355° 유지
+Both custom transforms apply to third person only. First-person paths must not be changed.
 
-### v1.4.61
-- 리볼버만 2단 더 뒤
-- `[0,-8,-2] -> [0,-8,0]`
+User decision on 2026-10-06:
+- Scythe position tuning is finished.
+- Revolver position tuning is finished.
+- Do not modify either transform unless explicitly requested again.
 
-### v1.4.62 (Hacker 구현 전 base)
-- 리볼버만 2단 더 뒤
-- `[0,-8,0] -> [0,-8,2]`
-- rotation X=355° 유지
-- 낫 값은 v1.4.59 이후 이 연속 작업에서는 변경하지 않음
+## Discarded prototype
 
-## 무기 3인칭 상태
+The experimental class prototype added after v1.4.62 was discarded by user request.
+It is not part of the current working baseline and must not be resumed, packaged, released, or treated as an active version unless the user explicitly requests it again.
 
-### 사신 대낫
-- 현재 3P rotation X=260°, position `[0,-4,-10]`.
-- 사용자 지시: **이제 낫 수정 안 해도 됨**.
-- 따라서 현재 transform은 보존 대상으로 고정하고 추가 튜닝하지 않습니다.
-- 대낫 1인칭은 절대 임의 수정하지 않습니다.
+## Preserve
 
-### 보안관 리볼버
-현재 working transform:
-- 3P rotation: `[355,0,0]`
-- 3P position: `[0,-8,2]`
-- first-person excluded
-- 사용자 지시: **이제 리볼버 수정 안 해도 됨**.
-- 따라서 현재 transform은 보존 대상으로 고정합니다.
+- Existing Reaper mechanics and skills
+- Existing Sheriff mechanics
+- quest / shop / status / sunlight systems
+- Subspace v3 save system and SAFE GUARD
+- Existing first-person weapon behavior
+- No completion or stability claims without real Bedrock E2E
 
-## v1.4.62 GitHub handoff source snapshot
+## Validation boundary
 
-이 브랜치는 재개용 source snapshot입니다. main의 290개 비-manifest baseline 파일은 v1.4.48과 SHA-256 기준 동일함을 비교했고, weapon 작업 관련 text/source delta만 반영했습니다.
+Current working target is v1.4.62.
+Static/package evidence from the original v1.4.62 artifact remains recorded above.
+Bedrock runtime E2E for the current working snapshot is NOT RUN.
 
-반영:
-- BP/RP manifests 및 world pack references → v1.4.62 working UUID/version
-- `scythe_third_person.animation.json`
-- weapon 3P changelog/validation
-- v1.4.60~62 incremental notes
+## Next start point
 
-exact local mcworld에는 추가로 실행 중 생성된 `level.dat`, `level.dat_old`, `levelname.txt` 변경과 대형 generated `ROLLBACK_SCYTHE_3P.py`가 존재하지만, 이 handoff source snapshot에는 넣지 않았습니다. 따라서 branch source와 exact mcworld를 byte-identical이라고 주장하지 않습니다.
-
-## 해커 / 글리쳐 아이디어 상태
-
-### 해커
-**v1.4.63 Hacker Alpha로 구현됨. 아직 Bedrock E2E 전.**
-
-구현:
-1. 시스템 분석 — 해킹 터미널 공격으로 개인 분석 데이터 축적(최대 10)
-2. 취약점 스캔 — 분석 2 소비, 주변 최대 6대상 약화/둔화 + 스캔 표식
-3. 익스플로잇 — 분석 3 소비, 스캔/관리자 취약 상태에 따라 45/60/75 데미지 + 2초 행동 봉쇄
-4. 백도어 — 분석 5 소비. 일반 적은 8초간 제어되어 플레이어 공격이 차단되고 주변 적을 공격. 보스급은 제어 대신 10초 약화
-5. 관리자 권한 탈취 — 분석 10 소비. 반경 16칸 적을 15초 관리자 취약 상태로 만들고, 해커는 15초 강화
-
-등록:
-- 전직 UI / class tag / 강제전직 test function
-- Hacker 전용 터미널 + 4개 스킬 아이템
-- 아이템 잠금/재지급 파이프라인 연결
-- 임시 아이콘은 기존 검증된 텍스처를 재사용
-
-검증:
-- `core.js`, `skills.js` JS 구문 검사 PASS
-- 관련 manifest/world refs/item JSON/item_texture JSON parse PASS
-- full `tools/validate.py`, package build/ZIP CRC, Bedrock runtime E2E는 NOT RUN
-- rollback base: `fb36c90fa22ccf965ee0b7e38dfda1749a87bef2` (v1.4.62)
-
-### 글리쳐
-역할 분리 아이디어만 있음. 구현 안 됨.
-- 해커 = 적/시스템/정보/권한 조작
-- 글리쳐 = 공간/좌표/판정/현실 오류
-- 두 직업의 효과가 겹치지 않게 유지
-
-## 새 채팅에서 지켜야 할 고정 규칙
-
-1. v1.4.63 working Alpha와 v1.4.48 정식 main 상태를 혼동하지 않기
-2. 실제 Bedrock E2E 전 “완료/안정화” 선언 금지
-3. 사신/보안관 1인칭 임의 변경 금지
-4. Sheriff mechanics / Reaper mechanics·skills / quest / shop / status / sunlight / Subspace 회귀 금지
-5. 사용자 지시에 따라 현재 대낫/리볼버 transform은 고정. 별도 재요청 전 수정 금지
-6. 사용자 승인 전 과거 TEST 좌표를 정답으로 재사용하지 않기
-7. 파일 수정 시 base, delta, rollback/evidence를 기록
-
-## 다음 시작점
-
-새 채팅에서 먼저 이 문서와 `HANDOFF.md`를 읽습니다.
-
-- 무기 작업: **종료/고정**. 별도 재요청 전 transform 수정 금지
-- 해커 작업: **v1.4.63 Hacker Alpha**부터 테스트·밸런스·버그 수정
-- 정식 release 승격: 별도 Bedrock E2E 이후에만
+Continue only from v1.4.62_REVOLVER_BACK2_MORE.
+Do not resume the discarded experimental class prototype unless the user explicitly asks for it again.
