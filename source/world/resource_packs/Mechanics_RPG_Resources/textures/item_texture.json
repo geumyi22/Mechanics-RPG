@@ -1,5 +1,5 @@
 {
-  "resource_pack_name": "Mechanics RPG Resources v1.2.3",
+  "resource_pack_name": "Mechanics RPG Resources v1.4.64",
   "texture_name": "atlas.items",
   "texture_data": {
     "geumyi:sword_draw": {
@@ -163,6 +163,21 @@
     },
     "geumyi:subspace": {
       "textures": "textures/items/subspace"
+    },
+    "geumyi:hacker_computer": {
+      "textures": "textures/items/subspace"
+    },
+    "geumyi:hacker_scan": {
+      "textures": "textures/items/mage_thunder"
+    },
+    "geumyi:hacker_xxs": {
+      "textures": "textures/items/assassin_prep"
+    },
+    "geumyi:hacker_impair": {
+      "textures": "textures/items/hero_parry"
+    },
+    "geumyi:hacker_ddos": {
+      "textures": "textures/items/reaper_judgment"
     }
   }
 }
