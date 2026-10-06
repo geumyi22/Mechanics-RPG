@@ -165,19 +165,19 @@
       "textures": "textures/items/subspace"
     },
     "geumyi:hacker_computer": {
-      "textures": "textures/items/subspace"
+      "textures": "textures/items/hacker_computer"
     },
     "geumyi:hacker_scan": {
-      "textures": "textures/items/mage_thunder"
+      "textures": "textures/items/hacker_scan"
     },
     "geumyi:hacker_xxs": {
-      "textures": "textures/items/assassin_prep"
+      "textures": "textures/items/hacker_xxs"
     },
     "geumyi:hacker_impair": {
-      "textures": "textures/items/hero_parry"
+      "textures": "textures/items/hacker_impair"
     },
     "geumyi:hacker_ddos": {
-      "textures": "textures/items/reaper_judgment"
+      "textures": "textures/items/hacker_ddos"
     }
   }
 }
