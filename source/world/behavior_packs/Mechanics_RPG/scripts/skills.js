@@ -389,15 +389,15 @@ function refreshHackerMovement(id,e){
 }
 function hackerWave(p,radius){
   const center={...p.location},dim=p.dimension;
-  for(let r=1;r<=radius;r++){
-    system.runTimeout(()=>{for(let i=0;i<18;i++){const a=i*Math.PI*2/18;particle(dim,HACKER_BLUE_PARTICLE,{x:center.x+Math.cos(a)*r,y:center.y+.22,z:center.z+Math.sin(a)*r});}},Math.floor(r*1.2));
+  for(const rr of [Math.max(2,radius*.35),Math.max(3,radius*.68),radius]){
+    system.runTimeout(()=>{for(let i=0;i<24;i++){const a=i*Math.PI*2/24;particle(dim,HACKER_BLUE_PARTICLE,{x:center.x+Math.cos(a)*rr,y:center.y+.12,z:center.z+Math.sin(a)*rr});}},Math.round(rr*.35));
   }
 }
 function hackerMarker(e){
   try{
-    const c=targetPoint(e);
-    for(let i=0;i<6;i++){const a=i*Math.PI/3;particle(e.dimension,HACKER_BLUE_PARTICLE,{x:c.x+Math.cos(a)*.68,y:c.y-.35+(i%3)*.55,z:c.z+Math.sin(a)*.68});}
-    particle(e.dimension,HACKER_BLUE_PARTICLE,{x:c.x,y:c.y+1.2,z:c.z});
+    const c=targetPoint(e),y=c.y+.72,z=c.z;
+    const pts=[[-.24,.22],[-.12,.30],[0,.32],[.12,.30],[.24,.22],[-.30,.08],[-.30,-.08],[-.22,-.20],[.22,-.20],[.30,-.08],[.30,.08],[-.14,.06],[.14,.06],[-.05,-.06],[.05,-.06],[-.14,-.30],[-.05,-.34],[.05,-.34],[.14,-.30]];
+    for(const[x,dy]of pts)particle(e.dimension,HACKER_BLUE_PARTICLE,{x:c.x+x,y:y+dy,z});
   }catch{}
 }
 function hackerTargets(p,r,minStacks=0){
@@ -495,7 +495,25 @@ function castHackerDDOS(p){
   });
 }
 
-// Periodic state enforcement: exact damage/movement debuffs, location markers, heal suppression and buff restoration.
+// // Hacker target HUD: look at an enemy to inspect stack count and the longest remaining stack lifetime.
+system.runInterval(()=>{
+  for(const p of world.getAllPlayers()){
+    if(cls(p)!=="hacker")continue;
+    try{
+      const hit=(p.getEntitiesFromViewDirection({maxDistance:32})??[]).find(x=>hackerValidEntity(x.entity));
+      if(!hit)continue;
+      const e=hit.entity,arr=(hackerStackExpiries.get(e.id)??[]).filter(t=>t>now());
+      const stacks=arr.length,remain=stacks?Math.ceil((Math.max(...arr)-now())/20):0;
+      const atk=Math.round((1-hackerAttackMultiplier(e))*100);
+      const lock=Math.max(0,Math.ceil(((hackerActionLocks.get(e.id)?.until??0)-now())/20));
+      let extra=atk>0?` §7| §c공격 -${atk}%`:"";
+      if(lock>0)extra+=` §7| §b행동금지 ${lock}s`;
+      safe(()=>p.onScreenDisplay.setActionBar(`§3☠ §b해킹 스택 §f${stacks} §7| §f최장 ${remain}s${extra}`));
+    }catch{}
+  }
+},5);
+
+Periodic state enforcement: exact damage/movement debuffs, location markers, heal suppression and buff restoration.
 system.runInterval(()=>{
   const t=now();
   const movementIds=new Set([...hackerMovementBase.keys(),...hackerMoveDebuffs.keys(),...hackerActionLocks.keys()]);
