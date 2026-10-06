@@ -21,7 +21,7 @@
       "minecraft:use_animation": "bow",
       "minecraft:use_modifiers": {
         "start_using": "always",
-        "use_duration": 3.5,
+        "use_duration": 0.25,
         "movement_modifier": 0.72
       }
     }
