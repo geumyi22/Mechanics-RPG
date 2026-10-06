@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Mechanics RPG v1.4.62 Revolver Back2 More",
-    "description": "v1.4.61 기준 리볼버 3인칭 2단 추가 뒤로",
+    "name": "Mechanics RPG v1.4.63 Hacker Alpha",
+    "description": "v1.4.62 working 기반 Hacker Alpha; weapon transforms unchanged",
     "uuid": "2119b3a4-ca89-4cb0-9171-955946f01beb",
     "version": [
       1,
       4,
-      62
+      63
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         4,
-        62
+        63
       ]
     },
     {
@@ -33,7 +33,7 @@
       "version": [
         1,
         4,
-        62
+        63
       ]
     }
   ],
@@ -43,7 +43,7 @@
       "version": [
         1,
         4,
-        62
+        63
       ]
     },
     {
