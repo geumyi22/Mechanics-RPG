@@ -18,6 +18,7 @@ function cls(p) {
   if (safe(() => p.hasTag("geumyi_class_hero"))) return "hero";
   if (safe(() => p.hasTag("geumyi_class_reaper"))) return "reaper";
   if (safe(() => p.hasTag("geumyi_class_sheriff"))) return "sheriff";
+  if (safe(() => p.hasTag("geumyi_class_hacker"))) return "hacker";
   return "none";
 }
 function className(c) {
@@ -31,6 +32,7 @@ function className(c) {
   if (c === "hero") return "용사";
   if (c === "reaper") return "사신";
   if (c === "sheriff") return "보안관";
+  if (c === "hacker") return "해커";
   return "미전직";
 }
 function msg(p,t){ safe(()=>p.sendMessage(t)); }
@@ -67,6 +69,7 @@ function clearClassTags(p){
   safe(()=>p.removeTag("geumyi_class_hero"));
   safe(()=>p.removeTag("geumyi_class_reaper"));
   safe(()=>p.removeTag("geumyi_class_sheriff"));
+  safe(()=>p.removeTag("geumyi_class_hacker"));
 }
 function setClass(p,c,admin=false){
   clearClassTags(p);
@@ -80,6 +83,7 @@ function setClass(p,c,admin=false){
   if(c==="hero") safe(()=>p.addTag("geumyi_class_hero"));
   if(c==="reaper") safe(()=>p.addTag("geumyi_class_reaper"));
   if(c==="sheriff") safe(()=>p.addTag("geumyi_class_sheriff"));
+  if(c==="hacker") safe(()=>p.addTag("geumyi_class_hacker"));
   if(!safe(()=>p.hasTag("geumyi_title_beginner"))) safe(()=>p.addTag("geumyi_title_beginner"));
   nextPrompt.set(p.id,now()+100);
   msg(p,`§6[전직] §f${className(c)}로 전직했습니다.${admin?" §7(테스트)":""}`);
@@ -232,6 +236,30 @@ Shift로 올가미/채찍/와이어 모드를 변경합니다. 모드 변경 쿨
 §eLv.100 데드 아이§r
 2초간 가장 강한 적을 추적하고 1초간 카메라로 보여준 뒤, 10초간 받는 모든 피해 +50% 디버프를 부여합니다. 현재 잔탄을 모두 소비해 1발당 20데미지의 보라색 유도탄으로 집중 공격합니다.
 쿨타임 65초`;
+  if(c==="hacker") return `§l해커 §r§7<중간 디버퍼/전술가>§r
+
+적의 정보를 파악하고 약점을 분석해 아군의 치명적인 공격을 돕는 전술 직업입니다.
+가끔 심취했을 때 건드리면 무사하지 못하니 조심하세요… 아 그리고 서¥%£%#£%£^
+
+§f컴퓨터 <0렙>§r
+반지름 10칸으로 파란 탐지 파동을 방출합니다. 적 위치를 10초간 파란 마커로 표시하고 실제 공격 피해량 -20%를 10초간 적용합니다. 해킹 스택 +1은 20초간 유지됩니다.
+쿨타임 25초
+
+§eLv.10 취약점 스캔§r
+2초 해킹 후 반지름 20칸 파동. 적의 실제 공격 피해량 -35%, 이동속도 -20%를 적용하고 해킹 스택 +2를 50초간 부여합니다.
+쿨타임 30초 / 해킹시간 2초
+
+§eLv.40 XXS§r
+3.5초 해킹 후 반지름 30칸 안에서 해킹 스택 5 이상인 모든 적에게 20데미지 + 5초 행동 금지. 스택은 소비하지 않고 각 스택의 시간 만료로만 사라집니다.
+쿨타임 40초 / 해킹시간 3.5초
+
+§eLv.70 Impair Defenses§r
+5초 해킹 후 반지름 30칸 안에서 해킹 스택 7 이상인 적의 체력 증가를 제외한 주요 버프와 모든 회복을 25초간 차단합니다. 기존 버프는 잠시 보관했다가 종료 후 복원합니다. 해킹 스택 +5는 60초간 유지되고 25데미지를 줍니다.
+쿨타임 50초 / 해킹시간 5초
+
+§eLv.100 랜섬 웨어&DDoS§r
+7초 해킹 후 반지름 20칸에서 해킹 스택 20 이상인 가장 강한 적 1명을 선택합니다. 10초 행동 금지 후 3초 동안 총 50타·300데미지의 트래픽 공격을 퍼붓습니다.
+쿨타임 70초 / 해킹시간 7초`;
   return "직업 정보가 없습니다.";
 }
 
@@ -279,9 +307,10 @@ async function showClassMenu(p,manual=false){
       .button("§b용사\n§7전방 탱커/공방수")
       .button("§4사신\n§7중반 딜러/공격수")
       .button("§6보안관\n§7중반 딜러/공격수")
+      .button("§3해커\n§7중간 디버퍼/전술가")
       .show(p);
     if(r.canceled){ nextPrompt.set(p.id,now()+100); return; }
-    const c=r.selection===0?"sword":r.selection===1?"archer":r.selection===2?"mage":r.selection===3?"cleric":r.selection===4?"berserker":r.selection===5?"assassin":r.selection===6?"fighter":r.selection===7?"hero":r.selection===8?"reaper":r.selection===9?"sheriff":null;
+    const c=r.selection===0?"sword":r.selection===1?"archer":r.selection===2?"mage":r.selection===3?"cleric":r.selection===4?"berserker":r.selection===5?"assassin":r.selection===6?"fighter":r.selection===7?"hero":r.selection===8?"reaper":r.selection===9?"sheriff":r.selection===10?"hacker":null;
     if(c) system.runTimeout(()=>confirmClass(p,c),2);
   }catch(e){
     nextPrompt.set(p.id,now()+40);
@@ -315,6 +344,7 @@ system.runInterval(()=>{
       if(p.hasTag("geumyi_force_hero")){p.removeTag("geumyi_force_hero");setClass(p,"hero",true);}
       if(p.hasTag("geumyi_force_reaper")){p.removeTag("geumyi_force_reaper");setClass(p,"reaper",true);}
       if(p.hasTag("geumyi_force_sheriff")){p.removeTag("geumyi_force_sheriff");setClass(p,"sheriff",true);}
+      if(p.hasTag("geumyi_force_hacker")){p.removeTag("geumyi_force_hacker");setClass(p,"hacker",true);}
       if(p.hasTag("geumyi_reset_class")){p.removeTag("geumyi_reset_class");resetClass(p);}
       if(p.hasTag("geumyi_open_class")){
         p.removeTag("geumyi_open_class");
