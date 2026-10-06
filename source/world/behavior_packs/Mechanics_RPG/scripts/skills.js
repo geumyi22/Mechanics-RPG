@@ -498,10 +498,6 @@ function castHackerDDOS(p){
 // Periodic state enforcement: exact damage/movement debuffs, location markers, heal suppression and buff restoration.
 system.runInterval(()=>{
   const t=now();
-  for(const[id,st]of[...hackerRevealUntil.entries()]){
-    if(st.until<=t||!hackerValidEntity(st.entity)){hackerRevealUntil.delete(id);continue;}
-    hackerMarker(st.entity);
-  }
   const movementIds=new Set([...hackerMovementBase.keys(),...hackerMoveDebuffs.keys(),...hackerActionLocks.keys()]);
   for(const id of movementIds){
     const e=hackerMovementBase.get(id)?.entity??hackerMoveDebuffs.get(id)?.entity??hackerActionLocks.get(id)?.entity;
@@ -515,6 +511,11 @@ system.runInterval(()=>{
     if(cur<st.ceiling)st.ceiling=cur;
     else if(cur>st.ceiling+.001)safe(()=>hc.setCurrentValue(st.ceiling));
   }
+  if(t%5!==0)return;
+  for(const[id,st]of[...hackerRevealUntil.entries()]){
+    if(st.until<=t||!hackerValidEntity(st.entity)){hackerRevealUntil.delete(id);continue;}
+    hackerMarker(st.entity);
+  }
   for(const[id,st]of[...hackerSuppressedBuffs.entries()]){
     if(st.until<=t||!hackerValidEntity(st.entity)){if(st.until<=t)restoreHackerBuffs(st);hackerSuppressedBuffs.delete(id);continue;}
     saveAndSuppressHackerBuffs(st.entity,st);
@@ -526,7 +527,7 @@ system.runInterval(()=>{
   for(const[id,arr]of[...hackerStackExpiries.entries()]){
     const live=arr.filter(x=>x>t);if(live.length)hackerStackExpiries.set(id,live);else hackerStackExpiries.delete(id);
   }
-},5);
+},1);
 
 function cast(p,id){if(!p||p.typeId!=="minecraft:player")return;const lk=`${p.id}:${id}`,lt=lastUse.get(lk)??-999;if(now()-lt<3)return;lastUse.set(lk,now());if(id==="sword_draw")castDraw(p);else if(id==="sword_dash")castDash(p);else if(id==="sword_rise")castRise(p);else if(id==="sword_ult")castSwordUlt(p);else if(id==="archer_triple")castTriple(p);else if(id==="archer_boom")castBoom(p);else if(id==="archer_wire")castWire(p);else if(id==="archer_ult")castArcherUlt(p);else if(id==="mage_fireball")castFireball(p);else if(id==="mage_shield")castShield(p);else if(id==="mage_vine")castVine(p);else if(id==="mage_thunder")castThunder(p);else if(id==="mage_staff")castStaff(p);else if(id==="cleric_bible")castBible(p);else if(id==="cleric_recovery")castClericRecovery(p);else if(id==="cleric_shield")castClericShield(p);else if(id==="cleric_spear")castClericSpear(p);else if(id==="cleric_prayer")castClericPrayer(p);else if(id==="berserker_axe")castBerserkerAxe(p);else if(id==="berserker_rage")castBerserkerRage(p);else if(id==="berserker_slam")castBerserkerSlam(p);else if(id==="berserker_tornado")castBerserkerTornado(p);else if(id==="berserker_ult")castBerserkerUlt(p);else if(id==="assassin_prep")castAssassinPrep(p);else if(id==="assassin_move")castAssassinMove(p);else if(id==="assassin_gas")castAssassinGas(p);else if(id==="assassin_ult")castAssassinUlt(p);else if(id==="fighter_step")castFighterStep(p);else if(id==="fighter_burst")castFighterBurst(p);else if(id==="fighter_flurry")castFighterFlurry(p);else if(id==="fighter_limit")castFighterLimit(p);else if(id==="hero_sword")castHeroSword(p);else if(id==="hero_heart")castHeroHeart(p);else if(id==="hero_smite")castHeroSmite(p);else if(id==="hero_parry")castHeroParry(p);else if(id==="hero_courage")castHeroCourage(p);else if(id==="reaper_scythe")castReaperScythe(p);else if(id==="reaper_absorb")castReaperAbsorb(p);else if(id==="reaper_ambush")castReaperAmbush(p);else if(id==="reaper_massacre")castReaperMassacre(p);else if(id==="reaper_judgment")castReaperJudgment(p);else if(id==="hacker_computer")castHackerComputer(p);else if(id==="hacker_scan")castHackerScan(p);else if(id==="hacker_xxs")castHackerXXS(p);else if(id==="hacker_impair")castHackerImpair(p);else if(id==="hacker_ddos")castHackerDDOS(p);}
 
