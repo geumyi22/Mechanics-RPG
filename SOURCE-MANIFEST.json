@@ -1,319 +1,14 @@
 {
   "project": "Mechanics RPG",
-  "baseline_version": "1.4.62-working-handoff",
-  "baseline_artifact": "Mechanics_RPG_v1.4.62_REVOLVER_BACK2_MORE",
+  "baseline_version": "1.4.63-hacker-alpha",
+  "baseline_artifact": "Mechanics_RPG_v1.4.63_HACKER_ALPHA",
   "source_root": "source/world",
-  "file_count": 300,
+  "file_count": 307,
   "files": [
     {
       "path": "BALANCE_ONLY_PATCH.txt",
       "size": 757,
       "sha256": "55abae51e5c559c2185e8e733bc01a589633fcd01bfffdece9040976cc755ab3"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.0.0_PATCH.txt",
-      "size": 1605,
-      "sha256": "b826fa2d63399d1533ceb537b55c89b182a8321e454f2b5027a4d1043066b15b"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.1.0_PATCH.txt",
-      "size": 1139,
-      "sha256": "2c90ac1f55401fbb485bc1f3e50d2117c2672ce54ef59956d99bb50db1dd71fc"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.2.0_PATCH.txt",
-      "size": 1591,
-      "sha256": "7648398c3697152f6f6cf4c0f783580977b59919cb4e43c9d3d74e9085ef7fe2"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.2.1_PATCH.txt",
-      "size": 2028,
-      "sha256": "290b6600594538646183ae3fc8d50e4dde2d1cc32983a70cfc571ef96e8f54f2"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.2.2_PATCH.txt",
-      "size": 1258,
-      "sha256": "d0db339ba11db9a234d658e68a28b179657d3a5f98f15b8a4358ef9587903925"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.2.3_PATCH.txt",
-      "size": 1615,
-      "sha256": "bc271be196a546224dca5fe76d124773b1a7f23b7425d5c9234376fee27a5cb9"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.2.4_PATCH.txt",
-      "size": 1149,
-      "sha256": "83da27fbd7aefc0f023ff3bd3e65ee828892c53895ab59537533f536c966908f"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.10_PATCH.txt",
-      "size": 1046,
-      "sha256": "9c2a751037ffbf3c1dc97916173ff3d00fe19ca2ab49d5e7e17ff1442ac28853"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.11_PATCH.txt",
-      "size": 480,
-      "sha256": "052f20cf34f6aa13432521a6d45777b23069ce045267bc951a2fff1b1c223936"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.12_PATCH.txt",
-      "size": 535,
-      "sha256": "5d592838db808b5bd7ef5fab062ad5cdd17010b4c053cccba06888e0299de2f3"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.13_PATCH.txt",
-      "size": 978,
-      "sha256": "4d6eb4a471ae7d1e5a5d65fd752b51be2d4f138081bd2dc5602c56e9914708d1"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.14_PATCH.txt",
-      "size": 1139,
-      "sha256": "1be9ab88a6cd0f5cd62d2ddcc4ecc657d5e8d8801e5df8f263bd9a76455ae57d"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.15_PATCH.txt",
-      "size": 1382,
-      "sha256": "21b476ec063f0d3f40285d257d7a5ae4c9ce0eb3a20a0671734891396ff6b30c"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.17_SHERIFF_FIX.txt",
-      "size": 918,
-      "sha256": "fa8fc7eace52feebfa9f36c727b0a2ed2a7b41705932ee1e5de00803a426457e"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.18_SHERIFF_FIX2.txt",
-      "size": 798,
-      "sha256": "567b4eb4fb9c0f05dc252a9bec5f3f31685e980e892fff23a19fc814bb03d72f"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.19_SHERIFF_BALANCE_FIX.txt",
-      "size": 1493,
-      "sha256": "083079005435856b335a29c3377a3b95bf045b355aed279059cb88e9a5c9caab"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.20_DEAD_EYE_VFX_RELOAD_FIX.txt",
-      "size": 1363,
-      "sha256": "929abc88ec1f34b7764d5034ad0cda992c2b788b5ff3e164661700d64c1cd747"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.27_CHANGELOG.txt",
-      "size": 733,
-      "sha256": "06e9828825487b24b1b205dd81a2842133d3511f824287ca73f29f78249519af"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.28_CHANGELOG.txt",
-      "size": 808,
-      "sha256": "f62177a8b48ffce7310363dce11b7fca8c35fe0b751759e0848c736b903d8e4d"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.29_CHANGELOG.txt",
-      "size": 461,
-      "sha256": "bc6f0d91a523787a6ee973eeee9f4f8bf8422be09715194e404c3badfa50b600"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.30_CHANGELOG.txt",
-      "size": 653,
-      "sha256": "31d37ce896b06838ed12e97806c7fdd5790d8b683b3ec06d3b9f565478eb415a"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.31_CHANGELOG.txt",
-      "size": 168,
-      "sha256": "1bd3c5abbf60ead4650cea6b0f18d9dafcf8b34451cc831f956419b1d01d3e0c"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.32_CHANGELOG.txt",
-      "size": 871,
-      "sha256": "ae88fbec5a85a6c3b3c91c20bc7125993d7976f8aedf2813eff30a7bf2f7aa3b"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.33_CHANGELOG.txt",
-      "size": 923,
-      "sha256": "12c2897d9cdc94d80d9e419d4f60fcac190c5ff3bfee20b717cde37eda5c48b7"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.34_CHANGELOG.txt",
-      "size": 604,
-      "sha256": "1d4ebe9006f242492197a853f9337568dfa3faca1389a3a1e903529b64956839"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.35_CHANGELOG.txt",
-      "size": 712,
-      "sha256": "5d15de2feb4c49361cb424868c3ff30a5821d7d03de1e9fac560dc9c9ba5ebe4"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.36_CHANGELOG.txt",
-      "size": 1033,
-      "sha256": "8dad451940997fd460f0454da6548697f5191d9d7d296973b4af089a6314e92d"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.37_CHANGELOG.txt",
-      "size": 982,
-      "sha256": "9f38dec31b94c35bf885ee1aec8b67986feed301c17ec6f6d829519613889e46"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.38_CHANGELOG.txt",
-      "size": 834,
-      "sha256": "42eedf566a12cd34769f89b042765a1ea656e59042773fb269d4b243277daecf"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.39_CHANGELOG.txt",
-      "size": 1454,
-      "sha256": "f9ae39070fbcfde0bd10b277972c954b6556ec69e2679511ae87053c81e48952"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.40_CHANGELOG.txt",
-      "size": 977,
-      "sha256": "7810da841c457c47f1a15f92717f730aa974b795e9eea4709022d25e45042f4b"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.41_CHANGELOG.txt",
-      "size": 709,
-      "sha256": "de89599911018d2b5453e942a773f32b92a068175160868678dc11aff4b11da5"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.42_CHANGELOG.txt",
-      "size": 775,
-      "sha256": "ee9016d657a31ca99fe4a28f8732db70fa249dc556d327033c2d90461fd61a3d"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.43_CHANGELOG.txt",
-      "size": 1100,
-      "sha256": "ca7f119ad4b8c8fcbb0dbd6f0837b8269deefdcfe43ef3554c511143c214730f"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.48_CHANGELOG.txt",
-      "size": 1177,
-      "sha256": "b18b611f55084d758e6f63ddcaf71557c70ab9e6ab8f349e1dfa8fce0885bfb1"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.60_REVOLVER_BACK5_DOWN2.txt",
-      "size": 596,
-      "sha256": "05d2ad777325a7f9da00721bc5a1ce384db8dff9ffb833847358daca4db7f53a"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.61_REVOLVER_BACK2.txt",
-      "size": 283,
-      "sha256": "03c6f63ee3fb779bc0e1230261ab94834371593cccc48dd741a54e95937f1597"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.62_REVOLVER_BACK2_MORE.txt",
-      "size": 281,
-      "sha256": "7d55adcae0bcdefae683f6773d75627de16443488643dff7f19e687b6f89910f"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.6_PATCH.txt",
-      "size": 212,
-      "sha256": "2cb6d7302bd8a331ddf543ee6c2b007ee71506f14e1c689b4d803826fbe6bfb0"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.7_PATCH.txt",
-      "size": 178,
-      "sha256": "cd66255da21d21452c07bb949d3712b4d24e8e56adf0dabec60e01faa7645f04"
-    },
-    {
-      "path": "MECHANICS_RPG_v1.4.9_PATCH.txt",
-      "size": 1520,
-      "sha256": "25dbe6381758acbed39ddaeb80f75de2226fc55d8d964cb1f7cb75ddf6415af2"
-    },
-    {
-      "path": "ROLLBACK_v1.4.48_TO_v1.4.43.txt",
-      "size": 502,
-      "sha256": "c411de0b0393de449db2ee4a2769cdc395cb8270ab15a8e6cb5eeb5073a5752f"
-    },
-    {
-      "path": "SCYTHE_3P_CHANGELOG.txt",
-      "size": 469,
-      "sha256": "e55b4e9128a12cbe05bc725c5cca1e1e3876aebcaaa4a62be74e0f1c963a3448"
-    },
-    {
-      "path": "SCYTHE_3P_VALIDATION.json",
-      "size": 440,
-      "sha256": "111011221662b9c0d581da2c45dc2c9dc835b94dccc7499bdb1c0fbcb6e6f4c4"
-    },
-    {
-      "path": "THIRD_PARTY_NOTICES.txt",
-      "size": 569,
-      "sha256": "c107ec64dc5d61b276725058e8e318b5b76260e4ce1b2c0928ca3d1f7102a4a3"
-    },
-    {
-      "path": "V0.4.5_README.txt",
-      "size": 269,
-      "sha256": "56fbc6e02e931e7b5e3892b6622ad13ef82a462577a29d212f184f75262613a9"
-    },
-    {
-      "path": "V0.4.6_PATCH.txt",
-      "size": 524,
-      "sha256": "00a1020f9a9253d0cd0bcf278530b097710f468d9eb942ffaaa29d52e26262f0"
-    },
-    {
-      "path": "V0.5.0_PATCH.txt",
-      "size": 1569,
-      "sha256": "f4467d6cc0b2de98f0a5d77af6d2d21fc968c3c5194316c1cb4d6d6e6189e469"
-    },
-    {
-      "path": "V0.5.1_TEST_PATCH.txt",
-      "size": 395,
-      "sha256": "c367bcda722e35ea608626490e4bcedde7411df226c85c7654746d5373ec0123"
-    },
-    {
-      "path": "V0.5.2_CLERIC_FIX.txt",
-      "size": 501,
-      "sha256": "6e530f00b880db198165b999fac7dbb209fe16cc0d162e977295a69cba6f032f"
-    },
-    {
-      "path": "V0.5.3_PATCH.txt",
-      "size": 729,
-      "sha256": "75e27235cd3b204c0d8e6244a53106cf6bdc290da134c73b72094ef432f67514"
-    },
-    {
-      "path": "V0.5.4_FLOOR_HOTFIX.txt",
-      "size": 328,
-      "sha256": "5eb19c0d64ccae1993c8d2c948778f823c22954df49125f0da3ae81f0db0c62d"
-    },
-    {
-      "path": "V0.5.5_CLERIC_COLOR.txt",
-      "size": 411,
-      "sha256": "d605bf228682b126ac54467119aa39ed162eb39a9f493d87e033f735bdee48c8"
-    },
-    {
-      "path": "V0.6.0_ASSASSIN_ALPHA.txt",
-      "size": 661,
-      "sha256": "a60db21589dd7b015d10137461483dc252e85908da1b323d09079544da8ff400"
-    },
-    {
-      "path": "V0.6.1_GAS_HOTFIX.txt",
-      "size": 501,
-      "sha256": "3b90db2504a0d25173eb930b163e323634c716f21c2adc60091059f6e6a8c022"
-    },
-    {
-      "path": "V0.6.2_CAST_LOCK_STEALTH_FIX.txt",
-      "size": 880,
-      "sha256": "a01b7eaba596c54e5c807bf133b6a27691fcd8183f69abdaf3fc7dad18d92b6b"
-    },
-    {
-      "path": "V0.6.3_BALANCE_PATCH.txt",
-      "size": 762,
-      "sha256": "d3a02590ad331e2a309680b4f62917916977997093c29f0414ece2c79c0657af"
-    },
-    {
-      "path": "V0.7.0_QUEST_EDITOR.txt",
-      "size": 1072,
-      "sha256": "e99669d16c34ba5f97fad8300eb0fac285ac9e33f79ec0159f809b59d76ceb3d"
-    },
-    {
-      "path": "V0.7.1_NPC_LOCK_PATCH.txt",
-      "size": 411,
-      "sha256": "66a0f3ee75a72d5be1e1fdb4be5746d269804b8686d0f9dea90d6f75fef1efc3"
-    },
-    {
-      "path": "V0.7.2_NPC_INVINCIBLE_PATCH.txt",
-      "size": 528,
-      "sha256": "79767b0f7249591e8d53a80a27c56cae0de17f00771546be151bd4b123ece590"
-    },
-    {
-      "path": "V0.8.0_FIGHTER_ALPHA.txt",
-      "size": 910,
-      "sha256": "cedca442d81991611fe9bb5c34ac51e6726d4d674cfd85f56a9835dbd185a632"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/entities/cleric_light_spear.json",
@@ -404,6 +99,11 @@
       "path": "behavior_packs/Mechanics_RPG/functions/rpg/test/class_fighter.mcfunction",
       "size": 105,
       "sha256": "08c0665346813236e687472fc1efc84268f463653f03f6464afa6d398ac18445"
+    },
+    {
+      "path": "behavior_packs/Mechanics_RPG/functions/rpg/test/class_hacker.mcfunction",
+      "size": 101,
+      "sha256": "6880cabddf3dd6373c4ca62782a4bae1ef219b2a1c0498553e2c5d4fdb1ba4db"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/functions/rpg/test/class_hero.mcfunction",
@@ -636,6 +336,31 @@
       "sha256": "59e8a8e37e03c4e5f3921e0e0dc282dfff8fe62f0b6d17f503f5735375728a2d"
     },
     {
+      "path": "behavior_packs/Mechanics_RPG/items/hacker_admin.json",
+      "size": 682,
+      "sha256": "169f993d7471b26f576cb524e6b7e0049b8b2dfa60f02aee6080891e73f1964f"
+    },
+    {
+      "path": "behavior_packs/Mechanics_RPG/items/hacker_backdoor.json",
+      "size": 674,
+      "sha256": "adf0bf8feb44e0b4a26b5537abf5b4b56b642f88e06f5feb21515b0b477ba8be"
+    },
+    {
+      "path": "behavior_packs/Mechanics_RPG/items/hacker_exploit.json",
+      "size": 678,
+      "sha256": "614767a3c2b6bd289c6ab2448ab688a7ed36eaa3c843f07ab9b5082f5ca27481"
+    },
+    {
+      "path": "behavior_packs/Mechanics_RPG/items/hacker_scan.json",
+      "size": 673,
+      "sha256": "0069cddb005243422a36d3a37ddb00e607867bf3fc947ea07d0918e51624f5d7"
+    },
+    {
+      "path": "behavior_packs/Mechanics_RPG/items/hacker_terminal.json",
+      "size": 698,
+      "sha256": "080c746dd4025e6bc07828c82a9e2845ecdcfcd8ce871dd9dde45f0179f9e85c"
+    },
+    {
       "path": "behavior_packs/Mechanics_RPG/items/hero_courage.json",
       "size": 684,
       "sha256": "139f09b9f5f7bef6bbe73b446b9ff7ba8cb2e5d27e56a4eb289d1c0bce7b69b8"
@@ -716,14 +441,14 @@
       "sha256": "faa09ac4103aa0698debcb760349455e6e8817dbe752af823d0e4548ebe49b71"
     },
     {
-      "path": "behavior_packs/Mechanics_RPG/items/sheriff_bullet.json",
-      "size": 452,
-      "sha256": "7b6ae14c3b017659307877d18340b322011d937f6ff9117db649273e97ab9de9"
-    },
-    {
       "path": "behavior_packs/Mechanics_RPG/items/sheriff_bullet_bundle.json",
       "size": 483,
       "sha256": "6314eed978e6837b4a3499d63cd87f2f0b75ef03a174f84cacc463bfde758f42"
+    },
+    {
+      "path": "behavior_packs/Mechanics_RPG/items/sheriff_bullet.json",
+      "size": 452,
+      "sha256": "7b6ae14c3b017659307877d18340b322011d937f6ff9117db649273e97ab9de9"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/items/sheriff_deadeye.json",
@@ -787,8 +512,8 @@
     },
     {
       "path": "behavior_packs/Mechanics_RPG/manifest.json",
-      "size": 1040,
-      "sha256": "9acb7726f1bb2c7155d1cb596c150460b2126b56bb111662a78651880de2549e"
+      "size": 1046,
+      "sha256": "b90c46e6748db58e4d5b1da2c4c388307707859192bec1dba73898120d369fdf"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/pack_icon.png",
@@ -796,19 +521,19 @@
       "sha256": "f7f08183b785373e653c76e4221418d4d29eafc6cdf4f8ff0c6f23980645bf42"
     },
     {
-      "path": "behavior_packs/Mechanics_RPG/recipes/sheriff_bullet.json",
-      "size": 447,
-      "sha256": "9b121572f7a8bce7ec362816ced38a6d61a3eee13a9099228c074be305c02b97"
-    },
-    {
       "path": "behavior_packs/Mechanics_RPG/recipes/sheriff_bullet_bundle.json",
       "size": 736,
       "sha256": "4a2fec3be36cdb46007d97340a97fb10a9f57bcef6f91660bacd736fa08e8071"
     },
     {
+      "path": "behavior_packs/Mechanics_RPG/recipes/sheriff_bullet.json",
+      "size": 447,
+      "sha256": "9b121572f7a8bce7ec362816ced38a6d61a3eee13a9099228c074be305c02b97"
+    },
+    {
       "path": "behavior_packs/Mechanics_RPG/scripts/core.js",
-      "size": 20529,
-      "sha256": "5daeccd328ce0734c629370fc57341f4298642ea52cecbcce4ca7a9a82be9100"
+      "size": 22168,
+      "sha256": "a6ac0df5e324542c9bd4459971dc31aceaf4e8780fba5ccc276b9319a7c9b396"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/scripts/main.js",
@@ -832,18 +557,18 @@
     },
     {
       "path": "behavior_packs/Mechanics_RPG/scripts/skills.js",
-      "size": 106375,
-      "sha256": "0b8e8fc23cab3b9c1b6bdcb3d4082dcbbafa96bee0da9ee07106912afe0d9400"
-    },
-    {
-      "path": "behavior_packs/Mechanics_RPG/scripts/subspace.js",
-      "size": 37367,
-      "sha256": "770313a7a2381bf1156291354dd02500dc0717506cc5916e5d7535f484b143a4"
+      "size": 115382,
+      "sha256": "462124300c1c44550ae5e3afdbbcb7da00d3199614bd133574343aca4661ab89"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/scripts/subspace_legacy.js",
       "size": 3778,
       "sha256": "a55396455614af6dd58f084aa49001161505ff3474952733a91ec2d4aae530b0"
+    },
+    {
+      "path": "behavior_packs/Mechanics_RPG/scripts/subspace.js",
+      "size": 37367,
+      "sha256": "770313a7a2381bf1156291354dd02500dc0717506cc5916e5d7535f484b143a4"
     },
     {
       "path": "behavior_packs/Mechanics_RPG/scripts/sunlight.js",
@@ -864,6 +589,216 @@
       "path": "levelname.txt",
       "size": 16,
       "sha256": "78fe60b0d50e5e13d540bb9a7854397e3dd72aa19225a71cf073d940e8613a14"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.0.0_PATCH.txt",
+      "size": 1605,
+      "sha256": "b826fa2d63399d1533ceb537b55c89b182a8321e454f2b5027a4d1043066b15b"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.1.0_PATCH.txt",
+      "size": 1139,
+      "sha256": "2c90ac1f55401fbb485bc1f3e50d2117c2672ce54ef59956d99bb50db1dd71fc"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.2.0_PATCH.txt",
+      "size": 1591,
+      "sha256": "7648398c3697152f6f6cf4c0f783580977b59919cb4e43c9d3d74e9085ef7fe2"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.2.1_PATCH.txt",
+      "size": 2028,
+      "sha256": "290b6600594538646183ae3fc8d50e4dde2d1cc32983a70cfc571ef96e8f54f2"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.2.2_PATCH.txt",
+      "size": 1258,
+      "sha256": "d0db339ba11db9a234d658e68a28b179657d3a5f98f15b8a4358ef9587903925"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.2.3_PATCH.txt",
+      "size": 1615,
+      "sha256": "bc271be196a546224dca5fe76d124773b1a7f23b7425d5c9234376fee27a5cb9"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.2.4_PATCH.txt",
+      "size": 1149,
+      "sha256": "83da27fbd7aefc0f023ff3bd3e65ee828892c53895ab59537533f536c966908f"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.10_PATCH.txt",
+      "size": 1046,
+      "sha256": "9c2a751037ffbf3c1dc97916173ff3d00fe19ca2ab49d5e7e17ff1442ac28853"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.11_PATCH.txt",
+      "size": 480,
+      "sha256": "052f20cf34f6aa13432521a6d45777b23069ce045267bc951a2fff1b1c223936"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.12_PATCH.txt",
+      "size": 535,
+      "sha256": "5d592838db808b5bd7ef5fab062ad5cdd17010b4c053cccba06888e0299de2f3"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.13_PATCH.txt",
+      "size": 978,
+      "sha256": "4d6eb4a471ae7d1e5a5d65fd752b51be2d4f138081bd2dc5602c56e9914708d1"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.14_PATCH.txt",
+      "size": 1139,
+      "sha256": "1be9ab88a6cd0f5cd62d2ddcc4ecc657d5e8d8801e5df8f263bd9a76455ae57d"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.15_PATCH.txt",
+      "size": 1382,
+      "sha256": "21b476ec063f0d3f40285d257d7a5ae4c9ce0eb3a20a0671734891396ff6b30c"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.17_SHERIFF_FIX.txt",
+      "size": 918,
+      "sha256": "fa8fc7eace52feebfa9f36c727b0a2ed2a7b41705932ee1e5de00803a426457e"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.18_SHERIFF_FIX2.txt",
+      "size": 798,
+      "sha256": "567b4eb4fb9c0f05dc252a9bec5f3f31685e980e892fff23a19fc814bb03d72f"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.19_SHERIFF_BALANCE_FIX.txt",
+      "size": 1493,
+      "sha256": "083079005435856b335a29c3377a3b95bf045b355aed279059cb88e9a5c9caab"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.20_DEAD_EYE_VFX_RELOAD_FIX.txt",
+      "size": 1363,
+      "sha256": "929abc88ec1f34b7764d5034ad0cda992c2b788b5ff3e164661700d64c1cd747"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.27_CHANGELOG.txt",
+      "size": 733,
+      "sha256": "06e9828825487b24b1b205dd81a2842133d3511f824287ca73f29f78249519af"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.28_CHANGELOG.txt",
+      "size": 808,
+      "sha256": "f62177a8b48ffce7310363dce11b7fca8c35fe0b751759e0848c736b903d8e4d"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.29_CHANGELOG.txt",
+      "size": 461,
+      "sha256": "bc6f0d91a523787a6ee973eeee9f4f8bf8422be09715194e404c3badfa50b600"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.30_CHANGELOG.txt",
+      "size": 653,
+      "sha256": "31d37ce896b06838ed12e97806c7fdd5790d8b683b3ec06d3b9f565478eb415a"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.31_CHANGELOG.txt",
+      "size": 168,
+      "sha256": "1bd3c5abbf60ead4650cea6b0f18d9dafcf8b34451cc831f956419b1d01d3e0c"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.32_CHANGELOG.txt",
+      "size": 871,
+      "sha256": "ae88fbec5a85a6c3b3c91c20bc7125993d7976f8aedf2813eff30a7bf2f7aa3b"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.33_CHANGELOG.txt",
+      "size": 923,
+      "sha256": "12c2897d9cdc94d80d9e419d4f60fcac190c5ff3bfee20b717cde37eda5c48b7"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.34_CHANGELOG.txt",
+      "size": 604,
+      "sha256": "1d4ebe9006f242492197a853f9337568dfa3faca1389a3a1e903529b64956839"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.35_CHANGELOG.txt",
+      "size": 712,
+      "sha256": "5d15de2feb4c49361cb424868c3ff30a5821d7d03de1e9fac560dc9c9ba5ebe4"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.36_CHANGELOG.txt",
+      "size": 1033,
+      "sha256": "8dad451940997fd460f0454da6548697f5191d9d7d296973b4af089a6314e92d"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.37_CHANGELOG.txt",
+      "size": 982,
+      "sha256": "9f38dec31b94c35bf885ee1aec8b67986feed301c17ec6f6d829519613889e46"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.38_CHANGELOG.txt",
+      "size": 834,
+      "sha256": "42eedf566a12cd34769f89b042765a1ea656e59042773fb269d4b243277daecf"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.39_CHANGELOG.txt",
+      "size": 1454,
+      "sha256": "f9ae39070fbcfde0bd10b277972c954b6556ec69e2679511ae87053c81e48952"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.40_CHANGELOG.txt",
+      "size": 977,
+      "sha256": "7810da841c457c47f1a15f92717f730aa974b795e9eea4709022d25e45042f4b"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.41_CHANGELOG.txt",
+      "size": 709,
+      "sha256": "de89599911018d2b5453e942a773f32b92a068175160868678dc11aff4b11da5"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.42_CHANGELOG.txt",
+      "size": 775,
+      "sha256": "ee9016d657a31ca99fe4a28f8732db70fa249dc556d327033c2d90461fd61a3d"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.43_CHANGELOG.txt",
+      "size": 1100,
+      "sha256": "ca7f119ad4b8c8fcbb0dbd6f0837b8269deefdcfe43ef3554c511143c214730f"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.48_CHANGELOG.txt",
+      "size": 1177,
+      "sha256": "b18b611f55084d758e6f63ddcaf71557c70ab9e6ab8f349e1dfa8fce0885bfb1"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.6_PATCH.txt",
+      "size": 212,
+      "sha256": "2cb6d7302bd8a331ddf543ee6c2b007ee71506f14e1c689b4d803826fbe6bfb0"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.60_REVOLVER_BACK5_DOWN2.txt",
+      "size": 596,
+      "sha256": "05d2ad777325a7f9da00721bc5a1ce384db8dff9ffb833847358daca4db7f53a"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.61_REVOLVER_BACK2.txt",
+      "size": 283,
+      "sha256": "03c6f63ee3fb779bc0e1230261ab94834371593cccc48dd741a54e95937f1597"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.62_REVOLVER_BACK2_MORE.txt",
+      "size": 281,
+      "sha256": "7d55adcae0bcdefae683f6773d75627de16443488643dff7f19e687b6f89910f"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.63_HACKER_ALPHA.txt",
+      "size": 1149,
+      "sha256": "82224b7152b069b84ff9326330c93a0e555b0c7827aeca515e2fe4540e8d3bd3"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.7_PATCH.txt",
+      "size": 178,
+      "sha256": "cd66255da21d21452c07bb949d3712b4d24e8e56adf0dabec60e01faa7645f04"
+    },
+    {
+      "path": "MECHANICS_RPG_v1.4.9_PATCH.txt",
+      "size": 1520,
+      "sha256": "25dbe6381758acbed39ddaeb80f75de2226fc55d8d964cb1f7cb75ddf6415af2"
     },
     {
       "path": "resource_packs/Mechanics_RPG_Resources/animations/sculk_infected_zombie.animation.json",
@@ -912,8 +847,8 @@
     },
     {
       "path": "resource_packs/Mechanics_RPG_Resources/manifest.json",
-      "size": 524,
-      "sha256": "31c1cc5b7340c10a3a280ede269c4eb91bb60d5cbb7039b3ee1ae10dfba261f5"
+      "size": 536,
+      "sha256": "1d9b86839b8beaf9c641f7e46bca3e26cce5891945818a5fbf8345cea6b92f86"
     },
     {
       "path": "resource_packs/Mechanics_RPG_Resources/models/entity/reaper_massacre_orbit.geo.json",
@@ -1157,8 +1092,8 @@
     },
     {
       "path": "resource_packs/Mechanics_RPG_Resources/textures/item_texture.json",
-      "size": 4722,
-      "sha256": "446dc4f5a403d6323bdba8d304be0e6add5e8a1d6316f2411f1f2a94a4000e8a"
+      "size": 5152,
+      "sha256": "a10b942f084e1c1e8ddc3661556d11ba2bebddc1aa5aa8f9b27c9ab594ebf36b"
     },
     {
       "path": "resource_packs/Mechanics_RPG_Resources/textures/items/archer_arrow.png",
@@ -1366,14 +1301,14 @@
       "sha256": "c05d8a8a46bb364bb47d812c3900b93b66fc444cebd6ac3d6e70976fd59379ee"
     },
     {
-      "path": "resource_packs/Mechanics_RPG_Resources/textures/items/sheriff_bullet.png",
-      "size": 457,
-      "sha256": "a83af9b5aeab214db35b2ac57364621ebb414a87a31411b2247cffec5c3a97e4"
-    },
-    {
       "path": "resource_packs/Mechanics_RPG_Resources/textures/items/sheriff_bullet_bundle.png",
       "size": 581,
       "sha256": "ff09dd31ea7e351d60c4c114a98fd8fefe1a03ca5f992e52ae89f6f01b9d21b0"
+    },
+    {
+      "path": "resource_packs/Mechanics_RPG_Resources/textures/items/sheriff_bullet.png",
+      "size": 457,
+      "sha256": "a83af9b5aeab214db35b2ac57364621ebb414a87a31411b2247cffec5c3a97e4"
     },
     {
       "path": "resource_packs/Mechanics_RPG_Resources/textures/items/sheriff_deadeye.png",
@@ -1496,14 +1431,114 @@
       "sha256": "30b4c0a8a851c001ce1ab778b224fc03ae81e5ab41ba4a02e46ecde3c1347ab9"
     },
     {
+      "path": "ROLLBACK_v1.4.48_TO_v1.4.43.txt",
+      "size": 502,
+      "sha256": "c411de0b0393de449db2ee4a2769cdc395cb8270ab15a8e6cb5eeb5073a5752f"
+    },
+    {
+      "path": "SCYTHE_3P_CHANGELOG.txt",
+      "size": 469,
+      "sha256": "e55b4e9128a12cbe05bc725c5cca1e1e3876aebcaaa4a62be74e0f1c963a3448"
+    },
+    {
+      "path": "SCYTHE_3P_VALIDATION.json",
+      "size": 440,
+      "sha256": "111011221662b9c0d581da2c45dc2c9dc835b94dccc7499bdb1c0fbcb6e6f4c4"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.txt",
+      "size": 569,
+      "sha256": "c107ec64dc5d61b276725058e8e318b5b76260e4ce1b2c0928ca3d1f7102a4a3"
+    },
+    {
+      "path": "V0.4.5_README.txt",
+      "size": 269,
+      "sha256": "56fbc6e02e931e7b5e3892b6622ad13ef82a462577a29d212f184f75262613a9"
+    },
+    {
+      "path": "V0.4.6_PATCH.txt",
+      "size": 524,
+      "sha256": "00a1020f9a9253d0cd0bcf278530b097710f468d9eb942ffaaa29d52e26262f0"
+    },
+    {
+      "path": "V0.5.0_PATCH.txt",
+      "size": 1569,
+      "sha256": "f4467d6cc0b2de98f0a5d77af6d2d21fc968c3c5194316c1cb4d6d6e6189e469"
+    },
+    {
+      "path": "V0.5.1_TEST_PATCH.txt",
+      "size": 395,
+      "sha256": "c367bcda722e35ea608626490e4bcedde7411df226c85c7654746d5373ec0123"
+    },
+    {
+      "path": "V0.5.2_CLERIC_FIX.txt",
+      "size": 501,
+      "sha256": "6e530f00b880db198165b999fac7dbb209fe16cc0d162e977295a69cba6f032f"
+    },
+    {
+      "path": "V0.5.3_PATCH.txt",
+      "size": 729,
+      "sha256": "75e27235cd3b204c0d8e6244a53106cf6bdc290da134c73b72094ef432f67514"
+    },
+    {
+      "path": "V0.5.4_FLOOR_HOTFIX.txt",
+      "size": 328,
+      "sha256": "5eb19c0d64ccae1993c8d2c948778f823c22954df49125f0da3ae81f0db0c62d"
+    },
+    {
+      "path": "V0.5.5_CLERIC_COLOR.txt",
+      "size": 411,
+      "sha256": "d605bf228682b126ac54467119aa39ed162eb39a9f493d87e033f735bdee48c8"
+    },
+    {
+      "path": "V0.6.0_ASSASSIN_ALPHA.txt",
+      "size": 661,
+      "sha256": "a60db21589dd7b015d10137461483dc252e85908da1b323d09079544da8ff400"
+    },
+    {
+      "path": "V0.6.1_GAS_HOTFIX.txt",
+      "size": 501,
+      "sha256": "3b90db2504a0d25173eb930b163e323634c716f21c2adc60091059f6e6a8c022"
+    },
+    {
+      "path": "V0.6.2_CAST_LOCK_STEALTH_FIX.txt",
+      "size": 880,
+      "sha256": "a01b7eaba596c54e5c807bf133b6a27691fcd8183f69abdaf3fc7dad18d92b6b"
+    },
+    {
+      "path": "V0.6.3_BALANCE_PATCH.txt",
+      "size": 762,
+      "sha256": "d3a02590ad331e2a309680b4f62917916977997093c29f0414ece2c79c0657af"
+    },
+    {
+      "path": "V0.7.0_QUEST_EDITOR.txt",
+      "size": 1072,
+      "sha256": "e99669d16c34ba5f97fad8300eb0fac285ac9e33f79ec0159f809b59d76ceb3d"
+    },
+    {
+      "path": "V0.7.1_NPC_LOCK_PATCH.txt",
+      "size": 411,
+      "sha256": "66a0f3ee75a72d5be1e1fdb4be5746d269804b8686d0f9dea90d6f75fef1efc3"
+    },
+    {
+      "path": "V0.7.2_NPC_INVINCIBLE_PATCH.txt",
+      "size": 528,
+      "sha256": "79767b0f7249591e8d53a80a27c56cae0de17f00771546be151bd4b123ece590"
+    },
+    {
+      "path": "V0.8.0_FIGHTER_ALPHA.txt",
+      "size": 910,
+      "sha256": "cedca442d81991611fe9bb5c34ac51e6726d4d674cfd85f56a9835dbd185a632"
+    },
+    {
       "path": "world_behavior_packs.json",
       "size": 117,
-      "sha256": "81648bcdb44ef5e4bd6f3569a4cce03c01a1dc0f72427f4e6b017044738b8a68"
+      "sha256": "f4670cf1cfcb8e865f9802555702b0bd53db3986bd47fe67ffc1bea9efc85978"
     },
     {
       "path": "world_resource_packs.json",
       "size": 117,
-      "sha256": "500e30b9bb219856668b0f97cdfc1791b8f9d4a732eed71b325f28804a063850"
+      "sha256": "8c39c02ed7caae305a7a4086862bbcffb771b9661a09239489529f23c64cf46d"
     }
   ]
 }
