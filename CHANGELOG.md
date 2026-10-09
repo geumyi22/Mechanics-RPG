@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-10 — v1.4.64 Hacker Redesign Alpha (Pre-release)
+
+- 별도 개발 브랜치의 v1.4.64 실험본을 GitHub Pre-release로 배포, 공식 main v1.4.48 소스 및 기존 릴리스 보존
+- 누락된 해커 아이템 아이콘 PNG 5개를 구분 가능한 임시 픽셀 디자인으로 보완
+- source manifest 파일 목록/개수/SHA-256 재생성 및 정적/패키지 검사 PASS
+- E2E는 지후의 정책에 따라 선택사항으로 운영; **이번 v1.4.64 실기기 E2E NOT RUN**, 버그 가능성 명시
+- 과거 커밋/태그/릴리스와 미병합 실험 브랜치는 안전상 삭제하지 않음
+
+
 ## 2026-10-10 — GitHub documentation-only cleanup
 
 - 월드 작업 최신 지시/실험/사용자 피드백 11건을 docs/CURRENT-WORLD-WORK.md에 통합

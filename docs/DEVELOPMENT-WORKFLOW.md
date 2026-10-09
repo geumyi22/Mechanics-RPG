@@ -6,7 +6,7 @@
 - main: 현재 공식 소스
 - dev: 통합 개발
 - feature/*, fix/*: 기능과 재현 가능한 버그 수정
-- 게임 코드/월드 변경은 분리 브랜치, 정적 검증과 실제 Bedrock E2E 후에만 승격.
+- 게임 코드/월드 변경은 분리 브랜치에서 진행하고 정적 검증을 필수로 수행합니다. **실제 Bedrock E2E는 선택사항**이며, 미실행 시 상태를 명확히 남깁니다.
 - 문서만 정리할 때는 source/world, SOURCE-MANIFEST.json, Actions, tag/Release를 변경하지 않기.
 
 ## 패키지 루트와 매니페스트
@@ -32,8 +32,8 @@ Node.js가 설치되어 있으면 validate가 JavaScript 문법도 검사합니�
 1. 현재 main SHA / source manifest / 원본 SHA / BP·RP 버전 확보.
 2. 대상/비대상 파일 확정 후 feature/fix 브랜치에서 수정.
 3. 버전 수정 시 BP manifest, RP manifest, world linkage, VERSION-MATRIX, CHANGELOG 점검.
-4. 위 3개 도구 검증, GitHub CI, 실제 Minecraft Bedrock import·직업·상점·NPC·장비·저장/재접속 회귀 검증.
-5. E2E 증거 확보 후 승인/PR → main → manifest version과 일치하는 vX.Y.Z 태그 → GitHub Release.
+4. 위 3개 도구/CI 정적 검사, 무결성 확인. 실제 Minecraft Bedrock import/직업·상점·NPC·장비·저장/재접속 회귀 E2E는 **지후가 요청할 때만 선택 실행**.
+5. 승인이 있으면 PR/main 승격 가능. 안정성 검증되지 않은 개발 버전은 공식 main과 분리된 `Pre-release`로 배포하고, E2E NOT RUN 및 알려진 제한을 노트에 명시.
 6. Release는 GitHub Actions artifact(.mcworld/.zip/checksums)로 관리. 같은 버전 Release asset 몰래 교체 금지.
 7. 오류 시 git revert 우선, 강제 push/과거 이력 재작성 금지.
 
@@ -43,3 +43,8 @@ Node.js가 설치되어 있으면 validate가 JavaScript 문법도 검사합니�
 - docs/GITHUB-RUNBOOK.md의 import/검사/GitHub 운용 명령과 주의사항을 이 문서에 통합 후 삭제.
 - docs/systems/RELEASE.md의 Release 단계와 Bedrock E2E 경계도 이 문서에 통합 후 삭제.
 - 게임용 소스/매니페스트/복구 증거와 릴리스 워크플로는 모두 유지.
+
+## 2026-10-10 v1.4.64 Alpha
+- `release/v1.4.64-preview` 브랜치에서 해커 임시 아이콘 추가 및 SHA-256 재생성 후 v1.4.64 `Pre-release`를 게시했습니다.
+- main 공식 소스 v1.4.48은 바꾸지 않았습니다.
+- Pre-release 게시를 정식 안정화 PASS로 취급하지 않습니다.

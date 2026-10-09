@@ -5,7 +5,7 @@
 ## Current release baseline
 
 - Repository: `geumyi22/Mechanics-RPG`
-- Latest release/source baseline: **v1.4.48 SAFE GUARD**
+- Current official main/source baseline: **v1.4.48 SAFE GUARD**
 - Classification: **latest feature/release baseline; full Bedrock E2E NOT RUN**
 - Source root: `source/world/`
 - Source files: **294**
@@ -62,8 +62,8 @@ v1.4.20은 실제 Bedrock release-gate E2E 8개 핵심 항목 PASS 기록을 유
 ## Development state
 
 - v1.4.46 native-storage proof는 개발 이력으로 보존하며 release baseline에 포함하지 않습니다.
-- v1.4.48은 최신 릴리즈 베이스지만 full E2E 미실행 상태입니다.
-- 다음 변경은 별도 feature branch에서 시작하고, 실제 Bedrock E2E 전에는 안정화 완료로 승격하지 않습니다.
+- v1.4.48은 공식 main 기준 소스이나 full E2E 미실행 상태입니다. 최신 별도 Alpha Pre-release는 **v1.4.64**입니다.
+- 다음 변경은 별도 feature branch에서 시작합니다. E2E는 지후의 선택사항이며, 미실행 배포를 '안정화 검증 완료'로 선언하지 않습니다.
 
 ## 2026-10-10 — 월드 시험/게임 릴리스 분리
 - 공식 main/source/Release는 **v1.4.48 SAFE GUARD**로 변경 없음. 정확한 패키지 전체 E2E NOT RUN.
@@ -71,3 +71,11 @@ v1.4.20은 실제 Bedrock release-gate E2E 8개 핵심 항목 PASS 기록을 유
 - 마을 자동 생성은 품질 미달로 중단되었고 사용자가 직접 마을을 건축합니다.
 - Side Nature v4도 불규칙한 고도/거대한 절단면/산 부재 문제로 미승인.
 - 현재 작업은 GitHub 문서 및 중복 자료 정리에 한정. [상세 인수인계](docs/CURRENT-WORLD-WORK.md).
+
+## 2026-10-10 — v1.4.64 Alpha GitHub Release 및 정리
+- **실험판:** [v1.4.64 Hacker Redesign Alpha](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.64) / Pre-release / E2E NOT RUN.
+- 릴리스 브랜치: `release/v1.4.64-preview`; 누락됐던 해커 PNG 5개를 임시 아이콘으로 보완, source manifest 재생성.
+- GitHub Actions의 validate/package/verify 단계 PASS. 실기기 버그/밸런스/저장/렌더링 정상 보장은 하지 않음.
+- 현재 main/source는 v1.4.48 그대로이며, 채팅 Side Nature v1~v4 맵은 새 릴리스에 포함되지 않음.
+- 브랜치 정리: **기존 작업이 남은 분기들 보존**, 이력/태그의 강제 삭제 없음. `dev`는 차이가 없는 구형 기준이므로 main으로 fast-forward해 동기화 예정.
+- v1.4.20/v1.4.48 Release는 복구용으로 유지. 커밋은 기록 이력이므로 rebase/force push로 지우지 않음.

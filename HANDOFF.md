@@ -1,5 +1,7 @@
 # Development Handoff
 
+> **2026-10-10 릴리스 갱신:** 별도 [v1.4.64 Hacker Redesign Alpha Pre-release](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.64) 게시. 공식 main은 v1.4.48, 실기기 E2E 선택/미실행. 지후가 개발 주도.
+
 > **2026-10-10 최신 지시:** [월드/자연 지형 인수인계](docs/CURRENT-WORLD-WORK.md) 참조. 기존 중세 마을 자동 건축 계획은 과거 스냅샷입니다. 후지가 직접 마을을 만들기로 했고, 자연 지형 v4는 미승인입니다. 현재는 GitHub만 정리합니다.
 
 > **2026-10-10 신규 설계 인계:** [중세 마을 v3 계획 및 다음 대화용 체크포인트](docs/HANDOFF-2026-10-10-MEDIEVAL-VILLAGE-v3.md)  
@@ -49,6 +51,6 @@
 
 ## 다음 개발 흐름
 
-`feature → static/package CI → 실제 Bedrock E2E → main → matching tag/Release`
+`feature → static/package CI → (필요 시 Bedrock E2E) → 사용자 승인 → main 또는 별도 Pre-release`
 
 CI PASS ≠ Bedrock E2E PASS입니다.

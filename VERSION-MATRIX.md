@@ -13,7 +13,8 @@
 | v1.4.45 | dual UI | 미검증 실험 |
 | v1.4.46 | native storage proof | 미검증 실험 / release 제외 |
 | v1.4.47 | DDUI chest bridge | 실기기 실패 / 폐기 |
-| **v1.4.48** | 9×3 상자형 복귀 + SAFE GUARD | **최신 정식 Release / full E2E NOT RUN** |
+| **v1.4.48** | 9×3 상자형 복귀 + SAFE GUARD | **main 공식 소스·기존 정식 Release / full E2E NOT RUN** |
+| **v1.4.64** | Hacker Redesign Alpha, 임시 해커 아이콘 5개 | **최신 Pre-release / 정적 PASS / E2E NOT RUN / 버그 가능** |
 | Weapon 3P TEST1~28 | 사신/리볼버 3인칭 표시 연구 | **로컬 실험 종료 / 미완료 / release 미포함** |
 
 ## v1.4.48 manifest 고정값
@@ -47,3 +48,9 @@ API dependency는 최신이라는 이유만으로 임의 업그레이드하지 �
 | Side Nature v1~v4 | 자연 지형 시험, v4 포함 미승인 |
 
 위 산출물은 **v1.4.48 SOURCE-MANIFEST 기준을 대체하지 않습니다**. [현재 월드 상태](docs/CURRENT-WORLD-WORK.md).
+
+## v1.4.64 실험 Pre-release 기준
+- Tag: [`v1.4.64`](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.64), 별도 `release/v1.4.64-preview` 브랜치에서 빌드.
+- BP/RP version `[1,4,64]`, 해커 기능/리볼버 위치 실험 코드 포함. 정식 `main` v1.4.48을 대체하지 않음.
+- 누락된 해커 PNG 5개 추가, 누락/불일치된 소스 매니페스트 재생성 및 정적/패키지 검사 PASS.
+- Bedrock E2E는 사용자 정책에 따라 선택사항으로 두어 **NOT RUN**, 알려지지 않은 버그가 존재할 수 있음.

@@ -11,7 +11,8 @@ Minecraft Bedrock 기반 커스텀 RPG 프로젝트 **메크닉스 RPG(Mechanics
 | 저장소 | `geumyi22/Mechanics-RPG` |
 | 기본 브랜치 | `main` |
 | 개발 브랜치 | `dev` |
-| 최신 정식 Release | **v1.4.48 SAFE GUARD** |
+| 최신 정식 기준 Release | **v1.4.48 SAFE GUARD** (`main` 소스) |
+| 최신 실험 Pre-release | **[v1.4.64 Hacker Redesign Alpha](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.64)** — 정적 검사 PASS, 실제 E2E 미실행 |
 | v1.4.48 분류 | **최신 릴리즈/기능 기준 베이스 — full Bedrock E2E 미검증** |
 | 마지막 full release-gate E2E PASS | **v1.4.20** |
 | source file count | **294** |
@@ -50,7 +51,8 @@ v1.4.20은 실제 Bedrock release-gate E2E 8개 핵심 항목을 통과한 마�
 - 큰 변경은 기능 단위 브랜치/커밋으로 나눕니다.
 - 릴리스용 `.mcworld`, `.zip`은 source tree에 누적하지 않고 Actions artifact / GitHub Release로 관리합니다.
 - manifest UUID/API dependency는 기준 패키지를 보존합니다.
-- 로컬 TEST 패키지는 사용자 승인 및 E2E 전까지 main/source/Release로 승격하지 않습니다.
+- 신규 기능의 정식 `main` 편입은 사용자 승인과 변경 검증 후 진행합니다. **실기기 E2E는 지후 판단에 따른 선택사항**이고, 생략 시 상태를 `UNVERIFIED`로 기록합니다.
+- 별도 Alpha `Pre-release`는 정적/패키지 검사 후 E2E 없이 게시할 수 있으나 **안정성 보증 없이 실험판으로 표시**합니다.
 
 ## 저장소 구조
 
@@ -83,6 +85,11 @@ Mechanics-RPG/
 ## 2026-10-10 월드 작업 최신 현황 (GitHub 릴리스와 별도)
 - 후지가 중세 마을을 **직접 건축**하기로 하여 AI 마을 자동 건축은 중단했습니다.
 - Side Nature v1~v4는 채팅 시험 월드이며 v4는 산 높이/절단면/방향별 지형 문제가 확인돼 **미승인**입니다.
-- 현재 게임·월드 파일 수정 없이 **GitHub 문서 정리만** 진행합니다.
+- 중세 마을·자연 지형 월드 자체는 더 수정하지 않았고, 별도로 **v1.4.64 개발 브랜치 Alpha 릴리스**만 게시했습니다.
 - 최신 진행/11개 건축 결함/재개 조건: [docs/CURRENT-WORLD-WORK.md](docs/CURRENT-WORLD-WORK.md).
 - 옛 설계는 [이전 인수인계](docs/HANDOFF-2026-10-10-MEDIEVAL-VILLAGE-v3.md)에 역사 기록으로 보관합니다. 채팅 v1.4.100 시험본은 main v1.4.48 Release가 아닙니다.
+
+## 2026-10-10 — 실험 릴리스 및 브랜치 관리
+- 새 [v1.4.64 Hacker Redesign Alpha](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.64) Pre-release: 5개 누락된 해커 임시 아이콘 보완 및 `SOURCE-MANIFEST` 재생성. 자동 정적 검사·패키징 PASS. 실제 게임 E2E **NOT RUN**.
+- 게임 공식 `main` 소스는 **여전히 v1.4.48**. v1.4.64 Pre-release는 `release/v1.4.64-preview` 분리 브랜치/태그에서 제작.
+- 기존 v1.4.20/v1.4.48 릴리스는 복구를 위해 보존. 커밋 이력의 강제 재작성과 미병합 브랜치 삭제는 하지 않음.
