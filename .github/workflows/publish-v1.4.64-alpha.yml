@@ -1,0 +1,76 @@
+name: Publish Mechanics RPG v1.4.64 Alpha
+on:
+  push:
+    branches: [release/v1.4.64-preview]
+    paths: ['.github/workflows/publish-v1.4.64-alpha.yml']
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Rebuild accurate SHA-256 manifest
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          src=Path('source/world')
+          dest=Path('SOURCE-MANIFEST.json')
+          m=json.loads(dest.read_text(encoding='utf-8'))
+          files=[]
+          for p in sorted(src.rglob('*')):
+              if p.is_file():
+                  b=p.read_bytes()
+                  files.append({'path':p.relative_to(src).as_posix(),'size':len(b),'sha256':hashlib.sha256(b).hexdigest()})
+          assert len(files)>=313, f'Missing source files: {len(files)}'
+          m['file_count']=len(files)
+          m['files']=files
+          dest.write_text(json.dumps(m,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('Manifest files:',len(files))
+          PY
+      - name: Commit source manifest to release branch
+        shell: bash
+        run: |
+          if ! git diff --quiet -- SOURCE-MANIFEST.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add SOURCE-MANIFEST.json
+            git commit -m "build(alpha): reconcile v1.4.64 manifest hashes"
+            git push origin HEAD:refs/heads/release/v1.4.64-preview
+          fi
+      - name: Validate source
+        run: python tools/validate.py
+      - name: Package world
+        run: python tools/package.py
+      - name: Verify packaging
+        run: python tools/verify_package.py
+      - name: Verify version and write checksums
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          manifest=json.loads(Path('source/world/behavior_packs/Mechanics_RPG/manifest.json').read_text(encoding='utf-8'))
+          assert manifest['header']['version']==[1,4,64], 'Wrong game version'
+          PY
+          sha256sum dist/Mechanics_RPG_v1.4.64.mcworld dist/Mechanics_RPG_v1.4.64.zip > dist/SHA256SUMS.txt
+      - name: Publish experimental GitHub pre-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          if gh release view v1.4.64 >/dev/null 2>&1; then
+            echo 'Release already exists; refusing overwrite'
+            exit 1
+          fi
+          gh release create v1.4.64             dist/Mechanics_RPG_v1.4.64.mcworld             dist/Mechanics_RPG_v1.4.64.zip             dist/SHA256SUMS.txt             --target "$(git rev-parse HEAD)"             --title "Mechanics RPG v1.4.64 - Hacker Redesign Alpha"             --notes-file docs/V1.4.64-ALPHA-RELEASE-NOTES.md             --prerelease
