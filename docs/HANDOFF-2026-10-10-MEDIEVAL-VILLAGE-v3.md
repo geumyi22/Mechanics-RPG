@@ -1,3 +1,5 @@
+> **중요 / 2026-10-10:** 이 문서는 당시 중세 마을 자동 건축 계획의 과거 스냅샷입니다. 현재 계획으로 사용하지 마세요. **최신 결정은 [CURRENT-WORLD-WORK.md](CURRENT-WORLD-WORK.md)**: 후지가 직접 마을 제작, Side Nature v4 미승인, 현 작업은 GitHub 문서 정리뿐입니다.
+
 # Mechanics RPG — Medieval Village v3 / Next-Chat Handoff
 **Recorded:** 2026-10-10  
 **Project:** `geumyi22/Mechanics-RPG` (Minecraft Bedrock RPG)  

@@ -64,3 +64,10 @@ v1.4.20은 실제 Bedrock release-gate E2E 8개 핵심 항목 PASS 기록을 유
 - v1.4.46 native-storage proof는 개발 이력으로 보존하며 release baseline에 포함하지 않습니다.
 - v1.4.48은 최신 릴리즈 베이스지만 full E2E 미실행 상태입니다.
 - 다음 변경은 별도 feature branch에서 시작하고, 실제 Bedrock E2E 전에는 안정화 완료로 승격하지 않습니다.
+
+## 2026-10-10 — 월드 시험/게임 릴리스 분리
+- 공식 main/source/Release는 **v1.4.48 SAFE GUARD**로 변경 없음. 정확한 패키지 전체 E2E NOT RUN.
+- v2.4 자연 지형 + RPG v1.4.100 및 Medieval Village STAGE 1/2, Side Nature v1~v4는 GitHub에 승격하지 않은 채팅 시험 산출물.
+- 마을 자동 생성은 품질 미달로 중단되었고 사용자가 직접 마을을 건축합니다.
+- Side Nature v4도 불규칙한 고도/거대한 절단면/산 부재 문제로 미승인.
+- 현재 작업은 GitHub 문서 및 중복 자료 정리에 한정. [상세 인수인계](docs/CURRENT-WORLD-WORK.md).

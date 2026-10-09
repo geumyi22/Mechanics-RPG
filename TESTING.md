@@ -47,3 +47,9 @@ Full v1.4.48 exact-package Bedrock E2E: NOT RUN
 `v1.4.43 코드와 동일한 부분` 또는 `이전 버전에서 실기기 확인됨`은 v1.4.48 전체 E2E PASS와 동일하게 취급하지 않습니다.
 
 GitHub Actions 성공만으로 Bedrock E2E PASS라고 기록하지 않습니다.
+
+## 2026-10-10 — 월드의 시각적 품질 검증
+- 사용자 실제 게임 화면에서 지형 절단면/산 높이 불균형/텅 빈 방향 및 중세 건축 창문·벽 텍스처 문제가 확인됐습니다.
+- ZIP CRC/LevelDB/블록 상태/높이 맵의 정적 검사 PASS만으로 월드의 지형/건축 품질을 합격 처리하지 않습니다.
+- 사용자가 직접 테스트한 특정 결함 스크린샷은 게임 안에서의 해당 오류 증거일 뿐 **full Bedrock E2E PASS가 아닙니다**.
+- 최신 결함/재개 규칙: [docs/CURRENT-WORLD-WORK.md](docs/CURRENT-WORLD-WORK.md).

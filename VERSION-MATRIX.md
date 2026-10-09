@@ -38,3 +38,12 @@
 - 현재 저장소에서 마지막 full-E2E 검증 기준
 
 API dependency는 최신이라는 이유만으로 임의 업그레이드하지 않습니다.
+
+## 2026-10-10 — 별도 채팅 시험 월드 (공식 Release 및 source 미포함)
+| 실험 | 취급 |
+|---|---|
+| Nature v2.4 + RPG v1.4.100 / Spawn v0.1.2 | 지형 후속 실험 입력으로 승인되었던 로컬 테스트 기준 |
+| Medieval Village v3 STAGE 1/2 | 자동 건축 시험, 최종 미승인 |
+| Side Nature v1~v4 | 자연 지형 시험, v4 포함 미승인 |
+
+위 산출물은 **v1.4.48 SOURCE-MANIFEST 기준을 대체하지 않습니다**. [현재 월드 상태](docs/CURRENT-WORLD-WORK.md).

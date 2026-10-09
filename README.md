@@ -79,3 +79,10 @@ Mechanics-RPG/
 - Script entry: `scripts/main.js`
 
 자세한 검증 상태는 [TESTING.md](TESTING.md), 아공간 이력은 [docs/SUBSPACE-DEVELOPMENT.md](docs/SUBSPACE-DEVELOPMENT.md), 무기 3인칭 실험은 [docs/WEAPON-THIRD-PERSON-EXPERIMENTS.md](docs/WEAPON-THIRD-PERSON-EXPERIMENTS.md)를 확인합니다.
+
+## 2026-10-10 월드 작업 최신 현황 (GitHub 릴리스와 별도)
+- 후지가 중세 마을을 **직접 건축**하기로 하여 AI 마을 자동 건축은 중단했습니다.
+- Side Nature v1~v4는 채팅 시험 월드이며 v4는 산 높이/절단면/방향별 지형 문제가 확인돼 **미승인**입니다.
+- 현재 게임·월드 파일 수정 없이 **GitHub 문서 정리만** 진행합니다.
+- 최신 진행/11개 건축 결함/재개 조건: [docs/CURRENT-WORLD-WORK.md](docs/CURRENT-WORLD-WORK.md).
+- 옛 설계는 [이전 인수인계](docs/HANDOFF-2026-10-10-MEDIEVAL-VILLAGE-v3.md)에 역사 기록으로 보관합니다. 채팅 v1.4.100 시험본은 main v1.4.48 Release가 아닙니다.

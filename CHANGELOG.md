@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-10 — GitHub documentation-only cleanup
+
+- 월드 작업 최신 지시/실험/사용자 피드백 11건을 docs/CURRENT-WORLD-WORK.md에 통합
+- README/HANDOFF/PROJECT-STATUS/ROADMAP/VERSION-MATRIX/TESTING 등 최신 경계 동기화
+- 중복된 docs/GITHUB-RUNBOOK.md 및 docs/systems/RELEASE.md를 docs/DEVELOPMENT-WORKFLOW.md로 통합 후 삭제
+- docs/ARCHITECTURE.md의 초기 v1.4.20 중심 표현을 현행 v1.4.48 기준으로 교정
+- **source/world, manifest, 게임 코드, 빌드/릴리스 워크플로, 기존 태그/Release 일절 변경하지 않음**
+- 신규 Bedrock full E2E를 실행하거나 v1.4.100 채팅 테스트 월드를 main에 반영한 것이 아님
+
 ## 2026-10-04 — Repository status cleanup
 
 - v1.4.48 표기를 **“최신 정식 Release / full Bedrock E2E NOT RUN”**으로 통일
