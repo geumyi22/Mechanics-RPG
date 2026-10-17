@@ -1,6 +1,6 @@
 # Mechanics RPG
 
-> **2026-10-17 최신 채팅 산출물 (GitHub 릴리즈와 구분):** [v1.4.118 TEST 배포 준비 기록](docs/V1.4.118-CHAT-RELEASE-PREP.md). 해당 파일은 채팅 내 별도 월드/애드온이며 **GitHub에 게시된 릴리즈가 아닙니다**. 공식 `main` 소스는 v1.4.48, 공개 Alpha는 v1.4.64로 유지합니다. 월드에 포함되지 않은 외부 팩 참조 4개가 있어 정확한 실기기 검증 전에는 독립 실행/안정화 완료를 주장하지 않습니다.
+> **2026-10-17 최신 Pre-release:** [v1.4.118 TEST — 전체 월드 및 통합 애드온](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.118) 게시·두 파일 SHA-256 대조 완료. 공식 `main` 소스는 여전히 v1.4.48이며, v1.4.64 Alpha도 보존합니다. v1.4.118 자동 생성 Source code ZIP은 첨부된 최신 월드와 다릅니다. 외부 팩 참조 4개가 포함되지 않아 독립 실행을 보증하지 않으며, Bedrock E2E는 NOT RUN입니다. [배포 기록](docs/V1.4.118-CHAT-RELEASE-PREP.md).
 
 Minecraft Bedrock 기반 커스텀 RPG 프로젝트 **메크닉스 RPG(Mechanics RPG)** 전용 저장소입니다.
 
@@ -14,7 +14,7 @@ Minecraft Bedrock 기반 커스텀 RPG 프로젝트 **메크닉스 RPG(Mechanics
 | 기본 브랜치 | `main` |
 | 개발 브랜치 | `dev` |
 | 최신 정식 기준 Release | **v1.4.48 SAFE GUARD** (`main` 소스) |
-| 최신 실험 Pre-release | **[v1.4.64 Hacker Redesign Alpha](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.64)** — 정적 검사 PASS, 실제 E2E 미실행 |
+| 최신 실험 Pre-release | **[v1.4.118 TEST](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.118)** — 월드·통합 애드온 업로드, 해시·압축 검사 PASS, 실제 E2E 미실행 |
 | v1.4.48 분류 | **최신 릴리즈/기능 기준 베이스 — full Bedrock E2E 미검증** |
 | 마지막 full release-gate E2E PASS | **v1.4.20** |
 | source file count | **294** |

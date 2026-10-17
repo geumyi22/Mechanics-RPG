@@ -62,7 +62,7 @@ v1.4.20은 실제 Bedrock release-gate E2E 8개 핵심 항목 PASS 기록을 유
 ## Development state
 
 - v1.4.46 native-storage proof는 개발 이력으로 보존하며 release baseline에 포함하지 않습니다.
-- v1.4.48은 공식 main 기준 소스이나 full E2E 미실행 상태입니다. 최신 별도 Alpha Pre-release는 **v1.4.64**입니다.
+- v1.4.48은 공식 main 기준 소스이나 full E2E 미실행 상태입니다. 기존 Alpha Pre-release는 **v1.4.64**, 최신 별도 TEST Pre-release는 **v1.4.118**입니다.
 - 다음 변경은 별도 feature branch에서 시작합니다. E2E는 지후의 선택사항이며, 미실행 배포를 '안정화 검증 완료'로 선언하지 않습니다.
 
 ## 2026-10-10 — 월드 시험/게임 릴리스 분리
@@ -83,10 +83,10 @@ v1.4.20은 실제 Bedrock release-gate E2E 8개 핵심 항목 PASS 기록을 유
 ## 2026-10-17 — 최신 채팅 TEST와 GitHub 기준 분리
 
 - 공식 GitHub `main`: **v1.4.48 SAFE GUARD** (이 문서의 정식 소스 검증값은 이 버전 기준).
-- 현재 공개 Pre-release: **v1.4.64 Hacker Redesign Alpha** (실기기 E2E 미실행).
+- 최신 공개 Pre-release: **[v1.4.118 TEST](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.118)** (해시/압축 검사 PASS, 실기기 E2E 미실행). 기존 v1.4.64 Hacker Redesign Alpha도 보존.
 - 이번 대화에서 마지막으로 생성된 월드 및 애드온: **v1.4.118 TEST**. 확인한 산출물의 ZIP CRC는 PASS, Bedrock 전체 실기기 E2E는 **NOT RUN**.
 - 해당 채팅 월드에는 GitHub 소스의 기준과 다른 월드 DB·팩·스크립트가 있어 **자동으로 `main`의 정식 소스나 기존 릴리즈를 교체하지 않음**.
 - 확인된 외부 참조: 행동팩 1개 + 리소스팩 3개 (패키지에 미포함). 사용자의 환경 외 독립 실행을 보증할 수 없음.
 - 상세 해시, 분리 기준, 릴리즈 준비 조건: [v1.4.118 기록](docs/V1.4.118-CHAT-RELEASE-PREP.md).
-- GitHub Release **v1.4.118은 아직 게시하지 않음**. 실물 자산 업로드 및 공개 릴리즈 생성은 별도 단계로 남음.
+- **v1.4.118 GitHub Pre-release 게시 완료**: .mcworld / .mcaddon 업로드 및 SHA-256 일치 확인. [릴리즈](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.118). `main/source/world`는 여전히 v1.4.48이며 태그의 자동 생성 Source code ZIP은 v1.4.118 월드 소스가 아님.
 

@@ -14,8 +14,8 @@
 | v1.4.46 | native storage proof | 미검증 실험 / release 제외 |
 | v1.4.47 | DDUI chest bridge | 실기기 실패 / 폐기 |
 | **v1.4.48** | 9×3 상자형 복귀 + SAFE GUARD | **main 공식 소스·기존 정식 Release / full E2E NOT RUN** |
-| **v1.4.64** | Hacker Redesign Alpha, 임시 해커 아이콘 5개 | **최신 Pre-release / 정적 PASS / E2E NOT RUN / 버그 가능** |
-| **v1.4.118 (chat TEST)** | 안전 구역·NPC 관리·갈색 쿠션/액자 표시, 쿠션 좌석 높이 조절 | **로컬 채팅 산출물/배포 준비, GitHub Release 미게시 / ZIP 검사 PASS, 실기기 E2E NOT RUN / 외부 팩 참조 4개** |
+| **v1.4.64** | Hacker Redesign Alpha, 임시 해커 아이콘 5개 | **기존 Alpha Pre-release 보존 / 정적 PASS / E2E NOT RUN / 버그 가능** |
+| **[v1.4.118 TEST](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.118)** | 안전 구역·NPC 관리·갈색 쿠션/액자 표시, 쿠션 좌석 높이 조절 | **최신 GitHub Pre-release 게시 / 월드·애드온 SHA-256 일치, ZIP PASS / 실기기 E2E NOT RUN / 외부 팩 참조 4개** |
 | Weapon 3P TEST1~28 | 사신/리볼버 3인칭 표시 연구 | **로컬 실험 종료 / 미완료 / release 미포함** |
 
 ## v1.4.48 manifest 고정값

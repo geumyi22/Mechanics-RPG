@@ -48,11 +48,11 @@
 - E2E를 생략하면 `NOT RUN/UNVERIFIED`를 릴리스 노트에 명시하고 '안정화 완료' 주장을 금지.
 - 미병합 브랜치는 삭제하지 않고 향후 지후가 작업 상태를 결정할 수 있도록 보존.
 
-## 2026-10-17 — v1.4.118 GitHub 배포 준비
+## 2026-10-17 — v1.4.118 GitHub 실험판 게시
 
-- 최신 채팅 TEST v1.4.118을 **정식 안정판과 분리된 Pre-release 후보**로 기록.
+- 최신 채팅 TEST v1.4.118을 **정식 안정판과 분리된 [Pre-release](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.118)**로 게시.
 - 전체 월드(.mcworld)와 BP/RP 통합(.mcaddon) 실제 파일 및 SHA-256, ZIP CRC 확인 완료.
 - 선결 과제: 누락된 외부 BP 1개·RP 3개를 확인하거나 필요 조건을 명시하고, 해당 패키지의 실제 Bedrock 동작을 사용자가 검증할 것.
-- 공개 릴리즈를 만들 때는 v1.4.118 TEST를 정식 v1.4.48으로 오인하지 않도록 제목/배포 노트에 실험판·E2E NOT RUN을 명확히 표시.
-- **현재 GitHub Release v1.4.118은 미게시.** 사용자 원본 월드·기존 GitHub 릴리즈와 태그 보존. [자산·체크리스트](docs/V1.4.118-CHAT-RELEASE-PREP.md).
+- 릴리즈 제목/배포 노트에 v1.4.118 TEST / E2E NOT RUN을 명시했으며, 첨부 바이너리와 GitHub 자동 생성 소스 ZIP의 차이를 고지.
+- **GitHub v1.4.118 Pre-release 게시 완료.** 사용자 원본 월드·기존 GitHub 릴리즈/태그 보존. [자산·게시 기록](docs/V1.4.118-CHAT-RELEASE-PREP.md).
 

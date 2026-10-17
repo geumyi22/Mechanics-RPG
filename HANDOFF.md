@@ -1,6 +1,6 @@
 # Development Handoff
 
-> **2026-10-17 릴리즈 인계:** 채팅 최신 시험 산출물은 **v1.4.118 TEST**이며 실물 파일은 채팅 컨테이너에만 있음. 정적 ZIP 검사 통과, 실제 Bedrock E2E 미실행, 외부 BP 1개·RP 3개 참조 미포함. GitHub `main` v1.4.48/기존 Pre-release v1.4.64를 교체하지 않음. [상세 체크리스트](docs/V1.4.118-CHAT-RELEASE-PREP.md). v1.4.118 GitHub Release는 아직 게시하지 않았음.
+> **2026-10-17 릴리즈 인계:** 채팅 최신 시험 산출물 **[v1.4.118 TEST](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.118)**를 GitHub Pre-release로 게시하고 실제 .mcworld 및 .mcaddon 자산·SHA-256을 확인함. ZIP 검사 통과, 실제 Bedrock E2E 미실행, 외부 BP 1개·RP 3개 참조 미포함. GitHub `main` v1.4.48/기존 Pre-release v1.4.64는 보존. 태그 Source code ZIP은 v1.4.118 월드 소스와 다름. [상세 배포 기록](docs/V1.4.118-CHAT-RELEASE-PREP.md).
 
 > **2026-10-10 릴리스 갱신:** 별도 [v1.4.64 Hacker Redesign Alpha Pre-release](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.64) 게시. 공식 main은 v1.4.48, 실기기 E2E 선택/미실행. 지후가 개발 주도.
 
