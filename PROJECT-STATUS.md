@@ -79,3 +79,14 @@ v1.4.20은 실제 Bedrock release-gate E2E 8개 핵심 항목 PASS 기록을 유
 - 현재 main/source는 v1.4.48 그대로이며, 채팅 Side Nature v1~v4 맵은 새 릴리스에 포함되지 않음.
 - 브랜치 정리: **기존 작업이 남은 분기들 보존**, 이력/태그의 강제 삭제 없음. `dev`는 차이가 없는 구형 기준이므로 main으로 fast-forward해 동기화 예정.
 - v1.4.20/v1.4.48 Release는 복구용으로 유지. 커밋은 기록 이력이므로 rebase/force push로 지우지 않음.
+
+## 2026-10-17 — 최신 채팅 TEST와 GitHub 기준 분리
+
+- 공식 GitHub `main`: **v1.4.48 SAFE GUARD** (이 문서의 정식 소스 검증값은 이 버전 기준).
+- 현재 공개 Pre-release: **v1.4.64 Hacker Redesign Alpha** (실기기 E2E 미실행).
+- 이번 대화에서 마지막으로 생성된 월드 및 애드온: **v1.4.118 TEST**. 확인한 산출물의 ZIP CRC는 PASS, Bedrock 전체 실기기 E2E는 **NOT RUN**.
+- 해당 채팅 월드에는 GitHub 소스의 기준과 다른 월드 DB·팩·스크립트가 있어 **자동으로 `main`의 정식 소스나 기존 릴리즈를 교체하지 않음**.
+- 확인된 외부 참조: 행동팩 1개 + 리소스팩 3개 (패키지에 미포함). 사용자의 환경 외 독립 실행을 보증할 수 없음.
+- 상세 해시, 분리 기준, 릴리즈 준비 조건: [v1.4.118 기록](docs/V1.4.118-CHAT-RELEASE-PREP.md).
+- GitHub Release **v1.4.118은 아직 게시하지 않음**. 실물 자산 업로드 및 공개 릴리즈 생성은 별도 단계로 남음.
+

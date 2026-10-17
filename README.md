@@ -1,5 +1,7 @@
 # Mechanics RPG
 
+> **2026-10-17 최신 채팅 산출물 (GitHub 릴리즈와 구분):** [v1.4.118 TEST 배포 준비 기록](docs/V1.4.118-CHAT-RELEASE-PREP.md). 해당 파일은 채팅 내 별도 월드/애드온이며 **GitHub에 게시된 릴리즈가 아닙니다**. 공식 `main` 소스는 v1.4.48, 공개 Alpha는 v1.4.64로 유지합니다. 월드에 포함되지 않은 외부 팩 참조 4개가 있어 정확한 실기기 검증 전에는 독립 실행/안정화 완료를 주장하지 않습니다.
+
 Minecraft Bedrock 기반 커스텀 RPG 프로젝트 **메크닉스 RPG(Mechanics RPG)** 전용 저장소입니다.
 
 > `Geumyi-Minecraft-System`과 완전히 분리합니다. GSC/GSCM/GST/GDS/실서버 운영 파일은 이 저장소에 넣지 않습니다.

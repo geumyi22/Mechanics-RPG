@@ -1,5 +1,7 @@
 # Development Handoff
 
+> **2026-10-17 릴리즈 인계:** 채팅 최신 시험 산출물은 **v1.4.118 TEST**이며 실물 파일은 채팅 컨테이너에만 있음. 정적 ZIP 검사 통과, 실제 Bedrock E2E 미실행, 외부 BP 1개·RP 3개 참조 미포함. GitHub `main` v1.4.48/기존 Pre-release v1.4.64를 교체하지 않음. [상세 체크리스트](docs/V1.4.118-CHAT-RELEASE-PREP.md). v1.4.118 GitHub Release는 아직 게시하지 않았음.
+
 > **2026-10-10 릴리스 갱신:** 별도 [v1.4.64 Hacker Redesign Alpha Pre-release](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.64) 게시. 공식 main은 v1.4.48, 실기기 E2E 선택/미실행. 지후가 개발 주도.
 
 > **2026-10-10 최신 지시:** [월드/자연 지형 인수인계](docs/CURRENT-WORLD-WORK.md) 참조. 기존 중세 마을 자동 건축 계획은 과거 스냅샷입니다. 후지가 직접 마을을 만들기로 했고, 자연 지형 v4는 미승인입니다. 현재는 GitHub만 정리합니다.
