@@ -90,3 +90,10 @@ v1.4.20은 실제 Bedrock release-gate E2E 8개 핵심 항목 PASS 기록을 유
 - 상세 해시, 분리 기준, 릴리즈 준비 조건: [v1.4.118 기록](docs/V1.4.118-CHAT-RELEASE-PREP.md).
 - **v1.4.118 GitHub Pre-release 게시 완료**: .mcworld / .mcaddon 업로드 및 SHA-256 일치 확인. [릴리즈](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.118). `main/source/world`는 여전히 v1.4.48이며 태그의 자동 생성 Source code ZIP은 v1.4.118 월드 소스가 아님.
 
+
+
+## 2026-10-22 — 최신 로컬 v1.4.131 개발본 (GitHub 공개 미승격)
+
+- 카드 술사 v1.4.131 + 사용자 월드 + Vibrant Visuals 실험 호환성 패치는 **로컬 TEST** 상태. [세부 기록](docs/V1.4.131-LOCAL-STATUS-20261022.md).
+- 정적 검사 통과는 실제 베드락 게임 작동 검증을 의미하지 않음. P3.5 상점은 UI 작동 보고가 있으나 갑옷 거치대 보호 실패.
+- GitHub `main` 소스·Stable v1.4.48 및 기존 Pre-release v1.4.118은 변경 없음. 새 Stable은 아직 게시하지 않음.
