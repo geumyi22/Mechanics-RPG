@@ -1,3 +1,5 @@
+> **2026-10-22 최신 VV 호환성 시험본 (Stable 미게시):** [v1.4.131 후보·정확한 SHA·7개 팩 보존·GitHub 릴리즈 인계](docs/V1.4.131-VV-CANDIDATE-HANDOFF-20261022.md). 정적 검사 PASS지만 Vibrant Visuals 실제 활성화 및 전체 Bedrock E2E 미검증. **공개 Stable v1.4.48 유지**. 신규 .mcworld/.mcaddon은 아직 GitHub Release에 업로드하지 않았습니다.
+
 > **2026-10-22 사용자 실게임 정정:** 갑옷 거치대 보호는 **사용자 확인 완료**, 카드 술사는 **일부 기능 실게임 확인**으로 보고되었습니다. 적용 빌드·세부 테스트 범위는 아직 미기록이므로 v1.4.131 전체 E2E PASS 또는 Stable 승격으로 확대하지 않습니다. [검증 정정 기록](docs/V1.4.131-USER-VERIFICATION-20261022.md). 이전 P3.5 보호 실패는 당시 테스트 이력입니다.
 
 
