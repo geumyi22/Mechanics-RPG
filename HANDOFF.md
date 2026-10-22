@@ -1,5 +1,8 @@
 # Development Handoff
 
+> **2026-10-22 최신 인계 (v1.4.131 Vibrant Visuals RC):** 사용자가 제공한 실제 맵을 기반으로 BP 4개/RP 3개를 모두 보존하고 P3·P4 리소스팩의 PBR 선언·버전 참조를 보완한 별도 시험본을 만들었다. 월드 DB 바이트 일치, JSON 208개/JS 17개/ZIP PASS. **실게임 Vibrant Visuals 동작은 미확인, 원본 패키지 GitHub Release 미업로드, Stable v1.4.48 유지.** [정확한 파일 크기·SHA·다음 채팅 절차](docs/V1.4.131-VV-CANDIDATE-HANDOFF-20261022.md).
+
+
 > **2026-10-17 릴리즈 인계:** 채팅 최신 시험 산출물 **[v1.4.118 TEST](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.118)**를 GitHub Pre-release로 게시하고 실제 .mcworld 및 .mcaddon 자산·SHA-256을 확인함. ZIP 검사 통과, 실제 Bedrock E2E 미실행, 외부 BP 1개·RP 3개 참조 미포함. GitHub `main` v1.4.48/기존 Pre-release v1.4.64는 보존. 태그 Source code ZIP은 v1.4.118 월드 소스와 다름. [상세 배포 기록](docs/V1.4.118-CHAT-RELEASE-PREP.md).
 
 > **2026-10-10 릴리스 갱신:** 별도 [v1.4.64 Hacker Redesign Alpha Pre-release](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.64) 게시. 공식 main은 v1.4.48, 실기기 E2E 선택/미실행. 지후가 개발 주도.
