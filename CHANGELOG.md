@@ -77,3 +77,11 @@
 - 궁극기 준비 재장전은 일반 탄약 미소비
 - 데드아이 30 피해/발
 - 첫 GitHub 정식 Release
+
+
+## 2026-10-22 — 로컬 개발본 기록 (정식 릴리즈 아님)
+
+- 최신 사용자 맵에 Card Magician v1.4.131 Alpha 통합; P3.5/P4 실험 팩 보존.
+- 포함된 P3/P4 RP의 Vibrant Visuals `pbr` 선언 및 참조 버전 동기화 후보 패치.
+- 배포 검증 수준: ZIP CRC/JSON/JS 정적 PASS, 실제 Bedrock E2E 미검증. 거치대 보호는 사용자 실기기에서 실패.
+- [검증과 제한](docs/V1.4.131-LOCAL-STATUS-20261022.md).

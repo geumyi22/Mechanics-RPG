@@ -55,3 +55,8 @@ API dependency는 최신이라는 이유만으로 임의 업그레이드하지 �
 - BP/RP version `[1,4,64]`, 해커 기능/리볼버 위치 실험 코드 포함. 정식 `main` v1.4.48을 대체하지 않음.
 - 누락된 해커 PNG 5개 추가, 누락/불일치된 소스 매니페스트 재생성 및 정적/패키지 검사 PASS.
 - Bedrock E2E는 사용자 정책에 따라 선택사항으로 두어 **NOT RUN**, 알려지지 않은 버그가 존재할 수 있음.
+
+
+| **v1.4.131 local TEST** | 카드 술사 + 사용자 맵 + Vibrant Visuals 실험 호환성 | **GitHub 미게시 / Bedrock E2E 미검증 / 상점 보호 실패** |
+
+[자세한 인계](docs/V1.4.131-LOCAL-STATUS-20261022.md).

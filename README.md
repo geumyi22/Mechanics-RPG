@@ -1,3 +1,5 @@
+> **2026-10-22 개발 상태:** 최신 로컬 제작본 **v1.4.131 Card Magician + Vibrant Visuals compatibility (TEST / E2E 미검증)**, 기존 GitHub `main/source/world`는 v1.4.48. 최신 개발본 ZIP/MCWORLD는 아직 GitHub Release 자산이나 소스 트리에 게시하지 않았습니다. **Stable 릴리즈는 [v1.4.48](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.48)로 유지**됩니다. 카드 술사·갑옷 거치대 보호 등 남은 실게임 검증과 외부 팩 호환성을 확인해야 합니다. [최신 검증 기록](docs/V1.4.131-LOCAL-STATUS-20261022.md) · [릴리즈 채널 원칙](docs/RELEASE-CHANNELS.md).
+
 # Mechanics RPG
 
 > **2026-10-17 최신 Pre-release:** [v1.4.118 TEST — 전체 월드 및 통합 애드온](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.118) 게시·두 파일 SHA-256 대조 완료. 공식 `main` 소스는 여전히 v1.4.48이며, v1.4.64 Alpha도 보존합니다. v1.4.118 자동 생성 Source code ZIP은 첨부된 최신 월드와 다릅니다. 외부 팩 참조 4개가 포함되지 않아 독립 실행을 보증하지 않으며, Bedrock E2E는 NOT RUN입니다. [배포 기록](docs/V1.4.118-CHAT-RELEASE-PREP.md).
