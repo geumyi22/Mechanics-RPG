@@ -57,6 +57,8 @@ API dependency는 최신이라는 이유만으로 임의 업그레이드하지 �
 - Bedrock E2E는 사용자 정책에 따라 선택사항으로 두어 **NOT RUN**, 알려지지 않은 버그가 존재할 수 있음.
 
 
-| **v1.4.131 local TEST** | 카드 술사 + 사용자 맵 + Vibrant Visuals 실험 호환성 | **GitHub 미게시 / Bedrock E2E 미검증 / 상점 보호 실패** |
+| **v1.4.131 local TEST** | 카드 술사 + 사용자 맵 + Vibrant Visuals 실험 호환성 | **카드 술사 일부 실게임 검증·갑옷 거치대 보호 사용자 확인 / 완전 E2E·Vibrant Visuals·게시 여부 별도 검증** |
 
 [자세한 인계](docs/V1.4.131-LOCAL-STATUS-20261022.md).
+
+[2026-10-22 사용자 실게임 확인 정정](docs/V1.4.131-USER-VERIFICATION-20261022.md) · [최신 로컬 릴리즈 후보 SHA-256](docs/V1.4.131-RELEASE-CANDIDATE-HANDOFF-20261022.md)
