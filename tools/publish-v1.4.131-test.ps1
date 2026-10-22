@@ -90,12 +90,12 @@ try {
   [IO.File]::WriteAllText($releaseNotes,$body,(New-Object System.Text.UTF8Encoding($false)))
   $assets = @($addon,$source,$audit,'Mechanics_RPG_v1.4.131_SHA256SUMS.txt')
   if ($includeWorld) { $assets += $world }
-  $args = @('release','create',$Tag)
+  $publishArgs = @('release','create',$Tag)
   foreach ($name in $assets) { $args += (Join-Path $InputDir $name) }
-  $args += @('--repo',$Repo,'--target',$commit,'--prerelease',
+  $publishArgs += @('--repo',$Repo,'--target',$commit,'--prerelease',
     '--title','Mechanics RPG v1.4.131 TEST - Card Magician + Vibrant Visuals candidate',
     '--notes-file',$releaseNotes)
-  Run 'gh' $args
+  Run 'gh' $publishArgs
   Run 'gh' @('release','view',$Tag,'--repo',$Repo)
   Write-Host 'TEST release published. Stable/main remain untouched.' -ForegroundColor Green
   Write-Host "https://github.com/$Repo/releases/tag/test/v1.4.131"
