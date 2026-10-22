@@ -1,3 +1,5 @@
+
+> **2026-10-22 독립 패키지 감사:** v1.4.131 로컬 후보 .mcworld/.mcaddon의 내부 7개 팩과 원본 LevelDB 보존을 재검사했습니다. 정적 검증 PASS이지만 **실게임 E2E 미실행·갑옷 거치대 보호 실패·외부 팩 4개 미포함** 상태이므로 Stable/최신 공개 릴리즈로 승격하지 않았습니다. [독립 감사 기록](docs/V1.4.131-INDEPENDENT-PREFLIGHT-20261022.md).
 > **2026-10-22 개발 상태:** 최신 로컬 제작본 **v1.4.131 Card Magician + Vibrant Visuals compatibility (TEST / E2E 미검증)**, 기존 GitHub `main/source/world`는 v1.4.48. 최신 개발본 ZIP/MCWORLD는 아직 GitHub Release 자산이나 소스 트리에 게시하지 않았습니다. **Stable 릴리즈는 [v1.4.48](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.48)로 유지**됩니다. 카드 술사·갑옷 거치대 보호 등 남은 실게임 검증과 외부 팩 호환성을 확인해야 합니다. [최신 검증 기록](docs/V1.4.131-LOCAL-STATUS-20261022.md) · [릴리즈 채널 원칙](docs/RELEASE-CHANNELS.md).
 
 # Mechanics RPG
