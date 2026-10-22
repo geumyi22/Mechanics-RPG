@@ -1,3 +1,11 @@
+## 2026-10-22 — v1.4.131 VV 후보 독립 정적 감사 (게임 소스 변경 없음)
+
+- 사용자 원본 ZIP / 통합 세계 / VV RC / 7팩 MCADDON / 소스 ZIP CRC 및 SHA 재검증.
+- JSON 208, JavaScript 17, PNG 190, 내부 팩 7개 PASS; VV 변경 범위는 P3/P4 BP·RP 매니페스트와 월드 BP·RP 참조 JSON 총 6개.
+- 원본 LevelDB/level.dat 보존; 외부 참조 BP 1개, RP 3개는 파일 미포함.
+- **Vibrant Visuals 선택 가능 여부 및 카드 술사 전체 E2E 미검증** — 따라서 GitHub v1.4.131 Stable/Pre-release 미게시, 기존 Stable v1.4.48 유지.
+- [독립 감사 보고서](docs/V1.4.131-VV-INDEPENDENT-AUDIT-20261022.md).
+
 # Changelog
 
 ## 2026-10-22 — 사용자 검증 기록 정정 (게임 코드 변경 없음)
