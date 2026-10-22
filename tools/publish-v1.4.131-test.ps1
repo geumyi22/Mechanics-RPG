@@ -49,7 +49,7 @@ try {
   foreach ($f in $manifests) {
     Get-Content -LiteralPath $f.FullName -Raw -Encoding UTF8 | ConvertFrom-Json | Out-Null
   }
-  Write-Warning 'P3.5 armor stand protection failed. Bedrock E2E/P4/Vibrant Visuals remain unverified.'
+  Write-Warning 'P3.5 armor stand protection has mixed historical test reports and later user-reported success. Exact build coverage, full Bedrock E2E, P4 and Vibrant Visuals remain unverified.'
   Write-Warning 'External references to 1 BP and 3 RPs are NOT bundled.'
   Write-Warning 'Publishing .mcworld may reveal original LevelDB and player information.'
   $worldAnswer = Read-Host 'Type PUBLIC-WORLD to attach user .mcworld; press Enter to omit it'
@@ -91,7 +91,7 @@ try {
   $assets = @($addon,$source,$audit,'Mechanics_RPG_v1.4.131_SHA256SUMS.txt')
   if ($includeWorld) { $assets += $world }
   $publishArgs = @('release','create',$Tag)
-  foreach ($name in $assets) { $args += (Join-Path $InputDir $name) }
+  foreach ($name in $assets) { $publishArgs += (Join-Path $InputDir $name) }
   $publishArgs += @('--repo',$Repo,'--target',$commit,'--prerelease',
     '--title','Mechanics RPG v1.4.131 TEST - Card Magician + Vibrant Visuals candidate',
     '--notes-file',$releaseNotes)
