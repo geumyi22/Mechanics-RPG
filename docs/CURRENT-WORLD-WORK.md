@@ -1,3 +1,5 @@
+> **2026-10-24 현행 상태:** 로컬 개발 시험본 **v1.4.134 TEST** (Spread/Spring·J♠ 기사 변경, 정확한 Bedrock E2E 미검증). GitHub `main/source/world` 및 공개 Stable은 **v1.4.48**, 최신 공개 Pre-release는 **v1.4.118 TEST**입니다. 로컬 시험 바이너리와 본체 소스는 아직 GitHub에 게시되지 않았습니다. **[최신 상태·해시·미완료 작업](CURRENT-STATUS-v1.4.134-20261024.md)** 참조. 아래 과거 날짜별 내용은 당시 기록으로 유지합니다.
+
 # 메크닉스 RPG — 현재 월드/지형 인계 (2026-10-10)
 
 > **2026-10-17 후속 상태:** 10월 10일의 “현재 지시는 GitHub 파일 정리뿐”이라는 문장은 당시 상황을 기록한 것임. 이후 사용자가 직접 건축한 새 맵을 채팅에 보내어 안전 구역, NPC 관리, 쿠션/액자 표시를 별도 테스트 파일에 반영한 최종 채팅 스냅샷은 v1.4.118 TEST. GitHub `main` 소스/정식 안정판으로 병합되지는 않았으나, [v1.4.118 TEST Pre-release](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.118)로 첨부 바이너리를 게시함. [v1.4.118 배포 기록](V1.4.118-CHAT-RELEASE-PREP.md).

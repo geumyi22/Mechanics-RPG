@@ -1,3 +1,5 @@
+> **2026-10-24 현행 상태:** 로컬 개발 시험본 **v1.4.134 TEST** (Spread/Spring·J♠ 기사 변경, 정확한 Bedrock E2E 미검증). GitHub `main/source/world` 및 공개 Stable은 **v1.4.48**, 최신 공개 Pre-release는 **v1.4.118 TEST**입니다. 로컬 시험 바이너리와 본체 소스는 아직 GitHub에 게시되지 않았습니다. **[최신 상태·해시·미완료 작업](CURRENT-STATUS-v1.4.134-20261024.md)** 참조. 아래 과거 날짜별 내용은 당시 기록으로 유지합니다.
+
 # Release channels / 릴리즈 구분
 
 > **검증 상태 정정 (2026-10-22):** 사용자가 갑옷 거치대 보호 PASS 및 카드 술사 부분 실게임 검증을 보고했습니다. 이는 아래 과거 TEST/미검증 안내를 일부 보완하나, 빌드·기능별 전체 E2E 확인이나 Stable 릴리즈 게시 완료를 뜻하지 않습니다. [확인 기록](V1.4.131-USER-VERIFICATION-20261022.md).
@@ -10,7 +12,7 @@
 | Alpha/Canary | 신규 기능, 보호 실험, 모의 검증 등 불완전한 개발 실험 | 브랜치/아티팩트/Pre-release |
 | Local-only | 채팅 생성 파일이며 GitHub 소스/릴리즈와 동일하다고 검증되지 않음 | 공개 릴리즈 없음 |
 
-## 현재 버전 (2026-10-22)
+## 2026-10-22 당시 버전 기록 (역사 자료)
 
 - **Stable:** v1.4.48 (기존 Published Release 유지; full exact-package Bedrock E2E NOT RUN).
 - **GitHub 최신 공개 실험판:** v1.4.118 TEST (Pre-release).
