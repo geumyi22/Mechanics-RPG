@@ -1,3 +1,5 @@
+> **2026-10-24 현행 상태:** 로컬 개발 시험본 **v1.4.134 TEST** (Spread/Spring·J♠ 기사 변경, 정확한 Bedrock E2E 미검증). GitHub `main/source/world` 및 공개 Stable은 **v1.4.48**, 최신 공개 Pre-release는 **v1.4.118 TEST**입니다. 로컬 시험 바이너리와 본체 소스는 아직 GitHub에 게시되지 않았습니다. **[최신 상태·해시·미완료 작업](docs/CURRENT-STATUS-v1.4.134-20261024.md)** 참조. 아래 과거 날짜별 내용은 당시 기록으로 유지합니다.
+
 > **2026-10-22 독립 재감사:** 복구한 v1.4.131 VV 시험본의 ZIP 5개 CRC, JSON 208개, JS 17개, PNG 190개, 내부 7개 팩 일치, 사용자 LevelDB 바이트 보존 PASS. P3.5/P4 PBR 선언 누락은 후보에 보완했으나 **외부 RP 3개가 미포함되어 Vibrant Visuals 실제 호환성은 미해결**, Stable/Release 미게시입니다. [독립 감사 및 실게임 검증 게이트](docs/V1.4.131-VV-INDEPENDENT-AUDIT-20261022.md).
 
 > **2026-10-22 최신 VV 호환성 시험본 (Stable 미게시):** [v1.4.131 후보·정확한 SHA·7개 팩 보존·GitHub 릴리즈 인계](docs/V1.4.131-VV-CANDIDATE-HANDOFF-20261022.md). 정적 검사 PASS지만 Vibrant Visuals 실제 활성화 및 전체 Bedrock E2E 미검증. **공개 Stable v1.4.48 유지**. 신규 .mcworld/.mcaddon은 아직 GitHub Release에 업로드하지 않았습니다.

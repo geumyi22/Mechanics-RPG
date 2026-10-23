@@ -1,3 +1,11 @@
+# Changelog
+
+## 2026-10-24 — v1.4.134 개발 시험본 상태 문서 동기화 (게임 소스 변경 없음)
+
+- 최신 채팅 시험본 v1.4.134의 파일명·SHA-256·검증 경계와 Spread/Spring/J♠/K♠ 미해결 E2E 검사 항목을 [현행 문서](docs/CURRENT-STATUS-v1.4.134-20261024.md)로 정리.
+- GitHub `main/source/world` v1.4.48과 로컬 TEST v1.4.134를 명확하게 구분; **새 릴리즈·태그·게임 코드·월드·SOURCE-MANIFEST는 변경하지 않음**.
+- 기존 PowerShell/CMD 릴리즈 도구는 보존하며, v1.4.131 전용 스크립트를 v1.4.134에 그대로 사용하지 말 것.
+
 ## 2026-10-22 — v1.4.131 VV 후보 독립 정적 감사 (게임 소스 변경 없음)
 
 - 사용자 원본 ZIP / 통합 세계 / VV RC / 7팩 MCADDON / 소스 ZIP CRC 및 SHA 재검증.
@@ -5,8 +13,6 @@
 - 원본 LevelDB/level.dat 보존; 외부 참조 BP 1개, RP 3개는 파일 미포함.
 - **Vibrant Visuals 선택 가능 여부 및 카드 술사 전체 E2E 미검증** — 따라서 GitHub v1.4.131 Stable/Pre-release 미게시, 기존 Stable v1.4.48 유지.
 - [독립 감사 보고서](docs/V1.4.131-VV-INDEPENDENT-AUDIT-20261022.md).
-
-# Changelog
 
 ## 2026-10-22 — 사용자 검증 기록 정정 (게임 코드 변경 없음)
 

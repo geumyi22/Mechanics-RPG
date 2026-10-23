@@ -1,3 +1,5 @@
+> **2026-10-24 현행 상태:** 로컬 개발 시험본 **v1.4.134 TEST** (Spread/Spring·J♠ 기사 변경, 정확한 Bedrock E2E 미검증). GitHub `main/source/world` 및 공개 Stable은 **v1.4.48**, 최신 공개 Pre-release는 **v1.4.118 TEST**입니다. 로컬 시험 바이너리와 본체 소스는 아직 GitHub에 게시되지 않았습니다. **[최신 상태·해시·미완료 작업](docs/CURRENT-STATUS-v1.4.134-20261024.md)** 참조. 아래 과거 날짜별 내용은 당시 기록으로 유지합니다.
+
 # Version Matrix
 
 기준일: 2026-10-04
@@ -57,7 +59,9 @@ API dependency는 최신이라는 이유만으로 임의 업그레이드하지 �
 - Bedrock E2E는 사용자 정책에 따라 선택사항으로 두어 **NOT RUN**, 알려지지 않은 버그가 존재할 수 있음.
 
 
-| **v1.4.131 local TEST** | 카드 술사 + 사용자 맵 + Vibrant Visuals 실험 호환성 | **카드 술사 일부 실게임 검증·갑옷 거치대 보호 사용자 확인 / 완전 E2E·Vibrant Visuals·게시 여부 별도 검증** |
+### v1.4.131 로컬 테스트 이력
+
+v1.4.131: 카드 술사·사용자 맵·Vibrant Visuals 실험 호환성. 카드 술사 일부 기능/갑옷 거치대 보호는 사용자 보고로 확인되었으나 전체 E2E 및 그래픽 모드 미확인.
 
 [자세한 인계](docs/V1.4.131-LOCAL-STATUS-20261022.md).
 

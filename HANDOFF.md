@@ -1,3 +1,5 @@
+> **2026-10-24 현행 상태:** 로컬 개발 시험본 **v1.4.134 TEST** (Spread/Spring·J♠ 기사 변경, 정확한 Bedrock E2E 미검증). GitHub `main/source/world` 및 공개 Stable은 **v1.4.48**, 최신 공개 Pre-release는 **v1.4.118 TEST**입니다. 로컬 시험 바이너리와 본체 소스는 아직 GitHub에 게시되지 않았습니다. **[최신 상태·해시·미완료 작업](docs/CURRENT-STATUS-v1.4.134-20261024.md)** 참조. 아래 과거 날짜별 내용은 당시 기록으로 유지합니다.
+
 # Development Handoff
 
 > **2026-10-22 최신 인계 (v1.4.131 Vibrant Visuals RC):** 사용자가 제공한 실제 맵을 기반으로 BP 4개/RP 3개를 모두 보존하고 P3·P4 리소스팩의 PBR 선언·버전 참조를 보완한 별도 시험본을 만들었다. 월드 DB 바이트 일치, JSON 208개/JS 17개/ZIP PASS. **실게임 Vibrant Visuals 동작은 미확인, 원본 패키지 GitHub Release 미업로드, Stable v1.4.48 유지.** [정확한 파일 크기·SHA·다음 채팅 절차](docs/V1.4.131-VV-CANDIDATE-HANDOFF-20261022.md).
