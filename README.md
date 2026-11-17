@@ -1,16 +1,8 @@
-> **2026-10-24 현행 상태:** 로컬 개발 시험본 **v1.4.134 TEST** (Spread/Spring·J♠ 기사 변경, 정확한 Bedrock E2E 미검증). GitHub `main/source/world` 및 공개 Stable은 **v1.4.48**, 최신 공개 Pre-release는 **v1.4.118 TEST**입니다. 로컬 시험 바이너리와 본체 소스는 아직 GitHub에 게시되지 않았습니다. **[최신 상태·해시·미완료 작업](docs/CURRENT-STATUS-v1.4.134-20261024.md)** 참조. 아래 과거 날짜별 내용은 당시 기록으로 유지합니다.
-
-> **2026-10-22 독립 재감사:** 복구한 v1.4.131 VV 시험본의 ZIP 5개 CRC, JSON 208개, JS 17개, PNG 190개, 내부 7개 팩 일치, 사용자 LevelDB 바이트 보존 PASS. P3.5/P4 PBR 선언 누락은 후보에 보완했으나 **외부 RP 3개가 미포함되어 Vibrant Visuals 실제 호환성은 미해결**, Stable/Release 미게시입니다. [독립 감사 및 실게임 검증 게이트](docs/V1.4.131-VV-INDEPENDENT-AUDIT-20261022.md).
-
-> **2026-10-22 최신 VV 호환성 시험본 (Stable 미게시):** [v1.4.131 후보·정확한 SHA·7개 팩 보존·GitHub 릴리즈 인계](docs/V1.4.131-VV-CANDIDATE-HANDOFF-20261022.md). 정적 검사 PASS지만 Vibrant Visuals 실제 활성화 및 전체 Bedrock E2E 미검증. **공개 Stable v1.4.48 유지**. 신규 .mcworld/.mcaddon은 아직 GitHub Release에 업로드하지 않았습니다.
-
-> **2026-10-22 사용자 실게임 정정:** 갑옷 거치대 보호는 **사용자 확인 완료**, 카드 술사는 **일부 기능 실게임 확인**으로 보고되었습니다. 적용 빌드·세부 테스트 범위는 아직 미기록이므로 v1.4.131 전체 E2E PASS 또는 Stable 승격으로 확대하지 않습니다. [검증 정정 기록](docs/V1.4.131-USER-VERIFICATION-20261022.md). 이전 P3.5 보호 실패는 당시 테스트 이력입니다.
-
-
-> **2026-10-22 독립 패키지 감사:** v1.4.131 로컬 후보 .mcworld/.mcaddon의 내부 7개 팩과 원본 LevelDB 보존을 재검사했습니다. 정적 검증 PASS이지만 **실게임 E2E 미실행·갑옷 거치대 보호 실패·외부 팩 4개 미포함** 상태이므로 Stable/최신 공개 릴리즈로 승격하지 않았습니다. [독립 감사 기록](docs/V1.4.131-INDEPENDENT-PREFLIGHT-20261022.md).
-> **2026-10-22 개발 상태:** 최신 로컬 제작본 **v1.4.131 Card Magician + Vibrant Visuals compatibility (TEST / E2E 미검증)**, 기존 GitHub `main/source/world`는 v1.4.48. 최신 개발본 ZIP/MCWORLD는 아직 GitHub Release 자산이나 소스 트리에 게시하지 않았습니다. **Stable 릴리즈는 [v1.4.48](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.48)로 유지**됩니다. 카드 술사·갑옷 거치대 보호 등 남은 실게임 검증과 외부 팩 호환성을 확인해야 합니다. [최신 검증 기록](docs/V1.4.131-LOCAL-STATUS-20261022.md) · [릴리즈 채널 원칙](docs/RELEASE-CHANNELS.md).
-
 # Mechanics RPG
+
+> **2026-11-18 저장소 점검:** GitHub `main/source/world`과 공개 Stable은 **v1.4.48**, 최신 공개 Pre-release는 **v1.4.118 TEST**입니다. 2026-10-24에 기록된 **v1.4.134 TEST**와 **v1.4.131 후보**는 별도 로컬 개발 이력이며, 현재 GitHub에 동일한 게임 소스·바이너리가 확인되지 않습니다. 따라서 **v1.4.131 Stable은 아직 배포되지 않았습니다.** 실제 Bedrock E2E와 외부 팩 호환성 역시 완료로 단정하지 않습니다.
+
+> **정리/복구 현황:** [2026-11-18 저장소 전체 점검·정리 후보·버전별 출처](docs/REPOSITORY-MAINTENANCE-20261118.md) · [2026-10-24 마지막 로컬 TEST 상태](docs/CURRENT-STATUS-v1.4.134-20261024.md) · [v1.4.131 Stable 작업 차단 사유](https://github.com/geumyi22/Mechanics-RPG/issues/13). 과거 버전 검증 근거는 문서와 Git 이력에 보존합니다.
 
 > **2026-10-17 최신 Pre-release:** [v1.4.118 TEST — 전체 월드 및 통합 애드온](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.118) 게시·두 파일 SHA-256 대조 완료. 공식 `main` 소스는 여전히 v1.4.48이며, v1.4.64 Alpha도 보존합니다. v1.4.118 자동 생성 Source code ZIP은 첨부된 최신 월드와 다릅니다. 외부 팩 참조 4개가 포함되지 않아 독립 실행을 보증하지 않으며, Bedrock E2E는 NOT RUN입니다. [배포 기록](docs/V1.4.118-CHAT-RELEASE-PREP.md).
 
@@ -107,3 +99,21 @@ Mechanics-RPG/
 - 새 [v1.4.64 Hacker Redesign Alpha](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.64) Pre-release: 5개 누락된 해커 임시 아이콘 보완 및 `SOURCE-MANIFEST` 재생성. 자동 정적 검사·패키징 PASS. 실제 게임 E2E **NOT RUN**.
 - 게임 공식 `main` 소스는 **여전히 v1.4.48**. v1.4.64 Pre-release는 `release/v1.4.64-preview` 분리 브랜치/태그에서 제작.
 - 기존 v1.4.20/v1.4.48 릴리스는 복구를 위해 보존. 커밋 이력의 강제 재작성과 미병합 브랜치 삭제는 하지 않음.
+
+---
+
+## 이전 개발 현황 공지 (2026년 10월, 역사 기록)
+
+아래 내용은 해당 날짜에 확인한 시험본·검증 기록이며, 현재 GitHub Stable 배포 상태를 의미하지 않습니다. 이후 확인된 사용자 테스트 정정과 실제 바이너리 보유 여부는 위 최신 점검을 우선합니다.
+
+> **2026-10-24 현행 상태:** 로컬 개발 시험본 **v1.4.134 TEST** (Spread/Spring·J♠ 기사 변경, 정확한 Bedrock E2E 미검증). GitHub `main/source/world` 및 공개 Stable은 **v1.4.48**, 최신 공개 Pre-release는 **v1.4.118 TEST**입니다. 로컬 시험 바이너리와 본체 소스는 아직 GitHub에 게시되지 않았습니다. **[최신 상태·해시·미완료 작업](docs/CURRENT-STATUS-v1.4.134-20261024.md)** 참조. 아래 과거 날짜별 내용은 당시 기록으로 유지합니다.
+
+> **2026-10-22 독립 재감사:** 복구한 v1.4.131 VV 시험본의 ZIP 5개 CRC, JSON 208개, JS 17개, PNG 190개, 내부 7개 팩 일치, 사용자 LevelDB 바이트 보존 PASS. P3.5/P4 PBR 선언 누락은 후보에 보완했으나 **외부 RP 3개가 미포함되어 Vibrant Visuals 실제 호환성은 미해결**, Stable/Release 미게시입니다. [독립 감사 및 실게임 검증 게이트](docs/V1.4.131-VV-INDEPENDENT-AUDIT-20261022.md).
+
+> **2026-10-22 최신 VV 호환성 시험본 (Stable 미게시):** [v1.4.131 후보·정확한 SHA·7개 팩 보존·GitHub 릴리즈 인계](docs/V1.4.131-VV-CANDIDATE-HANDOFF-20261022.md). 정적 검사 PASS지만 Vibrant Visuals 실제 활성화 및 전체 Bedrock E2E 미검증. **공개 Stable v1.4.48 유지**. 신규 .mcworld/.mcaddon은 아직 GitHub Release에 업로드하지 않았습니다.
+
+> **2026-10-22 사용자 실게임 정정:** 갑옷 거치대 보호는 **사용자 확인 완료**, 카드 술사는 **일부 기능 실게임 확인**으로 보고되었습니다. 적용 빌드·세부 테스트 범위는 아직 미기록이므로 v1.4.131 전체 E2E PASS 또는 Stable 승격으로 확대하지 않습니다. [검증 정정 기록](docs/V1.4.131-USER-VERIFICATION-20261022.md). 이전 P3.5 보호 실패는 당시 테스트 이력입니다.
+
+
+> **2026-10-22 독립 패키지 감사:** v1.4.131 로컬 후보 .mcworld/.mcaddon의 내부 7개 팩과 원본 LevelDB 보존을 재검사했습니다. 정적 검증 PASS이지만 **실게임 E2E 미실행·갑옷 거치대 보호 실패·외부 팩 4개 미포함** 상태이므로 Stable/최신 공개 릴리즈로 승격하지 않았습니다. [독립 감사 기록](docs/V1.4.131-INDEPENDENT-PREFLIGHT-20261022.md).
+> **2026-10-22 개발 상태:** 최신 로컬 제작본 **v1.4.131 Card Magician + Vibrant Visuals compatibility (TEST / E2E 미검증)**, 기존 GitHub `main/source/world`는 v1.4.48. 최신 개발본 ZIP/MCWORLD는 아직 GitHub Release 자산이나 소스 트리에 게시하지 않았습니다. **Stable 릴리즈는 [v1.4.48](https://github.com/geumyi22/Mechanics-RPG/releases/tag/v1.4.48)로 유지**됩니다. 카드 술사·갑옷 거치대 보호 등 남은 실게임 검증과 외부 팩 호환성을 확인해야 합니다. [최신 검증 기록](docs/V1.4.131-LOCAL-STATUS-20261022.md) · [릴리즈 채널 원칙](docs/RELEASE-CHANNELS.md).
