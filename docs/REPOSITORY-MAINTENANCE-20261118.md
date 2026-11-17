@@ -63,3 +63,12 @@
 - 다음 우선순위: **파일 삭제 결정보다 먼저 v1.4.131 복구 경로/배포 증거 확인** → 불필요 문서 아카이브 범위 결정 → 승인된 항목만 변경 → 정적/패키징 및 실제 필요한 E2E 검사.
 
 참고: [GitHub README](../README.md), [현재 로컬 상태](CURRENT-STATUS-v1.4.134-20261024.md), [인수인계](../HANDOFF.md), [테스트 정책](../TESTING.md), [릴리스 채널](RELEASE-CHANNELS.md).
+
+## 6. 사용자 승인 후 이관 작업 (2026-11-18)
+
+- 사용자가 앞서 점검한 **과거 패치/변경 기록 55개**를 삭제하지 않고 `docs/archive/`로 보존 이관하는 작업을 승인했습니다.
+- 별도 `feature/archive-legacy-world-notes-20261118` 브랜치에서 내용 바이트를 재작성하지 않고 **기존 Git blob SHA를 동일하게 재사용**해 파일별 이동을 구성했습니다.
+- `source/world`는 **294개 → 239개**로 정리하고 `SOURCE-MANIFEST.json` 목록과 파일 수를 맞췄습니다. 실제 게임에 필요한 `levelname.txt`와 고지/복구 기록은 월드 루트에 남겼습니다.
+- 상세 원본 경로/파일명/크기/blob SHA/복구 방법: [docs/archive/README.md](archive/README.md).
+- **기존 v1.4.48 Stable의 릴리스 자산·태그·과거 소스 이력은 변경하지 않습니다.** 다만 향후 이 브랜치가 `main`에 병합되면 `source/world`에서 다시 패키징한 같은 버전 ZIP은 과거 Stable 바이너리와 바이트가 달라집니다. 재게시·태그 재지정은 금지입니다.
+- 검증 결과는 해당 브랜치/PR의 GitHub Actions 결과를 따릅니다. CI 성공은 Bedrock 실게임 E2E와 다릅니다.
